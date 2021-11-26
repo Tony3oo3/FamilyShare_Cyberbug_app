@@ -1,4 +1,4 @@
-package com.cyberbug.familyshare_cyberbug_app;
+package com.example.grafica;
 
 import org.junit.Test;
 
