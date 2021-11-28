@@ -82,7 +82,7 @@ public class AsyncRESTDispatcher extends AsyncTask<APIRequest, Integer, APIRespo
             connection.disconnect();
         } catch (IOException | JSONException e) {
             e.printStackTrace();
-            return null;
+            return new APIResponse(400);
         }
         return res;
     }

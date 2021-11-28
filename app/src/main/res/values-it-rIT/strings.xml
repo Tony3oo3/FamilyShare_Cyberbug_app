@@ -1,16 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Families Share</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_close">Chiudi Menu</string>
+    <string name="navigation_drawer_open">Apri Menu</string>
     <string name="btn_register_text">REGISTRATI</string>
-    <string name="btn_login_text" translatable="false">LOGIN</string>
     <string name="btn_forgotten_psw_text">Password dimenticata?</string>
     <string name="switch_keep_access_text">Mantieni l\'accesso</string>
-    <string name="email" translatable="false">Email</string>
-    <string name="password" translatable="false">Password</string>
     <string name="fs_logo_description">Logo di Families Share</string>
     <string name="txtview_oppure_text">oppure</string>
     <string name="login_error_credentials">Credenziali errate</string>
     <string name="login_error_generic">Errore del server</string>
-    <!-- TODO: Remove or change this placeholder text -->
 </resources>

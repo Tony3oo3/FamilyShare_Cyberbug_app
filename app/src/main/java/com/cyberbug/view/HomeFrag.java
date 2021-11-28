@@ -22,7 +22,7 @@ public class HomeFrag extends Fragment {
 
     private DrawerLayout drawer;
 
-    public static HomeFrag newInstance(String param1, String param2) {
+    public static HomeFrag newInstance() {
         return new HomeFrag();
     }
 

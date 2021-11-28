@@ -15,4 +15,9 @@ public class APIResponse {
         this.responseCode = responseCode;
         this.jsonResponse = (responseCode == 200) ? new JSONObject(jsonResponseStr) : null;
     }
+
+    public APIResponse(int responseCode){
+        this.responseCode = responseCode;
+        this.jsonResponse = null;
+    }
 }
