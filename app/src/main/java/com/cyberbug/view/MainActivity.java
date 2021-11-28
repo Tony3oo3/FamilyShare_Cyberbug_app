@@ -1,9 +1,11 @@
-package com.example.grafica;
+package com.cyberbug.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+
+import com.example.grafica.R;
 
 public class MainActivity extends AppCompatActivity {
 
