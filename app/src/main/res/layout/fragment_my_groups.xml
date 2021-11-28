@@ -5,7 +5,7 @@
     android:id="@+id/costr_layout_my_groups"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyGroups">
+    tools:context="com.cyberbug.view.MyGroups">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton3"

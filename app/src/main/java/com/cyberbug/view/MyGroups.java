@@ -1,4 +1,4 @@
-package com.example.grafica;
+package com.cyberbug.view;
 
 import android.os.Bundle;
 
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.grafica.R;
 
 public class MyGroups extends Fragment {
 
