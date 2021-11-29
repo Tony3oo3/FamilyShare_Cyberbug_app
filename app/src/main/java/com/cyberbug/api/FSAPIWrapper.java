@@ -232,9 +232,9 @@ public class FSAPIWrapper {
             this.deviceToken = deviceToken;
         }
 
-        public UserRegInfo(String givenName, String familyName, String number, String email, String password, String visible, String deviceToken) {
-            this.name = givenName;
-            this.lastname = familyName;
+        public UserRegInfo(String name, String lastname, String number, String email, String password, String visible, String deviceToken) {
+            this.name = name;
+            this.lastname = lastname;
             this.number = number;
             this.email = email;
             this.password = password;

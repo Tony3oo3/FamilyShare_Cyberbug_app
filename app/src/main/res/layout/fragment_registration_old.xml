@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cyberbug.view.RegistrationFragment">
+
+    <Button
+        android:id="@+id/confRegButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="47dp"
+        android:text="Registrati"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancelButton" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="57dp"
+        android:text="Annulla"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/confRegButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="26dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/cancelButton"
+        app:layout_constraintStart_toStartOf="@+id/regText"
+        app:layout_constraintTop_toBottomOf="@+id/regText">
+
+        <EditText
+            android:id="@+id/nameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nome"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/surnameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Cognome"
+            android:inputType="textPersonName" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/sexText"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="Sesso:"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="20sp" />
+
+                <RadioGroup
+                    android:id="@+id/sexGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/femaleOption"
+                        android:layout_width="109dp"
+                        android:layout_height="41dp"
+                        android:text="Femmina" />
+
+                    <RadioButton
+                        android:id="@+id/maleOption"
+                        android:layout_width="114dp"
+                        android:layout_height="38dp"
+                        android:text="Maschio" />
+
+                    <RadioButton
+                        android:id="@+id/otherOption"
+                        android:layout_width="86dp"
+                        android:layout_height="44dp"
+                        android:text="Altro" />
+
+                </RadioGroup>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Data di nascita"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/phoneNumberText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Numero di telefono"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/emailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Indirizzo email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/newPasswordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nuova password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/repPasswordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ripeti password"
+            android:inputType="textPassword" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/regText"
+        android:layout_width="232dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="REGISTRAZIONE"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

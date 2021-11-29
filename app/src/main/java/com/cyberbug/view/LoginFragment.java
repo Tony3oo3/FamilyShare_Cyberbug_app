@@ -26,11 +26,13 @@ import org.json.JSONException;
 
 import java.util.UUID;
 
+// TODO implementare la funzionalità di salvataggio della sessione con lo switch
 public class LoginFragment extends Fragment {
 
     private static final String ARG_ERROR_MESSAGE = "errorMessage";
 
     private String errorMessage = null;
+
     private EditText emailET;
     private EditText passwordET;
 
@@ -43,16 +45,13 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(getArguments() != null){
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Check for args
+        if (getArguments() != null) {
             errorMessage = getArguments().getString(ARG_ERROR_MESSAGE);
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
         // Create fragment view
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
@@ -63,6 +62,8 @@ public class LoginFragment extends Fragment {
         // Set buttons listeners
         Button loginButton = v.findViewById(R.id.btn_login);
         loginButton.setOnClickListener(this::onClickLoginButton);
+        Button registerButton = v.findViewById(R.id.btn_register);
+        registerButton.setOnClickListener(this::onClickRegisterButton);
         return v;
     }
     @Override
@@ -71,14 +72,33 @@ public class LoginFragment extends Fragment {
         // Error message Snack Bar
         if(errorMessage != null){
             Snackbar.make(view, errorMessage, Snackbar.LENGTH_LONG).show();
+            errorMessage = null; // To prevent the message to show up again
         }
     }
 
+    private void onClickRegisterButton(View v){
+        RegistrationFragment registrationFragment = RegistrationFragment.newInstance(null);
+        FragmentTransaction fragTrans = this.requireActivity().getSupportFragmentManager().beginTransaction();
+        fragTrans.replace(R.id.main_fragment_container, registrationFragment);
+        fragTrans.addToBackStack("login");
+        fragTrans.commit();
+    }
+
     private void onClickLoginButton(View v){
+        String email = emailET.getText().toString();
+        String password = passwordET.getText().toString();
         String token = UUID.randomUUID().toString();
-        FSAPIWrapper.LoginUser user = new FSAPIWrapper.LoginUser(emailET.getText().toString(), passwordET.getText().toString(), token);
+
+        // Error handling
+        if(email.isEmpty() || password.isEmpty()){
+            Snackbar.make(this.requireView(), getString(R.string.insert_email_password), Snackbar.LENGTH_LONG).show();
+            return;
+        }
+
+        // All ok
+        FSAPIWrapper.LoginUser user = new FSAPIWrapper.LoginUser(email, password, token);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), LoginFragment::onPreLoginRequest);
-        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), LoginFragment::onPostLoginRequest);
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostLoginRequest);
         MainActivity.fsapi.userLogin(user, preUpdater, postUpdater);
     }
 
@@ -90,7 +110,7 @@ public class LoginFragment extends Fragment {
         fragTrans.commit();
     }
 
-    private static void onPostLoginRequest(FragmentActivity act, APIResponse res){
+    private void onPostLoginRequest(FragmentActivity act, APIResponse res){
         // Check the status code and then show the correct fragment
         boolean responseError = false;
         if(res.responseCode == 200){
@@ -114,13 +134,14 @@ public class LoginFragment extends Fragment {
             // 401: login incorrect
             // other: generic error
             // return to LoginFragment and show error message
-            LoginFragment loginFragment = LoginFragment.newInstance(
-                    res.responseCode == 401 ?
-                            act.getString(R.string.login_error_credentials) :
-                            act.getString(R.string.login_error_generic));
+            Bundle args = new Bundle();
+            args.putString(ARG_ERROR_MESSAGE, res.responseCode == 401 ?
+                    act.getString(R.string.login_error_credentials) :
+                    act.getString(R.string.server_error_generic));
+            this.setArguments(args);
 
             FragmentTransaction fragTrans = act.getSupportFragmentManager().beginTransaction();
-            fragTrans.replace(R.id.main_fragment_container, loginFragment);
+            fragTrans.replace(R.id.main_fragment_container, this);
             fragTrans.commit();
         }
     }

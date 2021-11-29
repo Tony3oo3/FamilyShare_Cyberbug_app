@@ -19,18 +19,6 @@
         app:layout_constraintTop_toBottomOf="@+id/txtview_oppure" />
 
     <Button
-        android:id="@+id/btn_forgotten_psw"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
-        android:layout_width="235dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="7dp"
-        android:text="@string/btn_forgotten_psw_text"
-        app:layout_constraintBottom_toTopOf="@+id/btn_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_keep_access" />
-
-    <Button
         android:id="@+id/btn_login"
         android:layout_width="235dp"
         android:layout_height="48dp"
@@ -39,7 +27,7 @@
         app:layout_constraintBottom_toTopOf="@+id/txtview_oppure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_forgotten_psw" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_keep_access" />
 
     <EditText
         android:id="@+id/txt_login_password"
@@ -87,10 +75,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginBottom="8dp"
         android:minHeight="48dp"
         android:text="@string/switch_keep_access_text"
-        app:layout_constraintBottom_toTopOf="@+id/btn_forgotten_psw"
         app:layout_constraintStart_toStartOf="@+id/txt_login_password"
         app:layout_constraintTop_toBottomOf="@+id/txt_login_password" />
 
