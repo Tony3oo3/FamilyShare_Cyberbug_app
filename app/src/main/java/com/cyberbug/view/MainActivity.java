@@ -11,7 +11,7 @@ import com.example.grafica.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static FSAPIWrapper fsapi = new FSAPIWrapper("http://192.168.1.122");
+    public final static FSAPIWrapper fsapi = new FSAPIWrapper("http://192.168.1.9");
     public static SharedData sData = new SharedData();
 
     @Override

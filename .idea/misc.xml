@@ -3,13 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/activity_main.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_add_obj.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_create_group.xml" value="0.26927083333333335" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_home.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_info_obj.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_loans.xml" value="0.3211050724637681" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_log_reg.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_my_group_objs.xml" value="0.2671875" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_my_groups.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_my_objs.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_my_objs_old.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_registration.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_request_obj.xml" value="0.2671875" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_requests.xml" value="0.32608695652173914" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/fragment_view_profile.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/nav_header.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/layout/textview_group.xml" value="0.2726449275362319" />
+        <entry key="..\:/Users/Leonardo/Desktop/Ingegneria del SW/Progettone/FamilyShare_Cyberbug/FamilyShare_Cyberbug_app/app/src/main/res/menu/drawer_menu.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2866847826086957" />
-        <entry key="app/src/main/res/layout/fragment_add_obj.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.28940217391304346" />
         <entry key="app/src/main/res/layout/fragment_info_obj.xml" value="0.2803442028985507" />
-        <entry key="app/src/main/res/layout/fragment_loading.xml" value="0.27309782608695654" />
         <entry key="app/src/main/res/layout/fragment_log_reg.xml" value="0.2803442028985507" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.27309782608695654" />
         <entry key="app/src/main/res/layout/fragment_my_groups.xml" value="0.28940217391304346" />
         <entry key="app/src/main/res/layout/fragment_my_groups_alt.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/fragment_my_objs.xml" value="0.25" />
@@ -17,7 +33,7 @@
         <entry key="app/src/main/res/layout/fragment_view_profile.xml" value="0.2803442028985507" />
         <entry key="app/src/main/res/layout/listitem.xml" value="0.17291666666666666" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.2803442028985507" />
-        <entry key="app/src/main/res/layout/textview_group.xml" value="0.2155978449355234" />
+        <entry key="app/src/main/res/layout/textview_group.xml" value="0.17291666666666666" />
       </map>
     </option>
   </component>
