@@ -39,4 +39,6 @@
     <string name="new_password_req">Nuova password*</string>
     <string name="insert_email_password">Inserisci Email e Password</string>
     <string name="my_groups">I Miei Gruppi</string>
+    <string name="no_group_joined">Non fai parte di nessun gruppo</string>
+    <string name="authentication_error">Errore nell\'autenticazione</string>
 </resources>

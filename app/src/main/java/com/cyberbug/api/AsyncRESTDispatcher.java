@@ -48,7 +48,7 @@ public class AsyncRESTDispatcher extends AsyncTask<APIRequest, Integer, List<API
         // TODO add argument checks
         ArrayList<APIResponse> resArray = new ArrayList<>(requests.length);
         for(APIRequest req : requests) {
-            APIResponse res = null;
+            APIResponse res = new APIResponse(400);
             try {
                 URL endpoint = new URL(req.endpointUrl);
                 HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
@@ -79,10 +79,9 @@ public class AsyncRESTDispatcher extends AsyncTask<APIRequest, Integer, List<API
                     in.close();
                     inScanner.close();
                 }
+                connection.disconnect();
                 System.out.println("JSON response = " + jsonResponse);
                 res = new APIResponse(code, jsonResponse);
-
-                connection.disconnect();
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
                 resArray.add(new APIResponse(400));
