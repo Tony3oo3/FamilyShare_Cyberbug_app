@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.cyberbug.api.APIRequest;
 import com.cyberbug.api.APIResponse;
+import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.FSAPIWrapper;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
@@ -24,6 +26,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 // TODO implementare la funzionalità di salvataggio della sessione con lo switch
@@ -99,7 +103,8 @@ public class LoginFragment extends Fragment {
         FSAPIWrapper.LoginUser user = new FSAPIWrapper.LoginUser(email, password, token);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), LoginFragment::onPreLoginRequest);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostLoginRequest);
-        MainActivity.fsapi.userLogin(user, preUpdater, postUpdater);
+        APIRequest req = MainActivity.fsapi.userLoginRequest(user);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
     }
 
     private static void onPreLoginRequest(FragmentActivity act){
@@ -110,7 +115,9 @@ public class LoginFragment extends Fragment {
         fragTrans.commit();
     }
 
-    private void onPostLoginRequest(FragmentActivity act, APIResponse res){
+    private void onPostLoginRequest(FragmentActivity act, List<APIResponse> responseList){
+        // This is always safe because the API call have at least a request
+        APIResponse res = responseList.get(0);
         // Check the status code and then show the correct fragment
         boolean responseError = false;
         if(res.responseCode == 200){

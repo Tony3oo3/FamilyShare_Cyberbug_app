@@ -12,14 +12,11 @@ import android.view.ViewGroup;
 
 import com.example.grafica.R;
 
-public class MyObjsFrag extends Fragment {
+public class MyObjectsFragment extends Fragment {
 
-    public MyObjsFrag() {
-        // Required empty public constructor
-    }
 
-    public static MyObjsFrag newInstance() {
-        return new MyObjsFrag();
+    public static MyObjectsFragment newInstance() {
+        return new MyObjectsFragment();
     }
 
     @Override
@@ -32,13 +29,6 @@ public class MyObjsFrag extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_my_objs, container, false);
-        /* Codice per cambiare il titolo della toolbar
-        // TODO mettere come paraemtro la toolbar in newInstance (quando il fragment padre crea this
-            allora deve passare la toolbar sulla quale cambiare il titolo)
-        Fragment parent = this.requireParentFragment();
-        Toolbar tb = parent.requireView().findViewById(R.id.toolbar);
-        tb.setTitle("Prova");
-        */
 
         return v;
     }

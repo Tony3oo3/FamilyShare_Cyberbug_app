@@ -17,13 +17,16 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.cyberbug.api.APIRequest;
 import com.cyberbug.api.APIResponse;
+import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.FSAPIWrapper;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
 import com.example.grafica.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.List;
 import java.util.UUID;
 
 public class RegistrationFragment extends Fragment {
@@ -126,8 +129,8 @@ public class RegistrationFragment extends Fragment {
         FSAPIWrapper.UserRegInfo user = new FSAPIWrapper.UserRegInfo(name, lastname, phoneNumber, email, password, "true", token);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), RegistrationFragment::onPreRegisterRequest);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostRegisterRequest);
-        MainActivity.fsapi.registerUser(user, preUpdater, postUpdater);
-
+        APIRequest req = MainActivity.fsapi.registerUserRequest(user);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
     }
 
     private static void onPreRegisterRequest(FragmentActivity act) {
@@ -138,7 +141,8 @@ public class RegistrationFragment extends Fragment {
         fragTrans.commit();
     }
 
-    private void onPostRegisterRequest(FragmentActivity act, APIResponse res) {
+    private void onPostRegisterRequest(FragmentActivity act, List<APIResponse> responseList) {
+        APIResponse res = responseList.get(0);
         // 200 ok
         // 500 server error (check fields)
         // 409 user already exists

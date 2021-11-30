@@ -10,18 +10,10 @@ import com.cyberbug.api.AsyncRESTDispatcher;
  * All the requests are executed with an async task.
  */
 public class FSAPIWrapper {
-    private AsyncRESTDispatcher dispatcher;
     private final String baseURL;
 
     public FSAPIWrapper(String baseURL) {
-        this.dispatcher = null;
         this.baseURL = baseURL;
-    }
-
-    private void clearDispatcher(){
-        if(dispatcher != null){
-            dispatcher.cancel(true);
-        }
     }
 
     private String strToURI(String key, String value){
@@ -32,183 +24,141 @@ public class FSAPIWrapper {
 
     // Users API
     // Tested
-    public void registerUser(UserRegInfo user, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest registerUserRequest(UserRegInfo user){
         String endpoint = baseURL + "/api/users/";
-        APIRequest req = new APIRequest(endpoint, "POST", user.getURI());
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return new APIRequest(endpoint, "POST", user.getURI());
     }
 
     // Tested
-    public void userLogin(LoginUser user, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest userLoginRequest(LoginUser user){
         String endpoint = baseURL + "/api/users/authenticate/email";
-        APIRequest req = new APIRequest(endpoint, "POST", user.getURI());
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return new APIRequest(endpoint, "POST", user.getURI());
+        
     }
 
     // Tested
-    public void getUserProfile(String authToken, String userId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest getUserProfileRequest(String authToken, String userId){
         String endpoint = baseURL + "/api/users/" + userId + "/profile";
         APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
     // Tested
-    public void getUser(String authToken, String thisUserId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest getUserRequest(String authToken, String thisUserId){
         String endpoint = baseURL + "/api/users/" + thisUserId;
         APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
     // Tested
-    public void joinGroup(String authToken, String thisUserId, String groupId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest joinGroupRequest(String authToken, String thisUserId, String groupId){
         String endpoint = baseURL + "/api/users/" + thisUserId + "/groups";
         APIRequest req = new APIRequest(endpoint, "POST", strToURI("group_id", groupId));
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
     // Tested
-    public void exitGroup(String authToken, String thisUserId, String groupId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest exitGroupRequest(String authToken, String thisUserId, String groupId){
         String endpoint = baseURL + "/api/users/" + thisUserId + "/groups/" + groupId;
         APIRequest req = new APIRequest(endpoint, "DELETE", null);
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
     // Tested
-    public void getJoinedGroups(String authToken, String thisUserId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest getJoinedGroupsRequest(String authToken, String thisUserId){
         String endpoint = baseURL + "/api/users/" + thisUserId + "/groups";
         APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
-    public void updateProfile(String authToken, String thisUserId, UserProfileInfo thisUserInfo, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest updateProfileRequest(String authToken, String thisUserId, UserProfileInfo thisUserInfo){
         String endpoint = baseURL + "/api/users/" + thisUserId + "/profile";
         APIRequest req = new APIRequest(endpoint, "PATCH", thisUserInfo.getURI());
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
     // Groups API
-    public void createGroup(String authToken, NewGroupInfo group, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest createGroupRequest(String authToken, NewGroupInfo group){
         String endpoint = baseURL + "/api/groups";
         APIRequest req = new APIRequest(endpoint, "POST", group.getURI());
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
-    public void getAllGroups(String authToken, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest getAllGroupsRequest(String authToken){
         String endpoint = baseURL + "/api/groups";
         APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
         req.addHeader("searchBy", "all");
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
-    public void getGroupById(String groupId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest getGroupByIdRequest(String groupId){
         String endpoint = baseURL + "/api/groups/" + groupId;
-        APIRequest req = new APIRequest(endpoint, "GET", null);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return new APIRequest(endpoint, "GET", null);
     }
 
-    public void deleteGroup(String authToken, String groupId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest deleteGroupRequest(String authToken, String groupId){
         String endpoint = baseURL + "/api/groups/" + groupId;
         APIRequest req = new APIRequest(endpoint, "DELETE", null);
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
-    public void updateGroupInfo(String authToken, String groupId, GroupInfo thisGroupInfo, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest updateGroupInfoRequest(String authToken, String groupId, GroupInfo thisGroupInfo){
         String endpoint = baseURL + "/api/groups/" + groupId;
         APIRequest req = new APIRequest(endpoint, "PATCH", thisGroupInfo.getURI());
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
-    public void updateGroupSettings(String authToken, String groupId, String settings, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest updateGroupSettingsRequest(String authToken, String groupId, String settings){
         String endpoint = baseURL + "/api/groups/" + groupId + "/settings";
         APIRequest req = new APIRequest(endpoint, "PATCH", strToURI("settingsPatch", settings));
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
-    public void getGroupSettings(String groupId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest getGroupSettingsRequest(String groupId){
         String endpoint = baseURL + "/api/groups/" + groupId + "/settings";
-        APIRequest req = new APIRequest(endpoint, "GET", null);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return new APIRequest(endpoint, "GET", null);
     }
 
-    public void getGroupMembers(String groupId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest getGroupMembersRequest(String groupId){
         String endpoint = baseURL + "/api/groups/" + groupId + "/members";
-        APIRequest req = new APIRequest(endpoint, "GET", null);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return new APIRequest(endpoint, "GET", null);
     }
 
-    public void removeUserFromGroup(String authToken, String groupId, String userId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest removeUserFromGroupRequest(String authToken, String groupId, String userId){
         String endpoint = baseURL + "/api/groups/" + groupId + "/members/" + userId;
         APIRequest req = new APIRequest(endpoint, "DELETE", null);
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
     // Objects API
-    public void insertObject(String authToken, String id, ObjectInfo obj, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec){
-        clearDispatcher();
+    public APIRequest insertObjectRequest(String authToken, String id, ObjectInfo obj){
         String endpoint = baseURL + "/api/objects/" + id;
         APIRequest req = new APIRequest(endpoint, "POST", obj.getURI());
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
-    public void getUserObjects(String authToken, String thisUserId, UIUpdaterVoid<?> preExec, UIUpdaterResponse<?> postExec) {
-        clearDispatcher();
+    public APIRequest getUserObjectsRequest(String authToken, String thisUserId) {
         String endpoint = baseURL + "/api/objects/" + thisUserId;
         APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
-        this.dispatcher = new AsyncRESTDispatcher(preExec, postExec);
-        this.dispatcher.execute(req);
+        return req;
     }
 
-    public void searchObject(){
-
+    public APIRequest searchObject(){
+        return null;
     }
 
     public static class UserRegInfo{
