@@ -14,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.cyberbug.api.APIRequest;
 import com.cyberbug.api.APIResponse;
@@ -129,7 +127,7 @@ public class RegistrationFragment extends Fragment {
         FSAPIWrapper.UserRegInfo user = new FSAPIWrapper.UserRegInfo(name, lastname, phoneNumber, email, password, "true", token);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), RegistrationFragment::onPreRegisterRequest);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostRegisterRequest);
-        APIRequest req = MainActivity.fsapi.registerUserRequest(user);
+        APIRequest req = MainActivity.fsAPI.registerUserRequest(user);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
     }
 

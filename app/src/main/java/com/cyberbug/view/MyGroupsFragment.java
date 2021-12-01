@@ -54,17 +54,11 @@ public class MyGroupsFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
-
     private void populateGroupList() {
         // First we get all the group the users is in
         // Second we search each group using the id and we get the names
         // Third we can populate the UI list
-        APIRequest getJoinedGroups = MainActivity.fsapi.getJoinedGroupsRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
+        APIRequest getJoinedGroups = MainActivity.fsAPI.getJoinedGroupsRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), MyGroupsFragment::showLoadingFragment);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::searchGroupFromId);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getJoinedGroups);
@@ -89,7 +83,7 @@ public class MyGroupsFragment extends Fragment {
                 for (int i = 0; i < res.jsonResponseArray.length(); i++) {
                     JSONObject gr = res.jsonResponseArray.getJSONObject(i);
                     String id = gr.getString("group_id");
-                    req[i] = MainActivity.fsapi.getGroupByIdRequest(id);
+                    req[i] = MainActivity.fsAPI.getGroupByIdRequest(id);
                 }
                 // Do nothing before the requests
                 UIUpdaterVoid<?> preUpdater = new UIUpdaterVoid<>(null, (x) -> {

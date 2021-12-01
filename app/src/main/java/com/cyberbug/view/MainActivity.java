@@ -1,10 +1,10 @@
 package com.cyberbug.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.cyberbug.api.FSAPIWrapper;
@@ -13,13 +13,36 @@ import com.example.grafica.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static FSAPIWrapper fsapi = new FSAPIWrapper("http://192.168.1.122");
+    public final static FSAPIWrapper fsAPI = new FSAPIWrapper("http://192.168.1.122");
     public static SharedData sData = new SharedData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(this.retrieveSavedAuthData()){
+            FragmentManager fragMan = this.getSupportFragmentManager();
+            HomeFrag homeFrag = HomeFrag.newInstance();
+            fragMan.beginTransaction().replace(R.id.main_fragment_container, homeFrag).commit();
+        }
+    }
+
+    /**
+     * Gets the authToken and userId from SharedPreferences and if they are not null initializes the
+     * static sData object in MainActivity with them
+     * @return true if the data is valid, false if al least one is null
+     */
+    private boolean retrieveSavedAuthData(){
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        String authToken = sharedPref.getString("authToken", null);
+        String userId = sharedPref.getString("userId", null);
+        if(authToken == null || userId == null)
+            return false;
+        else{
+            MainActivity.sData = new SharedData(authToken, userId);
+            return true;
+        }
+
     }
 
     /**

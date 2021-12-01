@@ -1,9 +1,12 @@
 package com.cyberbug.view;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -26,7 +29,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,6 +41,7 @@ public class LoginFragment extends Fragment {
 
     private EditText emailET;
     private EditText passwordET;
+    private SwitchCompat keepAccessSW;
 
     public static LoginFragment newInstance(String errorMessage) {
         LoginFragment lf = new LoginFragment();
@@ -46,6 +49,13 @@ public class LoginFragment extends Fragment {
         args.putString(ARG_ERROR_MESSAGE, errorMessage);
         lf.setArguments(args);
         return lf;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // if we have saved the token -> skip this and ho to the home fragment
+
     }
 
     @Override
@@ -62,6 +72,7 @@ public class LoginFragment extends Fragment {
         // Initialize fragment components
         emailET = v.findViewById(R.id.txt_login_email);
         passwordET = v.findViewById(R.id.txt_login_password);
+        keepAccessSW = v.findViewById(R.id.switch_keep_access);
 
         // Set buttons listeners
         Button loginButton = v.findViewById(R.id.btn_login);
@@ -73,6 +84,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         // Error message Snack Bar
         if(errorMessage != null){
             Snackbar.make(view, errorMessage, Snackbar.LENGTH_LONG).show();
@@ -94,8 +106,8 @@ public class LoginFragment extends Fragment {
         String token = UUID.randomUUID().toString();
 
         // Error handling
-        if(email.isEmpty() || password.isEmpty()){
-            Snackbar.make(this.requireView(), getString(R.string.insert_email_password), Snackbar.LENGTH_LONG).show();
+        if((email.isEmpty() || password.isEmpty()) && this.getView() != null){
+            Snackbar.make(this.getView(), getString(R.string.insert_email_password), Snackbar.LENGTH_LONG).show();
             return;
         }
 
@@ -103,7 +115,7 @@ public class LoginFragment extends Fragment {
         FSAPIWrapper.LoginUser user = new FSAPIWrapper.LoginUser(email, password, token);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), LoginFragment::onPreLoginRequest);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostLoginRequest);
-        APIRequest req = MainActivity.fsapi.userLoginRequest(user);
+        APIRequest req = MainActivity.fsAPI.userLoginRequest(user);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
     }
 
@@ -120,18 +132,24 @@ public class LoginFragment extends Fragment {
         APIResponse res = responseList.get(0);
         // Check the status code and then show the correct fragment
         boolean responseError = false;
-        if(res.responseCode == 200){
+        if(res.responseCode == 200 && res.jsonResponse != null){
             // user correctly logged in
             try {
                 // save the token and userid
                 String authToken = res.jsonResponse.getString("token");
                 String userId = res.jsonResponse.getString("id");
                 MainActivity.sData = new SharedData(authToken, userId);
+                if(keepAccessSW.isChecked()){
+                    // Saving the token and id in memory
+                    SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("authToken", authToken);
+                    editor.putString("userId", userId);
+                    editor.apply();
+                }
+
                 // go to the HomeFrag
-                HomeFrag homeFragment = HomeFrag.newInstance();
-                FragmentTransaction fragTrans = act.getSupportFragmentManager().beginTransaction();
-                fragTrans.replace(R.id.main_fragment_container, homeFragment);
-                fragTrans.commit();
+                this.goToHomeFragment(act);
             } catch (JSONException e) {
                 responseError = true;
             }
@@ -152,4 +170,13 @@ public class LoginFragment extends Fragment {
             fragTrans.commit();
         }
     }
+
+    private void goToHomeFragment(FragmentActivity act){
+        HomeFrag homeFragment = HomeFrag.newInstance();
+        FragmentTransaction fragTrans = act.getSupportFragmentManager().beginTransaction();
+        fragTrans.replace(R.id.main_fragment_container, homeFragment);
+        fragTrans.commit();
+    }
+
+
 }
