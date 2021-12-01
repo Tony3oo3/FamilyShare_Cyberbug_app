@@ -41,4 +41,9 @@
     <string name="my_groups">I Miei Gruppi</string>
     <string name="no_group_joined">Non fai parte di nessun gruppo</string>
     <string name="authentication_error">Errore nell\'autenticazione</string>
+    <string name="logout" translatable="false">Logout</string>
+    <string name="sure_to_logout">Sei sicuro di volerti disconnettere?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="logout_success">Logout effetuato</string>
 </resources>
