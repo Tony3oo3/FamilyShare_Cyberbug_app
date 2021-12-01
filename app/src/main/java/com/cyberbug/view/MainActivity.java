@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if(this.retrieveSavedAuthData()){
             FragmentManager fragMan = this.getSupportFragmentManager();
-            HomeFrag homeFrag = HomeFrag.newInstance();
+            HomeFragment homeFrag = HomeFragment.newInstance();
             fragMan.beginTransaction().replace(R.id.main_fragment_container, homeFrag).commit();
         }
     }

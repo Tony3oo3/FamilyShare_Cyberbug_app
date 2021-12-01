@@ -172,7 +172,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void goToHomeFragment(FragmentActivity act){
-        HomeFrag homeFragment = HomeFrag.newInstance();
+        HomeFragment homeFragment = HomeFragment.newInstance();
         FragmentTransaction fragTrans = act.getSupportFragmentManager().beginTransaction();
         fragTrans.replace(R.id.main_fragment_container, homeFragment);
         fragTrans.commit();

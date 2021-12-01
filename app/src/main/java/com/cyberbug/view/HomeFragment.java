@@ -18,12 +18,12 @@ import android.view.ViewGroup;
 
 import com.example.grafica.R;
 
-public class HomeFrag extends Fragment {
+public class HomeFragment extends Fragment {
 
     private DrawerLayout drawer;
 
-    public static HomeFrag newInstance() {
-        return new HomeFrag();
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
     }
 
     @Override
@@ -32,7 +32,6 @@ public class HomeFrag extends Fragment {
 
         if (getActivity() instanceof AppCompatActivity) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-            //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         drawer = view.findViewById(R.id.drawer_layout);
 
@@ -46,11 +45,10 @@ public class HomeFrag extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
-                } else {
-                    HomeFrag.this.requireActivity().onBackPressed();
-                }
+                else
+                    HomeFragment.this.requireActivity().moveTaskToBack(true);
             }
         });
     }
