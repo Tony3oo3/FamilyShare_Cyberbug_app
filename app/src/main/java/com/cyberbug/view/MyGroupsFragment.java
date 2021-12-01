@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -50,9 +52,26 @@ public class MyGroupsFragment extends Fragment {
         }
 
         populateGroupList();
+        ListView groupList = v.findViewById(R.id.my_groups_listview);
+        groupList.setOnItemClickListener(this::onMenuItemClick);
 
         return v;
     }
+
+    public void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Object clicked = parent.getItemAtPosition(position);
+        if(clicked instanceof Group){
+            Group g = (Group) clicked;
+            // TODO
+            new AlertDialog.Builder(this.requireContext())
+                    .setTitle("TODO")
+                    .setMessage(g.toString())
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(R.string.yes, null)
+                    .setNegativeButton(R.string.no, null).show();
+        }
+    }
+
 
     private void populateGroupList() {
         // First we get all the group the users is in
