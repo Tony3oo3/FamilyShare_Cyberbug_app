@@ -42,6 +42,12 @@
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="logout_success">Logout effetuato</string>
+    <string name="create_group">Creazione gruppo</string>
+    <string name="group_name">Nome gruppo*</string>
+    <string name="group_description">Descrizione gruppo*</string>
+    <string name="group_location">Location gruppo*</string>
+    <string name="confirm">Conferma</string>
+    <string name="erase">Cancella</string>
     <string name="search">Cerca</string>
     <string name="search_a_group">Cerca un gruppo</string>
 </resources>

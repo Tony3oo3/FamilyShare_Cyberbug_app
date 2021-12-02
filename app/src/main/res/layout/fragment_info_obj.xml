@@ -49,7 +49,7 @@
                 tools:layout_editor_absoluteY="355dp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/createGroupEraseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Indietro"
@@ -58,7 +58,7 @@
                 tools:layout_editor_absoluteY="447dp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/createGroupConfirmButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Richiedi prestito"

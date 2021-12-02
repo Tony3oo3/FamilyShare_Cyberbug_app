@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cyberbug.functional.BiConsumer;
+import com.example.grafica.CreateGroupFrag;
 import com.example.grafica.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -71,9 +73,16 @@ public class HomeFragment extends Fragment {
 
     @SuppressLint("NonConstantResourceId")
     private boolean onMenuItemClicked(MenuItem item){
+        // TODO close drawer
         switch (item.getItemId()) {
             case R.id.nav_logout: {
                 showAreYouSureDialog();
+                break;
+            }
+            case R.id.nav_create_group:{
+                CreateGroupFrag f = CreateGroupFrag.newInstance(null);
+                FragmentManager fm = this.requireActivity().getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.home_fragment_container, f).commit();
                 break;
             }
         }

@@ -28,7 +28,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/createGroupEraseButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Annulla"
@@ -37,7 +37,7 @@
                 tools:layout_editor_absoluteY="447dp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/createGroupConfirmButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Conferma"
@@ -81,7 +81,7 @@
                 tools:layout_editor_absoluteY="16dp" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/groupNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
