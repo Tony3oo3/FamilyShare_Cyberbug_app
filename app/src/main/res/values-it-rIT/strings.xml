@@ -50,4 +50,10 @@
     <string name="erase">Cancella</string>
     <string name="search">Cerca</string>
     <string name="search_a_group">Cerca un gruppo</string>
+    <string name="add_obj">Aggiungi un oggetto</string>
+    <string name="obj_name_title">Nome oggetto:</string>
+    <string name="obj_name_text">Nome oggetto*</string>
+    <string name="obj_desc_title">Descrizione oggetto:</string>
+    <string name="obj_desc_text">Descrizione oggetto*</string>
+    <string name="obj_owner">Proprietario:</string>
 </resources>
