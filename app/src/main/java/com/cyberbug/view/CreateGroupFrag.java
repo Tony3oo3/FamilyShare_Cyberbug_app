@@ -3,6 +3,9 @@ package com.example.grafica;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +13,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.cyberbug.api.APIRequest;
+import com.cyberbug.api.APIResponse;
+import com.cyberbug.api.AsyncRESTDispatcher;
+import com.cyberbug.api.FSAPIWrapper;
+import com.cyberbug.api.UIUpdaterResponse;
+import com.cyberbug.api.UIUpdaterVoid;
+import com.cyberbug.view.LoadingFragment;
+import com.cyberbug.view.LoginFragment;
+import com.cyberbug.view.MainActivity;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,6 +105,57 @@ public class CreateGroupFrag extends Fragment {
             return;
         }
 
+        // All is ok
+        // Send the request to the server
+        String token = UUID.randomUUID().toString();
+        FSAPIWrapper.NewGroupInfo group = new FSAPIWrapper.NewGroupInfo(description, location, name, "true", MainActivity.sData.thisUserId, null, null);
+        UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), CreateGroupFrag::onPreCreateGroupRequest);
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostCreateGroupRequest);
+        APIRequest req = MainActivity.fsAPI.createGroupRequest(token, group);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
+    }
+
+    private static void onPreCreateGroupRequest(FragmentActivity activity) {
+        // Changes to LoadingFragment
+        LoadingFragment loadingFragment = LoadingFragment.newInstance();
+        FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_fragment_container, loadingFragment);
+        fragmentTransaction.commit();
+    }
+
+    private void onPostCreateGroupRequest(FragmentActivity activity, List<APIResponse> responseList) {
+        APIResponse res = responseList.get(0);
+        // 200 ok
+        // 400 bad request
+        // 401 user not authenticated or unauthorized
+        // else server error
+        if (res.responseCode == 200) {
+            //this.returnToCreateGroup(getString(R.string.group_creation_success));
+        } else {
+            // some error occurred, return to the fragment and show a snack bar
+            //FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+
+            String errorMessage;
+            switch (res.responseCode){
+                case 400:
+                    errorMessage = getString(R.string.bad_request);
+                    break;
+                case 401:
+                    errorMessage = getString(R.string.user_not_authenticated);
+                    break;
+                default:
+                    errorMessage = getString(R.string.server_error_generic);
+            }
+        }
+    }
+
+    // TODO change the return page with "my groups"
+    private void returnToCreateGroup(String message){
+        CreateGroupFrag createGroupFrag = CreateGroupFrag.newInstance(message);
+        FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
+        // Here we need to pop the stack of the transaction because we are returning to the login screen
+        fragmentManager.popBackStack();
+        fragmentManager.beginTransaction().replace(R.id.main_fragment_container, createGroupFrag).commit();
 
     }
 }

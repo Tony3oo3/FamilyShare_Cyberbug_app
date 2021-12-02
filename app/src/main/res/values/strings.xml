@@ -60,4 +60,7 @@
     <string name="obj_desc_title">Descrizione oggetto:</string>
     <string name="obj_desc_text">Descrizione oggetto*</string>
     <string name="obj_owner">Proprietario:</string>
+    <string name="group_creation_success">Gruppo creato correttamente</string>
+    <string name="user_not_authenticated">Utente non autenticato</string>
+    <string name="bad_request">Errore nella richiesta</string>
 </resources>
