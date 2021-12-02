@@ -195,7 +195,7 @@ public class MyGroupsFragment extends Fragment {
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.menu_item_search);
         SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("SOS");
+        searchView.setQueryHint(getString(R.string.search_a_group));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             private final ListView myGroups = MyGroupsFragment.this.requireView().findViewById(R.id.my_groups_listview);
