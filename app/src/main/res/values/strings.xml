@@ -46,4 +46,5 @@
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="logout_success">Logout effetuato</string>
+    <string name="search">Cerca</string>
 </resources>

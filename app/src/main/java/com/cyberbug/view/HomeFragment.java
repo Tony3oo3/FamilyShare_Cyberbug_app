@@ -10,20 +10,28 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cyberbug.functional.BiConsumer;
 import com.example.grafica.R;
 import com.google.android.material.navigation.NavigationView;
 
+import static androidx.core.app.ActivityCompat.invalidateOptionsMenu;
+
 public class HomeFragment extends Fragment {
+
+    private BiConsumer<Menu,MenuInflater> onCreateMenuCallback;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -32,7 +40,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         this.setUpSideMenu(view);
-
         NavigationView menu = view.findViewById(R.id.nav_view_side_menu);
         menu.setNavigationItemSelectedListener(this::onMenuItemClicked);
     }
@@ -43,6 +50,7 @@ public class HomeFragment extends Fragment {
         if (getActivity() instanceof AppCompatActivity) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         }
+
         DrawerLayout drawer = view.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
@@ -76,6 +84,19 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        if(this.onCreateMenuCallback != null){
+            onCreateMenuCallback.consume(menu, inflater);
+        }
+    }
+
+    protected void setOptionsMenu(BiConsumer<Menu,MenuInflater> onCreateMenuCallback){
+        this.onCreateMenuCallback = onCreateMenuCallback;
+        this.requireActivity().invalidateOptionsMenu();
     }
 
     private void showAreYouSureDialog(){

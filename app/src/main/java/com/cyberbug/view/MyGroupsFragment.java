@@ -3,8 +3,8 @@ package com.cyberbug.view;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -12,6 +12,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,6 +28,7 @@ import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
 import com.cyberbug.model.Group;
 import com.example.grafica.R;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
@@ -42,6 +46,12 @@ public class MyGroupsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_my_groups, container, false);
+
+        // Sets up search bar
+        if(getParentFragment() instanceof HomeFragment){
+            HomeFragment parent = (HomeFragment) getParentFragment();
+            parent.setOptionsMenu(this::createSearchActionMenu);
+        }
 
         // Set toolbar title
         Fragment parent = this.getParentFragment();
@@ -62,7 +72,7 @@ public class MyGroupsFragment extends Fragment {
         Object clicked = parent.getItemAtPosition(position);
         if(clicked instanceof Group){
             Group g = (Group) clicked;
-            // TODO
+            // TODO navigation to the specific group page
             new AlertDialog.Builder(this.requireContext())
                     .setTitle("TODO")
                     .setMessage(g.toString())
@@ -155,7 +165,8 @@ public class MyGroupsFragment extends Fragment {
         }
 
         groupList.setAdapter(groups);
-
+        // Show the search bar
+        if(getParentFragment() != null) getParentFragment().setHasOptionsMenu(true);
         // Revert the fragment
         FragmentManager fragMan = this.requireActivity().getSupportFragmentManager();
         fragMan.beginTransaction().replace(R.id.home_fragment_container, this).commit();
@@ -172,8 +183,41 @@ public class MyGroupsFragment extends Fragment {
         };
         defMess.add(getString(R.string.no_group_joined));
         groupList.setAdapter(defMess);
+
+        // Hide the search bar
+        if(getParentFragment() != null) getParentFragment().setHasOptionsMenu(false);
         // Revert the fragment
         FragmentManager fragMan = this.requireActivity().getSupportFragmentManager();
         fragMan.beginTransaction().replace(R.id.home_fragment_container, this).commit();
+    }
+
+    private void createSearchActionMenu(@NonNull Menu menu, @NonNull MenuInflater inflater){
+        inflater.inflate(R.menu.search_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("SOS");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            private final ListView myGroups = MyGroupsFragment.this.requireView().findViewById(R.id.my_groups_listview);
+
+            private void filterView(String s){
+                if(myGroups.getAdapter() instanceof ArrayAdapter){
+                    ArrayAdapter<?> ad = (ArrayAdapter<?>) myGroups.getAdapter();
+                    ad.getFilter().filter(s);
+                }
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterView(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterView(newText);
+                return true;
+            }
+        });
     }
 }
