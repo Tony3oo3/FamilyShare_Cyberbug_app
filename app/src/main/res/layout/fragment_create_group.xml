@@ -49,8 +49,8 @@
             android:hint="@string/group_description"
             android:inputType="textMultiLine"
             app:layout_constraintBottom_toTopOf="@+id/createGroupConfirmButton"
-            app:layout_constraintEnd_toEndOf="@+id/textView8"
-            app:layout_constraintStart_toEndOf="@+id/textView8"
+            app:layout_constraintEnd_toEndOf="@+id/group_descr_title"
+            app:layout_constraintStart_toEndOf="@+id/group_location_title"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
@@ -63,10 +63,10 @@
             android:ems="10"
             android:hint="@string/group_name"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/textView27"
+            app:layout_constraintBottom_toTopOf="@+id/group_location_title"
             app:layout_constraintEnd_toEndOf="@+id/groupLocationText"
-            app:layout_constraintStart_toStartOf="@+id/textView27"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintStart_toStartOf="@+id/group_descr_title"
+            app:layout_constraintTop_toBottomOf="@+id/group_name_title" />
 
         <EditText
             android:id="@+id/groupLocationText"
@@ -77,12 +77,12 @@
             android:ems="10"
             android:hint="@string/group_location"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/textView8"
-            app:layout_constraintStart_toStartOf="@+id/textView27"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+            app:layout_constraintBottom_toTopOf="@+id/group_descr_title"
+            app:layout_constraintStart_toStartOf="@+id/group_location_title"
+            app:layout_constraintTop_toBottomOf="@+id/group_descr_title" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/group_name_title"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="18dp"
             android:gravity="center_vertical"
-            android:text="Nome gruppo:"
+            android:text="@string/group_name_text"
             android:textIsSelectable="true"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/groupNameText"
@@ -98,14 +98,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/group_descr_title"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="24dp"
             android:gravity="center_vertical"
-            android:text="Descrizione gruppo:"
+            android:text="@string/group_description_text"
             android:textIsSelectable="true"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/groupDescrText"
@@ -113,14 +113,14 @@
             app:layout_constraintTop_toBottomOf="@+id/groupLocationText" />
 
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/group_location_title"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="19dp"
             android:gravity="center_vertical"
-            android:text="Location:"
+            android:text="@string/group_location_text"
             android:textIsSelectable="true"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/groupLocationText"
