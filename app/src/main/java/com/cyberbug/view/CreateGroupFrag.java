@@ -3,6 +3,7 @@ package com.cyberbug.view;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -73,6 +74,14 @@ public class CreateGroupFrag extends Fragment {
         erase.setOnClickListener(this::onClickEraseButton);
         Button confirm = v.findViewById(R.id.createGroupConfirmButton);
         confirm.setOnClickListener(this::onClickConfirmButton);
+
+        // Sets fragment tile
+        Fragment parent = this.getParentFragment();
+        if (parent != null) {
+            // Check to avoid crash if the parent fragment does not exists (should not happen)
+            Toolbar tBar = parent.requireView().findViewById(R.id.toolbar);
+            tBar.setTitle(getString(R.string.create_group_title));
+        }
 
         return v;
     }
@@ -155,9 +164,8 @@ public class CreateGroupFrag extends Fragment {
     // TODO change the return page with "my groups"
     private void returnToCreateGroup(String message){
         CreateGroupFrag createGroupFrag = CreateGroupFrag.newInstance(message);
-        FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = this.getChildFragmentManager();
         fragmentManager.popBackStack();
-        fragmentManager.beginTransaction().replace(R.id.main_fragment_container, createGroupFrag).commit();
-
+        fragmentManager.beginTransaction().replace(R.id.home_fragment_container, createGroupFrag).commit();
     }
 }

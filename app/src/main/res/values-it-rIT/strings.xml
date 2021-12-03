@@ -62,4 +62,5 @@
     <string name="group_creation_success">Gruppo creato correttamente</string>
     <string name="user_not_authenticated">Utente non autenticato</string>
     <string name="bad_request">Errore nella richiesta</string>
+    <string name="create_group_title">Crea un gruppo</string>
 </resources>

@@ -11,101 +11,151 @@
         android:id="@+id/create_group_frag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="10dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/createGroupEraseButton"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:text="@string/erase"
-            android:textColor="#FFFFFF"
-            tools:layout_editor_absoluteX="37dp"
-            tools:layout_editor_absoluteY="639dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/groupDescrText">
 
-        <Button
-            android:id="@+id/createGroupConfirmButton"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:text="@string/confirm"
-            android:textColor="#FFFFFF"
-            tools:layout_editor_absoluteX="228dp"
-            tools:layout_editor_absoluteY="627dp" />
+            <Button
+                android:id="@+id/createGroupConfirmButton"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:text="@string/confirm"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/createGroupEraseButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/createGroupEraseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:text="@string/erase"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/createGroupConfirmButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
             android:id="@+id/groupLocationText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="5dp"
             android:ems="10"
             android:hint="@string/group_location"
             android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="253dp" />
+            android:paddingStart="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/group_descr_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/group_location_title" />
 
         <EditText
             android:id="@+id/groupDescrText"
-            android:layout_width="343dp"
+            android:layout_width="0dp"
             android:layout_height="228dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="5dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/group_description"
             android:inputType="textMultiLine"
-            tools:layout_editor_absoluteX="34dp"
-            tools:layout_editor_absoluteY="403dp" />
+            android:paddingStart="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/group_descr_title" />
 
         <EditText
             android:id="@+id/groupNameText"
-            android:layout_width="193dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="5dp"
             android:ems="10"
             android:hint="@string/group_name"
             android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="117dp" />
+            android:paddingStart="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/group_location_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/group_name_title" />
 
         <TextView
             android:id="@+id/group_descr_title"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:gravity="center_vertical"
+            android:paddingStart="25dp"
             android:text="@string/group_description_text"
             android:textIsSelectable="true"
             android:textSize="20sp"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="307dp" />
+            app:layout_constraintBottom_toTopOf="@+id/groupDescrText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/groupLocationText" />
 
         <TextView
             android:id="@+id/group_location_title"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:gravity="center_vertical"
+            android:paddingStart="25dp"
             android:text="@string/group_location_text"
             android:textIsSelectable="true"
             android:textSize="20sp"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="194dp" />
+            app:layout_constraintBottom_toTopOf="@+id/groupLocationText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/groupNameText" />
 
         <TextView
             android:id="@+id/group_name_title"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:gravity="center_vertical"
+            android:paddingStart="25dp"
             android:text="@string/group_name_text"
             android:textIsSelectable="true"
             android:textSize="20sp"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="31dp" />
+            app:layout_constraintBottom_toTopOf="@+id/groupNameText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
