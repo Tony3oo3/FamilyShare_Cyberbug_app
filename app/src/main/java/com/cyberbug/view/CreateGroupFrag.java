@@ -54,7 +54,6 @@ public class CreateGroupFrag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -91,6 +90,7 @@ public class CreateGroupFrag extends Fragment {
     }
 
     private void onClickConfirmButton(View v) {
+
         // Get all the text
         String name = nameET.getText().toString();
         String location = locationET.getText().toString();
@@ -104,11 +104,15 @@ public class CreateGroupFrag extends Fragment {
 
         // All is ok
         // Send the request to the server
+
+
         FSAPIWrapper.NewGroupInfo group = new FSAPIWrapper.NewGroupInfo(description, location, name, "true", MainActivity.sData.thisUserId, null, null);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), CreateGroupFrag::onPreCreateGroupRequest);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostCreateGroupRequest);
         APIRequest req = MainActivity.fsAPI.createGroupRequest(MainActivity.sData.authToken, group);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
+
+
     }
 
     private static void onPreCreateGroupRequest(FragmentActivity activity) {
@@ -119,6 +123,8 @@ public class CreateGroupFrag extends Fragment {
         fragmentTransaction.replace(R.id.main_fragment_container, loadingFragment);
         fragmentTransaction.commit();
          */
+        activity.findViewById(R.id.create_group_frag).setVisibility(View.GONE);
+        activity.findViewById(R.id.loading_fragment).setVisibility(View.VISIBLE);
     }
 
     private void onPostCreateGroupRequest(FragmentActivity activity, List<APIResponse> responseList) {
@@ -129,11 +135,12 @@ public class CreateGroupFrag extends Fragment {
         // else server error
         if (res.responseCode == 200) {
             //this.returnToCreateGroup(getString(R.string.group_creation_success));
+            errorMessage = getString(R.string.group_creation_success);
         } else {
             // some error occurred, return to the fragment and show a snack bar
             //FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
 
-            String errorMessage;
+
             switch (res.responseCode){
                 case 400:
                     errorMessage = getString(R.string.bad_request);
@@ -145,6 +152,9 @@ public class CreateGroupFrag extends Fragment {
                     errorMessage = getString(R.string.server_error_generic);
             }
         }
+        activity.findViewById(R.id.loading_fragment).setVisibility(View.GONE);
+        activity.findViewById(R.id.create_group_frag).setVisibility(View.VISIBLE);
+        Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
 
     // TODO change the return page with "my groups"
