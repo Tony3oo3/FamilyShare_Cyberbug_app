@@ -2,6 +2,7 @@ package com.cyberbug.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -28,11 +29,6 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CreateGroupFrag#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CreateGroupFrag extends Fragment {
 
     private static final String ARG_ERROR_MESSAGE = "errorMessage";
@@ -62,7 +58,7 @@ public class CreateGroupFrag extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Check for args
@@ -108,20 +104,21 @@ public class CreateGroupFrag extends Fragment {
 
         // All is ok
         // Send the request to the server
-        String token = UUID.randomUUID().toString();
         FSAPIWrapper.NewGroupInfo group = new FSAPIWrapper.NewGroupInfo(description, location, name, "true", MainActivity.sData.thisUserId, null, null);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), CreateGroupFrag::onPreCreateGroupRequest);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostCreateGroupRequest);
-        APIRequest req = MainActivity.fsAPI.createGroupRequest(token, group);
+        APIRequest req = MainActivity.fsAPI.createGroupRequest(MainActivity.sData.authToken, group);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
     }
 
     private static void onPreCreateGroupRequest(FragmentActivity activity) {
         // Changes to LoadingFragment
+        /* TODO non si puo più fare
         LoadingFragment loadingFragment = LoadingFragment.newInstance();
         FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_fragment_container, loadingFragment);
         fragmentTransaction.commit();
+         */
     }
 
     private void onPostCreateGroupRequest(FragmentActivity activity, List<APIResponse> responseList) {
