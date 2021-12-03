@@ -8,140 +8,123 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/create_group_frag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/create_group_frag"
-        android:visibility="visible">
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <Button
             android:id="@+id/createGroupEraseButton"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginBottom="28dp"
             android:text="@string/erase"
             android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/createGroupConfirmButton"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/groupDescrText"
-            app:layout_constraintVertical_bias="0.804" />
+            tools:layout_editor_absoluteX="37dp"
+            tools:layout_editor_absoluteY="639dp" />
 
         <Button
             android:id="@+id/createGroupConfirmButton"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginBottom="36dp"
             android:text="@string/confirm"
             android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <EditText
-            android:id="@+id/groupDescrText"
-            android:layout_width="343dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="350dp"
-            android:layout_marginBottom="33dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="@string/group_description"
-            android:inputType="textMultiLine"
-            app:layout_constraintBottom_toTopOf="@+id/createGroupConfirmButton"
-            app:layout_constraintEnd_toEndOf="@+id/group_descr_title"
-            app:layout_constraintStart_toEndOf="@+id/group_location_title"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/groupNameText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="17dp"
-            android:ems="10"
-            android:hint="@string/group_name"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/group_location_title"
-            app:layout_constraintEnd_toEndOf="@+id/groupLocationText"
-            app:layout_constraintStart_toStartOf="@+id/group_descr_title"
-            app:layout_constraintTop_toBottomOf="@+id/group_name_title" />
+            tools:layout_editor_absoluteX="228dp"
+            tools:layout_editor_absoluteY="627dp" />
 
         <EditText
             android:id="@+id/groupLocationText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="23dp"
-            android:layout_marginBottom="25dp"
+            android:layout_height="50dp"
             android:ems="10"
             android:hint="@string/group_location"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/group_descr_title"
-            app:layout_constraintStart_toStartOf="@+id/group_location_title"
-            app:layout_constraintTop_toBottomOf="@+id/group_descr_title" />
+            tools:layout_editor_absoluteX="35dp"
+            tools:layout_editor_absoluteY="253dp" />
 
-        <TextView
-            android:id="@+id/group_name_title"
-            style="@style/Widget.AppCompat.TextView.SpinnerItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="18dp"
-            android:gravity="center_vertical"
-            android:text="@string/group_name_text"
-            android:textIsSelectable="true"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/groupNameText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/groupDescrText"
+            android:layout_width="343dp"
+            android:layout_height="228dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/group_description"
+            android:inputType="textMultiLine"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="403dp" />
+
+        <EditText
+            android:id="@+id/groupNameText"
+            android:layout_width="193dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:hint="@string/group_name"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="35dp"
+            tools:layout_editor_absoluteY="117dp" />
 
         <TextView
             android:id="@+id/group_descr_title"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="24dp"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
             android:text="@string/group_description_text"
             android:textIsSelectable="true"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/groupDescrText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/groupLocationText" />
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_editor_absoluteY="307dp" />
 
         <TextView
             android:id="@+id/group_location_title"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="19dp"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
             android:text="@string/group_location_text"
             android:textIsSelectable="true"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/groupLocationText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/groupNameText" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_editor_absoluteY="194dp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/group_name_title"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:text="@string/group_name_text"
+            android:textIsSelectable="true"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_editor_absoluteY="31dp" />
 
-        <include
-            android:id="@+id/progressBar_create_group"
-            layout="@layout/fragment_loading"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:visibility="gone"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <include
+                android:id="@+id/progressBar_create_group"
+                layout="@layout/fragment_loading"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
