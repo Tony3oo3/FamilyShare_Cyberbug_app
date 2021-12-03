@@ -32,6 +32,8 @@ import org.json.JSONException;
 import java.util.List;
 import java.util.UUID;
 
+// TODO fix save credentials
+
 public class LoginFragment extends Fragment {
 
     private static final String ARG_ERROR_MESSAGE = "errorMessage";
@@ -148,7 +150,7 @@ public class LoginFragment extends Fragment {
                 }
 
                 // go to the HomeFrag
-                this.goToHomeFragment();
+                this.goToHomeFragment(act);
             } catch (JSONException e) {
                 responseError = true;
             }
@@ -170,9 +172,9 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    private void goToHomeFragment(){
+    private void goToHomeFragment(FragmentActivity act){
         HomeFragment homeFragment = HomeFragment.newInstance();
-        FragmentTransaction fragTrans = this.requireActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragTrans = act.getSupportFragmentManager().beginTransaction();
         fragTrans.replace(R.id.main_fragment_container, homeFragment);
         fragTrans.commit();
     }
