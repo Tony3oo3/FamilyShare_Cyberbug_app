@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +19,10 @@ import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.FSAPIWrapper;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
-import com.cyberbug.view.LoadingFragment;
-import com.cyberbug.view.LoginFragment;
-import com.cyberbug.view.MainActivity;
 import com.example.grafica.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
-import java.util.UUID;
 
 public class CreateGroupFrag extends Fragment {
 
@@ -124,7 +119,7 @@ public class CreateGroupFrag extends Fragment {
         fragmentTransaction.commit();
          */
         activity.findViewById(R.id.create_group_frag).setVisibility(View.GONE);
-        activity.findViewById(R.id.loading_fragment).setVisibility(View.VISIBLE);
+        activity.findViewById(R.id.progressBar_create_group).setVisibility(View.VISIBLE);
     }
 
     private void onPostCreateGroupRequest(FragmentActivity activity, List<APIResponse> responseList) {
@@ -152,7 +147,7 @@ public class CreateGroupFrag extends Fragment {
                     errorMessage = getString(R.string.server_error_generic);
             }
         }
-        activity.findViewById(R.id.loading_fragment).setVisibility(View.GONE);
+        activity.findViewById(R.id.progressBar_create_group).setVisibility(View.GONE);
         activity.findViewById(R.id.create_group_frag).setVisibility(View.VISIBLE);
         Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
@@ -161,7 +156,6 @@ public class CreateGroupFrag extends Fragment {
     private void returnToCreateGroup(String message){
         CreateGroupFrag createGroupFrag = CreateGroupFrag.newInstance(message);
         FragmentManager fragmentManager = this.requireActivity().getSupportFragmentManager();
-        // Here we need to pop the stack of the transaction because we are returning to the login screen
         fragmentManager.popBackStack();
         fragmentManager.beginTransaction().replace(R.id.main_fragment_container, createGroupFrag).commit();
 
