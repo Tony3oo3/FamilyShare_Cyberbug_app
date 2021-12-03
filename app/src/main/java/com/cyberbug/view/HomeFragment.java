@@ -10,12 +10,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,11 +23,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cyberbug.functional.BiConsumer;
-import com.example.grafica.CreateGroupFrag;
 import com.example.grafica.R;
 import com.google.android.material.navigation.NavigationView;
-
-import static androidx.core.app.ActivityCompat.invalidateOptionsMenu;
 
 public class HomeFragment extends Fragment {
 
@@ -44,6 +39,8 @@ public class HomeFragment extends Fragment {
         this.setUpSideMenu(view);
         NavigationView menu = view.findViewById(R.id.nav_view_side_menu);
         menu.setNavigationItemSelectedListener(this::onMenuItemClicked);
+
+        switchHomeFragment(MyGroupsFragment.newInstance());
     }
 
     private void setUpSideMenu(View view){
@@ -71,20 +68,29 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void switchHomeFragment(Fragment f){
+        this.getChildFragmentManager().beginTransaction().replace(R.id.home_fragment_container, f).commit();
+    }
+
     @SuppressLint("NonConstantResourceId")
     private boolean onMenuItemClicked(MenuItem item){
-        // TODO close drawer
+        // Close drawer
+        DrawerLayout drawer = requireView().findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+        // Navigate to different pages
         switch (item.getItemId()) {
-            case R.id.nav_logout: {
+            case R.id.nav_my_groups:
+                this.switchHomeFragment(MyGroupsFragment.newInstance());
+                break;
+
+            case R.id.nav_create_group:
+                this.switchHomeFragment(CreateGroupFrag.newInstance(null));
+                break;
+
+            case R.id.nav_logout:
                 showAreYouSureDialog();
                 break;
-            }
-            case R.id.nav_create_group:{
-                CreateGroupFrag f = CreateGroupFrag.newInstance(null);
-                FragmentManager fm = this.requireActivity().getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.home_fragment_container, f).commit();
-                break;
-            }
         }
         return true;
     }
@@ -100,6 +106,7 @@ public class HomeFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         if(this.onCreateMenuCallback != null){
             onCreateMenuCallback.consume(menu, inflater);
+            onCreateMenuCallback = null; // Prevents to be used again
         }
     }
 
@@ -118,6 +125,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void onLogoutYesClick(DialogInterface dialog, int whichButton) {
-        MainActivity.logoutUser(this.requireActivity().getSupportFragmentManager(), getString(R.string.logout_success));
+        MainActivity.logoutUser(this.requireActivity().getSupportFragmentManager(),getString(R.string.logout_success));
     }
 }

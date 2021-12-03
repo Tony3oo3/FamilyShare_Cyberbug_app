@@ -12,8 +12,12 @@ import com.example.grafica.R;
 
 public class LoadingFragment extends Fragment {
 
+    private static LoadingFragment thisFrag;
+
     public static LoadingFragment newInstance() {
-        return new LoadingFragment();
+        if(thisFrag == null)
+            thisFrag = new LoadingFragment();
+        return thisFrag;
     }
 
     @Override

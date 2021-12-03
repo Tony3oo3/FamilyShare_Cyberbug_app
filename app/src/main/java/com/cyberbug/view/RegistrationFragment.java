@@ -152,6 +152,7 @@ public class RegistrationFragment extends Fragment {
             // some error occurred, return to the fragment and show a snack bar
             FragmentTransaction fragTrans = act.getSupportFragmentManager().beginTransaction();
 
+
             String errorMessage;
             switch (res.responseCode) {
                 case 409:

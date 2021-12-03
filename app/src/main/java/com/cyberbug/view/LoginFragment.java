@@ -32,7 +32,6 @@ import org.json.JSONException;
 import java.util.List;
 import java.util.UUID;
 
-// TODO implementare la funzionalità di salvataggio della sessione con lo switch
 public class LoginFragment extends Fragment {
 
     private static final String ARG_ERROR_MESSAGE = "errorMessage";
@@ -149,7 +148,7 @@ public class LoginFragment extends Fragment {
                 }
 
                 // go to the HomeFrag
-                this.goToHomeFragment(act);
+                this.goToHomeFragment();
             } catch (JSONException e) {
                 responseError = true;
             }
@@ -171,9 +170,9 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    private void goToHomeFragment(FragmentActivity act){
+    private void goToHomeFragment(){
         HomeFragment homeFragment = HomeFragment.newInstance();
-        FragmentTransaction fragTrans = act.getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragTrans = this.requireActivity().getSupportFragmentManager().beginTransaction();
         fragTrans.replace(R.id.main_fragment_container, homeFragment);
         fragTrans.commit();
     }

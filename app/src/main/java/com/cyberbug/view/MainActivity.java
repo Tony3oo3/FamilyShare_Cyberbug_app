@@ -13,17 +13,17 @@ import com.example.grafica.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static FSAPIWrapper fsAPI = new FSAPIWrapper("http://192.168.1.9");
+    public final static FSAPIWrapper fsAPI = new FSAPIWrapper("http://192.168.1.122");
     public static SharedData sData = new SharedData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if(this.retrieveSavedAuthData()){
-            FragmentManager fragMan = this.getSupportFragmentManager();
             HomeFragment homeFrag = HomeFragment.newInstance();
-            fragMan.beginTransaction().replace(R.id.main_fragment_container, homeFrag).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, homeFrag).commit();
         }
     }
 
@@ -47,12 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Logs out the user, deletes session information and redirects to the login page
-     * @param fragMan the FragmentManager used to swap the current fragment with the login fragment
      * @param message the message to show in the snackBar when redirected to the login page
      */
-    protected static void logoutUser(FragmentManager fragMan, String message){
+    protected static void logoutUser(FragmentManager fm,String message){
         MainActivity.sData = new SharedData();
-        fragMan.popBackStack();
-        fragMan.beginTransaction().replace(R.id.main_fragment_container, LoginFragment.newInstance(message)).commit();
+        fm.popBackStack();
+        fm.beginTransaction().replace(R.id.main_fragment_container, LoginFragment.newInstance(message)).commit();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.grafica;
+package com.cyberbug.view;
 
 import android.os.Bundle;
 
@@ -22,6 +22,7 @@ import com.cyberbug.api.UIUpdaterVoid;
 import com.cyberbug.view.LoadingFragment;
 import com.cyberbug.view.LoginFragment;
 import com.cyberbug.view.MainActivity;
+import com.example.grafica.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
