@@ -110,7 +110,7 @@
                 tools:layout_editor_absoluteY="16dp" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/label_obj_owner"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="411dp"
                 android:layout_height="100dp"
@@ -130,7 +130,7 @@
                 tools:layout_editor_absoluteY="184dp" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/label_obj_state"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="411dp"
                 android:layout_height="100dp"
@@ -140,7 +140,7 @@
                 tools:layout_editor_absoluteY="385dp" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/label_obj_desc"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="411dp"
                 android:layout_height="100dp"

@@ -67,7 +67,7 @@
                 tools:layout_editor_absoluteY="16dp" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/label_obj_owner"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="0dp"
                 android:layout_height="51dp"
@@ -81,7 +81,7 @@
                 tools:layout_editor_absoluteY="75dp" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/label_obj_desc"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="0dp"
                 android:layout_height="51dp"

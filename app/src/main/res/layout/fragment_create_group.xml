@@ -48,24 +48,24 @@
             app:layout_constraintTop_toBottomOf="@+id/groupDescrText">
 
             <Button
-                android:id="@+id/createGroupConfirmButton"
+                android:id="@+id/btn_obj_add"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:text="@string/confirm"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/createGroupEraseButton"
+                app:layout_constraintStart_toEndOf="@+id/btn_canc_obj_create"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/createGroupEraseButton"
+                android:id="@+id/btn_canc_obj_create"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:text="@string/erase"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/createGroupConfirmButton"
+                app:layout_constraintEnd_toStartOf="@id/btn_obj_add"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -110,7 +110,7 @@
             android:importantForAutofill="no" />
 
         <EditText
-            android:id="@+id/groupNameText"
+            android:id="@+id/txt_obj_name"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="25dp"
@@ -159,7 +159,7 @@
             app:layout_constraintBottom_toTopOf="@+id/groupLocationText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/groupNameText"
+            app:layout_constraintTop_toBottomOf="@+id/txt_obj_name"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -173,7 +173,7 @@
             android:text="@string/group_name_text"
             android:textIsSelectable="true"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/groupNameText"
+            app:layout_constraintBottom_toTopOf="@+id/txt_obj_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

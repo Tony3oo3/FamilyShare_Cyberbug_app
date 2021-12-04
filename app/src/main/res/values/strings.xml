@@ -72,4 +72,7 @@
     <string name="join_group">Accedere al gruppo</string>
     <string name="sure_want_to_join">Sei sicuro di voler accedere a</string>
     <string name="group_join_dome">Accesso al gruppo effettuato</string>
+    <string name="obj_state">Stato:</string>
+    <string name="obj_shared_group">Gruppo in cui è stato condiviso:</string>
+    <string name="obj_loan">Richiedi prestito</string>
 </resources>

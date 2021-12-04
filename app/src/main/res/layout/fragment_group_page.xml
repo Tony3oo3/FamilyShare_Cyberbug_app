@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GroupPageFrag" >
+    tools:context="com.cyberbug.view.GroupPageFrag" >
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -99,7 +99,7 @@
                 tools:layout_editor_absoluteY="16dp" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/label_obj_owner"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="wrap_content"
                 android:layout_height="51dp"
@@ -111,7 +111,7 @@
                 tools:layout_editor_absoluteY="74dp" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/label_obj_desc"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="wrap_content"
                 android:layout_height="51dp"
