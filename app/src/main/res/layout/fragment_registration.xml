@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="25dp">
@@ -59,7 +58,8 @@
         app:layout_constraintBottom_toTopOf="@+id/txt_registration_email"
         app:layout_constraintTop_toBottomOf="@+id/txt_registration_lastname"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:autofillHints="phone" />
 
     <EditText
         android:id="@+id/txt_registration_email"
@@ -72,7 +72,8 @@
         app:layout_constraintBottom_toTopOf="@+id/txt_registration_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_registration_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_registration_phone"
+        android:autofillHints="emailAddress" />
 
     <EditText
         android:id="@+id/txt_registration_password"
@@ -85,7 +86,8 @@
         app:layout_constraintBottom_toTopOf="@+id/txt_registration_repeat_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_registration_email" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_registration_email"
+        android:autofillHints="password" />
 
     <EditText
         android:id="@+id/txt_registration_repeat_password"
@@ -98,7 +100,8 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_registration_password" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_registration_password"
+        android:autofillHints="password" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

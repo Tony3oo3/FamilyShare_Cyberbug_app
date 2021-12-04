@@ -81,6 +81,7 @@ public class CreateGroupFrag extends Fragment {
             // Check to avoid crash if the parent fragment does not exists (should not happen)
             Toolbar tBar = parent.requireView().findViewById(R.id.toolbar);
             tBar.setTitle(getString(R.string.create_group_title));
+            parent.setHasOptionsMenu(false);
         }
 
         return v;
@@ -127,8 +128,8 @@ public class CreateGroupFrag extends Fragment {
         fragmentTransaction.replace(R.id.main_fragment_container, loadingFragment);
         fragmentTransaction.commit();
          */
-        activity.findViewById(R.id.create_group_frag).setVisibility(View.GONE);
-        activity.findViewById(R.id.progressBar_create_group).setVisibility(View.VISIBLE);
+        activity.findViewById(R.id.create_group_main_layout).setVisibility(View.GONE);
+        activity.findViewById(R.id.create_group_loading_layout).setVisibility(View.VISIBLE);
     }
 
     private void onPostCreateGroupRequest(FragmentActivity activity, List<APIResponse> responseList) {
@@ -156,8 +157,8 @@ public class CreateGroupFrag extends Fragment {
                     errorMessage = getString(R.string.server_error_generic);
             }
         }
-        activity.findViewById(R.id.progressBar_create_group).setVisibility(View.GONE);
-        activity.findViewById(R.id.create_group_frag).setVisibility(View.VISIBLE);
+        activity.findViewById(R.id.create_group_loading_layout).setVisibility(View.GONE);
+        activity.findViewById(R.id.create_group_main_layout).setVisibility(View.VISIBLE);
         Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
 

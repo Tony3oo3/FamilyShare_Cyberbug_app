@@ -8,11 +8,30 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/create_group_frag"
+        android:id="@+id/create_group_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="10dp">
+
+        <include
+            android:id="@+id/progressBar_create_group"
+            layout="@layout/fragment_loading"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/create_group_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +85,9 @@
             app:layout_constraintBottom_toTopOf="@+id/group_descr_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/group_location_title" />
+            app:layout_constraintTop_toBottomOf="@+id/group_location_title"
+            tools:ignore="RtlSymmetry"
+            android:importantForAutofill="no" />
 
         <EditText
             android:id="@+id/groupDescrText"
@@ -84,7 +105,9 @@
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/group_descr_title" />
+            app:layout_constraintTop_toBottomOf="@+id/group_descr_title"
+            tools:ignore="RtlSymmetry"
+            android:importantForAutofill="no" />
 
         <EditText
             android:id="@+id/groupNameText"
@@ -101,7 +124,9 @@
             app:layout_constraintBottom_toTopOf="@+id/group_location_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/group_name_title" />
+            app:layout_constraintTop_toBottomOf="@+id/group_name_title"
+            tools:ignore="RtlSymmetry"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/group_descr_title"
@@ -117,7 +142,8 @@
             app:layout_constraintBottom_toTopOf="@+id/groupDescrText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/groupLocationText" />
+            app:layout_constraintTop_toBottomOf="@+id/groupLocationText"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
             android:id="@+id/group_location_title"
@@ -133,7 +159,8 @@
             app:layout_constraintBottom_toTopOf="@+id/groupLocationText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/groupNameText" />
+            app:layout_constraintTop_toBottomOf="@+id/groupNameText"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
             android:id="@+id/group_name_title"
@@ -149,32 +176,8 @@
             app:layout_constraintBottom_toTopOf="@+id/groupNameText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-            <include
-                android:id="@+id/progressBar_create_group"
-                layout="@layout/fragment_loading"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            tools:ignore="RtlSymmetry" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

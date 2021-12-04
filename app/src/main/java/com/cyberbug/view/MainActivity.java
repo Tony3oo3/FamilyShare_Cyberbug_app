@@ -1,6 +1,7 @@
 package com.cyberbug.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
@@ -13,7 +14,7 @@ import com.example.grafica.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static FSAPIWrapper fsAPI = new FSAPIWrapper("http://192.168.1.9");
+    public final static FSAPIWrapper fsAPI = new FSAPIWrapper("http://192.168.1.122");
     public static SharedData sData = new SharedData();
 
     @Override
@@ -49,8 +50,15 @@ public class MainActivity extends AppCompatActivity {
      * Logs out the user, deletes session information and redirects to the login page
      * @param message the message to show in the snackBar when redirected to the login page
      */
-    protected static void logoutUser(FragmentManager fm,String message){
+    protected static void logoutUser(FragmentActivity act, String message){
+        // Erase saved data
         MainActivity.sData = new SharedData();
+        SharedPreferences.Editor editor = act.getPreferences(Context.MODE_PRIVATE).edit();
+        editor.remove("authToken");
+        editor.remove("userId");
+        editor.apply();
+
+        FragmentManager fm = act.getSupportFragmentManager();
         fm.popBackStack();
         fm.beginTransaction().replace(R.id.main_fragment_container, LoginFragment.newInstance(message)).commit();
     }

@@ -1,64 +1,249 @@
-package com.example.grafica;
+package com.cyberbug.view;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GroupAccessFrag#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.cyberbug.api.APIRequest;
+import com.cyberbug.api.APIResponse;
+import com.cyberbug.api.AsyncRESTDispatcher;
+import com.cyberbug.api.UIUpdaterResponse;
+import com.cyberbug.api.UIUpdaterVoid;
+import com.cyberbug.model.Group;
+import com.example.grafica.R;
+import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class GroupAccessFrag extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static GroupAccessFrag thisFrag = null;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Group tempSelectedGroup = null;
 
-    public GroupAccessFrag() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GroupAccessFrag.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static GroupAccessFrag newInstance(String param1, String param2) {
-        GroupAccessFrag fragment = new GroupAccessFrag();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static GroupAccessFrag newInstance() {
+        if (thisFrag == null)
+            thisFrag = new GroupAccessFrag();
+        return thisFrag;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_group_access, container, false);
+        View v = inflater.inflate(R.layout.fragment_group_access, container, false);
+
+        // Sets up search bar
+        if (getParentFragment() instanceof HomeFragment) {
+            HomeFragment parent = (HomeFragment) getParentFragment();
+            parent.setOptionsMenu(this::createSearchActionMenu);
+        }
+
+        // Set toolbar title
+        Fragment parent = this.getParentFragment();
+        if (parent != null) {
+            // Check to avoid crash if the parent fragment does not exists (should not happen)
+            Toolbar tBar = parent.requireView().findViewById(R.id.toolbar);
+            tBar.setTitle(getString(R.string.access_group));
+        }
+
+
+        ListView lv = v.findViewById(R.id.listview_access_group);
+        lv.setOnItemClickListener(this::onMenuItemClickShowDialog);
+
+        return v;
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        populateAllGroupList();
+    }
+
+    private void populateAllGroupList() {
+        APIRequest getAllGroups = MainActivity.fsAPI.getAllGroupsRequest(MainActivity.sData.authToken);
+        UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), this::showLoading);
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::insertAllGroupAndShowList);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getAllGroups);
+    }
+
+    private void showLoading(FragmentActivity act) {
+        ProgressBar pr = act.findViewById(R.id.progressBar_access_group);
+        pr.setVisibility(View.VISIBLE);
+        ListView lw = act.findViewById(R.id.listview_access_group);
+        lw.setVisibility(View.GONE);
+    }
+
+    private void insertAllGroupAndShowList(FragmentActivity act, List<APIResponse> resList) {
+        APIResponse res = resList.get(0);
+        if (res.responseCode == 200 && res.jsonResponseArray != null) {
+            // OK
+            ListView groupList = this.requireView().findViewById(R.id.listview_access_group);
+            List<Group> allGroups = new ArrayList<>();
+
+            for (int i = 0; i < res.jsonResponseArray.length(); i++) {
+                try {
+                    JSONObject g = res.jsonResponseArray.getJSONObject(i);
+                    String name = g.getString("name");
+                    String id = g.getString("group_id");
+                    allGroups.add(new Group(id, name));
+                }catch (JSONException e){
+                    showGenericErrorSnackBar();
+                }
+            }
+
+            // Set the ArrayAdapter
+            ArrayAdapter<Group> myGroupsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, allGroups);
+            groupList.setAdapter(myGroupsAdapter);
+            // Show the search bar
+            if (getParentFragment() != null) getParentFragment().setHasOptionsMenu(true);
+            showGroupListView(act);
+
+        }else if(res.responseCode == 404){
+            // No groups were found
+            showDefaultListMessage(act);
+            showGroupListView(act);
+        }else{
+            // An error occurred
+            showDefaultListMessage(act);
+            showGenericErrorSnackBar();
+            showGroupListView(act);
+        }
+    }
+
+    private void showGenericErrorSnackBar(){
+        if(this.getView() != null){
+            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    private void showDefaultListMessage(FragmentActivity act) {
+        // populate list with default message
+        ListView groupList = this.requireView().findViewById(R.id.listview_access_group);
+        // set the item as always disabled (non clickable)
+        ArrayAdapter<String> defMess = new ArrayAdapter<String>(this.requireContext(), R.layout.textview_group) {
+            public boolean isEnabled(int position) {
+                return false;
+            }
+        };
+        defMess.add(getString(R.string.no_group_found));
+        groupList.setAdapter(defMess);
+
+        // Hide the search bar
+        if (getParentFragment() != null) getParentFragment().setHasOptionsMenu(false);
+        showGroupListView(act);
+    }
+
+    private void showGroupListView(FragmentActivity act){
+        ProgressBar pr = act.findViewById(R.id.progressBar_access_group);
+        pr.setVisibility(View.GONE);
+        ListView lw = act.findViewById(R.id.listview_access_group);
+        lw.setVisibility(View.VISIBLE);
+    }
+
+    private void createSearchActionMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint(getString(R.string.search_a_group));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            private final ListView allGroups = GroupAccessFrag.this.requireView().findViewById(R.id.listview_access_group);
+
+            private void filterView(String s) {
+                if (allGroups.getAdapter() instanceof ArrayAdapter) {
+                    ArrayAdapter<?> ad = (ArrayAdapter<?>) allGroups.getAdapter();
+                    ad.getFilter().filter(s);
+                }
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterView(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterView(newText);
+                return true;
+            }
+        });
+    }
+
+    private void onMenuItemClickShowDialog(AdapterView<?> parent, View view, int position, long id){
+        Object clicked = parent.getItemAtPosition(position);
+        if (clicked instanceof Group) {
+            Group g = (Group) clicked;
+            this.tempSelectedGroup = g;
+            new AlertDialog.Builder(this.requireContext())
+                    .setTitle(getString(R.string.join_group))
+                    .setMessage(getString(R.string.sure_want_to_join) + " " + g.toString() + "?")
+                    .setIcon(android.R.drawable.ic_input_add)
+                    .setPositiveButton(R.string.yes, this::handleJoinGroup)
+                    .setNegativeButton(R.string.no, null).show();
+        }
+    }
+
+    private void handleJoinGroup(DialogInterface dialog, int which){
+        if(this.tempSelectedGroup != null){
+            // Dismiss the dialog
+            dialog.dismiss();
+            // Join the group
+            joinGroup(this.tempSelectedGroup);
+        }
+    }
+
+    private void joinGroup(Group g){
+        APIRequest joinSelectedGroup = MainActivity.fsAPI.joinGroupRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId, g.id);
+        UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), this::showLoading);
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostJoinRequest);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(joinSelectedGroup);
+    }
+
+    private void onPostJoinRequest(FragmentActivity act, List<APIResponse> resList){
+        APIResponse res = resList.get(0);
+        if(res.responseCode == 200){
+            // OK
+            // TODO maybe redirect somewhere?
+            showGroupListView(act);
+            if(this.getView() != null){
+                Snackbar.make(this.getView(), getString(R.string.group_join_dome), Snackbar.LENGTH_LONG).show();
+            }
+        }else if(res.responseCode == 401){
+            // Auth error
+            MainActivity.logoutUser(this.requireActivity(),getString(R.string.authentication_error));
+        }else{
+            // Generic error
+            showGenericErrorSnackBar();
+            showGroupListView(act);
+        }
     }
 }

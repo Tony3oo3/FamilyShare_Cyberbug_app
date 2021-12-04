@@ -84,6 +84,10 @@ public class HomeFragment extends Fragment {
                 this.switchHomeFragment(MyGroupsFragment.newInstance());
                 break;
 
+            case R.id.nav_group_access:
+                    this.switchHomeFragment(GroupAccessFrag.newInstance());
+                    break;
+
             case R.id.nav_create_group:
                 this.switchHomeFragment(CreateGroupFrag.newInstance(null));
                 break;
@@ -125,6 +129,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void onLogoutYesClick(DialogInterface dialog, int whichButton) {
-        MainActivity.logoutUser(this.requireActivity().getSupportFragmentManager(),getString(R.string.logout_success));
+        MainActivity.logoutUser(this.requireActivity(),getString(R.string.logout_success));
     }
 }

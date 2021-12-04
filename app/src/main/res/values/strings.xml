@@ -67,4 +67,9 @@
     <string name="user_not_authenticated">Utente non autenticato</string>
     <string name="bad_request">Errore nella richiesta</string>
     <string name="create_group_title">Crea un gruppo</string>
+    <string name="access_group">Accedi ad un gruppo</string>
+    <string name="no_group_found">Non è stato trovato alcun gruppo</string>
+    <string name="join_group">Accedere al gruppo</string>
+    <string name="sure_want_to_join">Sei sicuro di voler accedere a</string>
+    <string name="group_join_dome">Accesso al gruppo effettuato</string>
 </resources>

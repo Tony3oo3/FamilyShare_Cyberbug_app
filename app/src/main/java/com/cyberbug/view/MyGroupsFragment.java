@@ -57,7 +57,6 @@ public class MyGroupsFragment extends Fragment {
         if (getParentFragment() instanceof HomeFragment) {
             HomeFragment parent = (HomeFragment) getParentFragment();
             parent.setOptionsMenu(this::createSearchActionMenu);
-            this.setHasOptionsMenu(true);
         }
 
         // Set toolbar title
@@ -138,7 +137,7 @@ public class MyGroupsFragment extends Fragment {
                 e.printStackTrace();
             }
         } else if (res.responseCode == 401) {
-            MainActivity.logoutUser(this.requireActivity().getSupportFragmentManager(),getString(R.string.authentication_error));
+            MainActivity.logoutUser(this.requireActivity(),getString(R.string.authentication_error));
             return;
         }
 

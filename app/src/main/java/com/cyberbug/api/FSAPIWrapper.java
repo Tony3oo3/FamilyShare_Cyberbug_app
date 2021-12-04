@@ -92,10 +92,9 @@ public class FSAPIWrapper {
     }
 
     public APIRequest getAllGroupsRequest(String authToken){
-        String endpoint = baseURL + "/api/groups";
+        String endpoint = baseURL + "/api/groups?searchBy=all";
         APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
-        req.addHeader("searchBy", "all");
         return req;
     }
 
