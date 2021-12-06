@@ -42,29 +42,29 @@
                 app:layout_constraintTop_toBottomOf="@+id/label_obj_group" />
 
             <Button
-                android:id="@+id/btn_canc_obj_create"
+                android:id="@+id/btn_abort_loan"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/cancel"
                 android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_obj_add"
-                app:layout_constraintEnd_toStartOf="@+id/btn_obj_add"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_obj_loan"
+                app:layout_constraintEnd_toStartOf="@+id/btn_obj_loan"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_obj_add"
+                app:layout_constraintTop_toTopOf="@+id/btn_obj_loan"
                 app:layout_constraintVertical_bias="0.0" />
 
             <Button
-                android:id="@+id/btn_obj_add"
+                android:id="@+id/btn_obj_loan"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_marginEnd="7dp"
                 android:layout_marginBottom="48dp"
-                android:text="@string/obj_loan"
+                android:text="@string/btn_obj_loan"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_canc_obj_create" />
+                app:layout_constraintStart_toEndOf="@+id/btn_abort_loan" />
 
             <TextView
                 android:id="@+id/label_obj_owner"
