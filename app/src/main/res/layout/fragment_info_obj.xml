@@ -6,140 +6,140 @@
     android:layout_height="match_parent"
     tools:context="com.cyberbug.view.InfoObjFrag">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/info_object_loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <include
+            android:id="@+id/progressBar_add_object"
+            layout="@layout/fragment_loading"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/label_obj_group"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="51dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:text="@string/obj_shared_group"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_obj_state" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/info_object_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/txt_obj_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="12dp"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/label_obj_group"
-                app:layout_constraintTop_toBottomOf="@+id/label_obj_group" />
+        <TextView
+            android:id="@+id/label_obj_group"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/obj_shared_group"
+            android:textIsSelectable="true"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_obj_state" />
 
-            <Button
-                android:id="@+id/btn_abort_loan"
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/cancel"
-                android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_obj_loan"
-                app:layout_constraintEnd_toStartOf="@+id/btn_obj_loan"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_obj_loan"
-                app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/txt_obj_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="12dp"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/label_obj_group"
+            app:layout_constraintTop_toBottomOf="@+id/label_obj_group" />
 
-            <Button
-                android:id="@+id/btn_obj_loan"
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="48dp"
-                android:text="@string/btn_obj_loan"
-                android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_abort_loan" />
+        <Button
+            android:id="@+id/btn_obj_loan"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="48dp"
+            android:text="@string/btn_obj_loan"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/label_obj_owner"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="51dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="110dp"
-                android:gravity="center_vertical"
-                android:text="@string/obj_owner"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/label_obj_owner"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="110dp"
+            android:gravity="center_vertical"
+            android:text="@string/obj_owner"
+            android:textIsSelectable="true"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txt_obj_owner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="12dp"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/label_obj_owner"
-                app:layout_constraintTop_toBottomOf="@+id/label_obj_owner" />
+        <TextView
+            android:id="@+id/txt_obj_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="12dp"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/label_obj_owner"
+            app:layout_constraintTop_toBottomOf="@+id/label_obj_owner" />
 
-            <TextView
-                android:id="@+id/label_obj_desc"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:text="@string/obj_desc_title"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_obj_owner" />
+        <TextView
+            android:id="@+id/label_obj_desc"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/obj_desc_title"
+            android:textIsSelectable="true"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_obj_owner" />
 
-            <TextView
-                android:id="@+id/label_obj_state"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="51dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:text="@string/obj_state"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_obj_desc" />
+        <TextView
+            android:id="@+id/label_obj_state"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/obj_state"
+            android:textIsSelectable="true"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_obj_desc" />
 
-            <TextView
-                android:id="@+id/txt_obj_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="12dp"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/label_obj_state"
-                app:layout_constraintTop_toBottomOf="@+id/label_obj_state" />
+        <TextView
+            android:id="@+id/txt_obj_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="12dp"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/label_obj_state"
+            app:layout_constraintTop_toBottomOf="@+id/label_obj_state" />
 
-            <TextView
-                android:id="@+id/txt_obj_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="12dp"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/label_obj_desc"
-                app:layout_constraintTop_toBottomOf="@+id/label_obj_desc" />
+        <TextView
+            android:id="@+id/txt_obj_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="12dp"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/label_obj_desc"
+            app:layout_constraintTop_toBottomOf="@+id/label_obj_desc" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

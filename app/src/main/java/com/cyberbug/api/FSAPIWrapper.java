@@ -2,9 +2,6 @@ package com.cyberbug.api;
 
 import android.net.Uri;
 
-import com.cyberbug.api.APIRequest;
-import com.cyberbug.api.AsyncRESTDispatcher;
-
 /**
  * Class that wraps all the necessary REST API calls of Families Share server.
  * All the requests are executed with an async task.
@@ -142,8 +139,8 @@ public class FSAPIWrapper {
     }
 
     // Objects API
-    public APIRequest insertObjectRequest(String authToken, String id, ObjectInfo obj){
-        String endpoint = baseURL + "/api/objects/" + id;
+    public APIRequest insertObjectRequest(String authToken, String thisUserId, ObjectData obj){
+        String endpoint = baseURL + "/api/objects/" + thisUserId;
         APIRequest req = new APIRequest(endpoint, "POST", obj.getURI());
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
@@ -357,6 +354,24 @@ public class FSAPIWrapper {
             Uri.Builder b = new Uri.Builder();
             b.appendQueryParameter("object_name", this.objectName);
             b.appendQueryParameter("object_description", this.objectDescription);
+            return b.toString().substring(1);
+        }
+    }
+    public static class ObjectData {
+        public final String objName;
+        public final String objDescription;
+        public final String objOwner;
+
+        public ObjectData(String objName, String objDescription, String objOwner){
+            this.objName = objName;
+            this.objDescription = objDescription;
+            this.objOwner = objOwner;
+        }
+        public String getURI(){
+            Uri.Builder b = new Uri.Builder();
+            b.appendQueryParameter("object_name", this.objName);
+            b.appendQueryParameter("object_description", this.objDescription);
+            b.appendQueryParameter("owner_id", this.objDescription);
             return b.toString().substring(1);
         }
     }

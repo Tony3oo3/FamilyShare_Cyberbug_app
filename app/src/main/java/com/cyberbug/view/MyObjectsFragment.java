@@ -19,6 +19,13 @@ public class MyObjectsFragment extends Fragment {
         return new MyObjectsFragment();
     }
 
+    public static MyObjectsFragment newInstance(String errorMessage) {
+        MyObjectsFragment objectsFragment = new MyObjectsFragment();
+        Bundle args = new Bundle();
+        objectsFragment.setArguments(args);
+        return objectsFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

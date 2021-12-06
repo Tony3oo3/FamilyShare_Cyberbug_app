@@ -1,4 +1,4 @@
-package com.example.grafica;
+package com.cyberbug.view;
 
 import android.os.Bundle;
 
@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.grafica.R;
+
+import com.cyberbug.view.MyObjectsFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +29,12 @@ public class MyGroupObjsFrag extends Fragment {
 
     public MyGroupObjsFrag() {
         // Required empty public constructor
+    }
+    public static MyGroupObjsFrag newInstance(String errorMessage) {
+        MyGroupObjsFrag groupObjsFrag = new MyGroupObjsFrag();
+        Bundle args = new Bundle();
+        groupObjsFrag.setArguments(args);
+        return groupObjsFrag;
     }
 
     /**
