@@ -77,4 +77,5 @@
     <string name="btn_obj_loan">Richiedi prestito</string>
     <string name="btn_add_obj">AGGIUNGI</string>
     <string name="obj_info">INFORMAZIONI OGGETTO</string>
+    <string name="view_name">Nome:</string>
 </resources>
