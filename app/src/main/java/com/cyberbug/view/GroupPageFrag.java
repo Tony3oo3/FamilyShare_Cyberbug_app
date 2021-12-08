@@ -47,7 +47,6 @@ public class GroupPageFrag extends Fragment {
 
         viewPager2.setAdapter(new GroupPageAdapter(this.requireActivity()));
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_group_page, container, false);
+        return v;
     }
 }

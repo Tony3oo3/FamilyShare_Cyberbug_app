@@ -93,8 +93,8 @@ public class MyGroupsFragment extends Fragment {
                     .setPositiveButton(R.string.yes, null)
                     .setNegativeButton(R.string.no, null).show();
              */
-            GroupPageFrag groupPageFrag = new GroupPageFrag();
-            FragmentManager fragmentManager = this.getChildFragmentManager();
+            GroupPageFrag groupPageFrag = GroupPageFrag.newInstance();
+            FragmentManager fragmentManager = this.getParentFragmentManager();
             fragmentManager.popBackStack();
             fragmentManager.beginTransaction().replace(R.id.home_fragment_container, groupPageFrag).commit();
         }
