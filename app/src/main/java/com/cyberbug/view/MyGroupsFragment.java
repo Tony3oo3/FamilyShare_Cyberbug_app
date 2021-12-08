@@ -85,14 +85,6 @@ public class MyGroupsFragment extends Fragment {
         if (clicked instanceof Group) {
             Group g = (Group) clicked;
             // TODO navigation to the specific group page
-            /*
-            new AlertDialog.Builder(this.requireContext())
-                    .setTitle("TODO")
-                    .setMessage(g.toString())
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton(R.string.yes, null)
-                    .setNegativeButton(R.string.no, null).show();
-             */
             GroupPageFrag groupPageFrag = GroupPageFrag.newInstance();
             FragmentManager fragmentManager = this.getParentFragmentManager();
             fragmentManager.popBackStack();

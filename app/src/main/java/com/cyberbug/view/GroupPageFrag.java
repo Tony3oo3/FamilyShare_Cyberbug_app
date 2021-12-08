@@ -46,6 +46,27 @@ public class GroupPageFrag extends Fragment {
         tabLayout = v.findViewById(R.id.group_tab_menu);
 
         viewPager2.setAdapter(new GroupPageAdapter(this.requireActivity()));
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                switch (position){
+                    case 0:
+                        tab.setText(R.string.group_info);
+                        break;
+                    case 1:
+                        tab.setText(R.string.my_group_objs);
+                        break;
+                    case 2:
+                        tab.setText(R.string.group_board);
+                        break;
+                    case 3:
+                        tab.setText(R.string.group_members);
+                        break;
+                }
+            }
+        });
+        tabLayoutMediator.attach();
+
 
         return v;
     }
