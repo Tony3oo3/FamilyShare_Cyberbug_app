@@ -6,189 +6,135 @@
     android:layout_height="match_parent"
     tools:context=".MyGroupObjsFrag">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Info"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="117dp" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/design_default_color_primary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="" />
+    <TextView
+        android:id="@+id/label_obj_desc"
+        style="@style/Widget.AppCompat.TextView.SpinnerItem"
+        android:layout_width="411dp"
+        android:layout_height="100dp"
+        android:background="@drawable/group_item_shape"
+        android:text="Oggetto 3"
+        android:textIsSelectable="true"
+        tools:layout_editor_absoluteY="285dp" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rimuovi"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="117dp" />
 
-            <Button
-                android:id="@+id/button10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Info"
-                android:textColor="#FFFFFF"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="412dp" />
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Info"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="218dp" />
 
-            <Button
-                android:id="@+id/button11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rimuovi"
-                android:textColor="#FFFFFF"
-                tools:layout_editor_absoluteX="129dp"
-                tools:layout_editor_absoluteY="412dp" />
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Info"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="412dp" />
 
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Info"
-                android:textColor="#FFFFFF"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="310dp" />
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rimuovi"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="218dp" />
 
-            <Button
-                android:id="@+id/button8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Info"
-                android:textColor="#FFFFFF"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="117dp" />
+    <TextView
+        android:id="@+id/textView14"
+        style="@style/Widget.AppCompat.TextView.SpinnerItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I tuoi oggetti condivisi con il gruppo:"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteY="16dp" />
 
-            <Button
-                android:id="@+id/button9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rimuovi"
-                android:textColor="#FFFFFF"
-                tools:layout_editor_absoluteX="129dp"
-                tools:layout_editor_absoluteY="117dp" />
+    <TextView
+        android:id="@+id/label_obj_owner"
+        style="@style/Widget.AppCompat.TextView.SpinnerItem"
+        android:layout_width="411dp"
+        android:layout_height="100dp"
+        android:background="@drawable/group_item_shape"
+        android:text="Oggetto 1"
+        android:textIsSelectable="true"
+        tools:layout_editor_absoluteY="84dp" />
 
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rimuovi"
-                android:textColor="#FFFFFF"
-                tools:layout_editor_absoluteX="129dp"
-                tools:layout_editor_absoluteY="310dp" />
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rimuovi"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="412dp" />
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Info"
-                android:textColor="#FFFFFF"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="218dp" />
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rimuovi"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="310dp" />
 
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rimuovi"
-                android:textColor="#FFFFFF"
-                tools:layout_editor_absoluteX="129dp"
-                tools:layout_editor_absoluteY="218dp" />
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Info"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="310dp" />
 
-            <TextView
-                android:id="@+id/textView14"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="I tuoi oggetti condivisi con il gruppo:"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="16dp" />
+    <TextView
+        android:id="@+id/textView12"
+        style="@style/Widget.AppCompat.TextView.SpinnerItem"
+        android:layout_width="411dp"
+        android:layout_height="100dp"
+        android:background="@drawable/group_item_shape"
+        android:text="Oggetto 2"
+        android:textIsSelectable="true"
+        tools:layout_editor_absoluteY="184dp" />
 
-            <TextView
-                android:id="@+id/label_obj_owner"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="411dp"
-                android:layout_height="100dp"
-                android:background="@drawable/group_item_shape"
-                android:text="Oggetto 1"
-                android:textIsSelectable="true"
-                tools:layout_editor_absoluteY="84dp" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add"
+        tools:layout_editor_absoluteX="339dp"
+        tools:layout_editor_absoluteY="546dp" />
 
-            <TextView
-                android:id="@+id/textView12"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="411dp"
-                android:layout_height="100dp"
-                android:background="@drawable/group_item_shape"
-                android:text="Oggetto 2"
-                android:textIsSelectable="true"
-                tools:layout_editor_absoluteY="184dp" />
-
-            <TextView
-                android:id="@+id/label_obj_state"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="411dp"
-                android:layout_height="100dp"
-                android:background="@drawable/group_item_shape"
-                android:text="Oggetto 4"
-                android:textIsSelectable="true"
-                tools:layout_editor_absoluteY="385dp" />
-
-            <TextView
-                android:id="@+id/label_obj_desc"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="411dp"
-                android:layout_height="100dp"
-                android:background="@drawable/group_item_shape"
-                android:text="Oggetto 3"
-                android:textIsSelectable="true"
-                tools:layout_editor_absoluteY="285dp" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:src="@android:drawable/ic_input_add"
-                tools:layout_editor_absoluteX="339dp"
-                tools:layout_editor_absoluteY="546dp" />
-
-            <com.google.android.material.tabs.TabLayout
-                android:layout_width="409dp"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="2dp"
-                tools:layout_editor_absoluteY="627dp">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Info" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="I miei oggetti" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bacheca" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabItem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Membri" />
-            </com.google.android.material.tabs.TabLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/label_obj_state"
+        style="@style/Widget.AppCompat.TextView.SpinnerItem"
+        android:layout_width="411dp"
+        android:layout_height="100dp"
+        android:background="@drawable/group_item_shape"
+        android:text="Oggetto 4"
+        android:textIsSelectable="true"
+        tools:layout_editor_absoluteY="385dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

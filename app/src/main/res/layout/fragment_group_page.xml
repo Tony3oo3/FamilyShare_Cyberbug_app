@@ -4,155 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cyberbug.view.GroupPageFrag" >
+    tools:context="com.cyberbug.view.GroupPageFrag">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="411dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/group_tab_menu"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="682dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabMode="scrollable">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/design_default_color_primary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/group_tabItem_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/group_info" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/group_tabItem_my_objs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_group_objs" />
 
-            <TextView
-                android:id="@+id/textView32"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="51dp"
-                android:gravity="center_vertical"
-                android:text="Creatore del gruppo:"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="308dp" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/group_tabItem_board"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/group_board" />
 
-            <TextView
-                android:id="@+id/textView29"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descrizione gruppo"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="33dp"
-                tools:layout_editor_absoluteY="203dp" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/group_tabItem_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/group_members" />
+    </com.google.android.material.tabs.TabLayout>
 
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="33dp"
-                tools:layout_editor_absoluteY="281dp" />
-
-            <TextView
-                android:id="@+id/textView31"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nome cognome utente creatore"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="33dp"
-                tools:layout_editor_absoluteY="359dp" />
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gruppo 1"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="33dp"
-                tools:layout_editor_absoluteY="125dp" />
-
-            <TextView
-                android:id="@+id/textView27"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="51dp"
-                android:gravity="center_vertical"
-                android:text="Location:"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="230dp" />
-
-            <TextView
-                android:id="@+id/textView13"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Informazioni gruppo:"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="14dp"
-                tools:layout_editor_absoluteY="16dp" />
-
-            <TextView
-                android:id="@+id/label_obj_owner"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="51dp"
-                android:gravity="center_vertical"
-                android:text="Nome gruppo:"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="74dp" />
-
-            <TextView
-                android:id="@+id/label_obj_desc"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="51dp"
-                android:gravity="center_vertical"
-                android:text="Descrizione gruppo:"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="152dp" />
-
-            <com.google.android.material.tabs.TabLayout
-                android:layout_width="409dp"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="626dp">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Info" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="I miei oggetti" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bacheca" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabItem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Membri" />
-            </com.google.android.material.tabs.TabLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/group_viewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/group_tab_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
