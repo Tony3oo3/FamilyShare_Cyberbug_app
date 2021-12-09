@@ -153,8 +153,11 @@ public class FSAPIWrapper {
         return req;
     }
 
-    public APIRequest searchObject(){
-        return null;
+    public APIRequest searchObject(String authToken, String objectId){
+        String endpoint = baseURL + "/api/objects/" + objectId + "/search";
+        APIRequest req = new APIRequest(endpoint, "GET", null);
+        req.addHeader("Authorization", "Bearer " + authToken);
+        return req;
     }
 
     public static class UserRegInfo{

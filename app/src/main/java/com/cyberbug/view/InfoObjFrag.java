@@ -3,6 +3,7 @@ package com.cyberbug.view;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cyberbug.api.APIRequest;
@@ -20,8 +23,12 @@ import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.FSAPIWrapper;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
+import com.cyberbug.model.MyObject;
 import com.example.grafica.R;
 import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -37,6 +44,8 @@ public class InfoObjFrag extends Fragment {
     private static final String ARG_ERROR_MESSAGE = "errorMessage";
     private String errorMessage = null;
 
+    private String objectId;
+
     private TextView owner;
     private TextView desc;
     private TextView state;
@@ -46,15 +55,20 @@ public class InfoObjFrag extends Fragment {
         // Required empty public constructor
     }
 
+    public InfoObjFrag(String objectId) {
+        this.objectId = objectId;
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param errorMessage Parameter 1.
+     * @param  objectId Parameter 2
      * @return A new instance of fragment InfoObjFrag.
      */
-    public static InfoObjFrag newInstance(String errorMessage) {
-        InfoObjFrag iof = new InfoObjFrag();
+    public static InfoObjFrag newInstance(String errorMessage, String objectId) {
+        InfoObjFrag iof = new InfoObjFrag(objectId);
         Bundle args = new Bundle();
         args.putString(ARG_ERROR_MESSAGE, errorMessage);
         iof.setArguments(args);
@@ -98,6 +112,70 @@ public class InfoObjFrag extends Fragment {
         }
 
         return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        populateTextViews();
+    }
+
+    private void populateTextViews(){
+        APIRequest getObjectInfo = MainActivity.fsAPI.searchObject(MainActivity.sData.authToken, objectId);
+        UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), this::showLoading);
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::searchObjectFromId);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getObjectInfo);
+    }
+
+    private void showLoading(FragmentActivity act) {
+        ProgressBar pr = act.findViewById(R.id.progressBar_myGroups);
+        pr.setVisibility(View.VISIBLE);
+        owner.setVisibility(View.GONE);
+        desc.setVisibility(View.GONE);
+        sharedGroup.setVisibility(View.GONE);
+        state.setVisibility(View.GONE);
+    }
+
+    private void searchObjectFromId(FragmentActivity act, List<APIResponse> resList){
+        APIResponse res = resList.get(0);
+        if (res.responseCode == 200 && res.jsonResponseArray != null) {
+            // All ok
+            // There is one id, we need to get the info from the object with that id
+            try {
+                JSONObject obj = res.jsonResponseArray.getJSONObject(0);
+                String id = obj.getString("object_id");
+                String name = obj.getString("object_name");
+                String desc = obj.getString("object_description");
+                String owner = obj.getString("owner");
+                String state = obj.getString("shared_with_user");
+
+                MyObject o = new MyObject(id,name,desc,owner,state);
+
+                // Do nothing before the requests
+                UIUpdaterVoid<?> preUpdater = new UIUpdaterVoid<>(null, (x) -> {});
+                // Populate the UI list and change fragment
+                //UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(act, this::populateAndShowObjectInfo);
+                //new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
+                return;
+            } catch (JSONException e) {
+                // Just to debug, user error feedback given below
+                e.printStackTrace();
+            }
+        } else if (res.responseCode == 401) {
+            MainActivity.logoutUser(this.requireActivity(),getString(R.string.authentication_error));
+            return;
+        }
+
+        // no group found
+        //this.showDefaultListMessage(act);
+        if (res.responseCode != 404 && this.getView() != null) {
+            // in this case there was an error
+            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    private void populateAndShowObjectInfo(MyObject obj){
+
     }
 
     public void onClickLoanButton( View v){
