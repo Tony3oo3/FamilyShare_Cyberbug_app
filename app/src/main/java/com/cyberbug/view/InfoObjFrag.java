@@ -13,8 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cyberbug.api.APIRequest;
@@ -23,7 +21,6 @@ import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.FSAPIWrapper;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
-import com.cyberbug.model.MyObject;
 import com.example.grafica.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -46,10 +43,10 @@ public class InfoObjFrag extends Fragment {
 
     private String objectId;
 
-    private TextView owner;
-    private TextView desc;
-    private TextView state;
-    private TextView sharedGroup;
+    private TextView ownerText;
+    private TextView descText;
+    private TextView stateText;
+    private TextView sharedGroupText;
 
     public InfoObjFrag() {
         // Required empty public constructor
@@ -93,10 +90,10 @@ public class InfoObjFrag extends Fragment {
         View v = inflater.inflate(R.layout.fragment_info_obj, container, false);
 
         // Initialize fragment components
-        owner = v.findViewById(R.id.txt_obj_owner);
-        desc = v.findViewById(R.id.txt_obj_desc);
-        state = v.findViewById(R.id.txt_obj_state);
-        sharedGroup = v.findViewById(R.id.txt_obj_group);
+        ownerText = v.findViewById(R.id.txt_obj_owner);
+        descText = v.findViewById(R.id.txt_obj_desc);
+        stateText = v.findViewById(R.id.txt_obj_state);
+        //sharedGroupText = v.findViewById(R.id.txt_obj_group);
 
         // Set buttons listeners
         Button loan = v.findViewById(R.id.btn_obj_loan);
@@ -123,20 +120,16 @@ public class InfoObjFrag extends Fragment {
     private void populateTextViews(){
         APIRequest getObjectInfo = MainActivity.fsAPI.searchObject(MainActivity.sData.authToken, objectId);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), this::showLoading);
-        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::searchObjectFromId);
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::populateAndShowObjectInfo);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getObjectInfo);
     }
 
     private void showLoading(FragmentActivity act) {
-        ProgressBar pr = act.findViewById(R.id.progressBar_myGroups);
-        pr.setVisibility(View.VISIBLE);
-        owner.setVisibility(View.GONE);
-        desc.setVisibility(View.GONE);
-        sharedGroup.setVisibility(View.GONE);
-        state.setVisibility(View.GONE);
+        act.findViewById(R.id.info_object_main_layout).setVisibility(View.GONE);
+        act.findViewById(R.id.info_object_loading_layout).setVisibility(View.VISIBLE);
     }
 
-    private void searchObjectFromId(FragmentActivity act, List<APIResponse> resList){
+    private void populateAndShowObjectInfo(FragmentActivity act, List<APIResponse> resList){
         APIResponse res = resList.get(0);
         if (res.responseCode == 200 && res.jsonResponseArray != null) {
             // All ok
@@ -149,33 +142,32 @@ public class InfoObjFrag extends Fragment {
                 String owner = obj.getString("owner");
                 String state = obj.getString("shared_with_user");
 
-                MyObject o = new MyObject(id,name,desc,owner,state);
-
-                // Do nothing before the requests
-                UIUpdaterVoid<?> preUpdater = new UIUpdaterVoid<>(null, (x) -> {});
-                // Populate the UI list and change fragment
-                //UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(act, this::populateAndShowObjectInfo);
-                //new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
-                return;
+                ownerText.setText(owner);
+                descText.setText(desc);
+                stateText.setText(state);
+                sharedGroupText.setText("");
             } catch (JSONException e) {
                 // Just to debug, user error feedback given below
                 e.printStackTrace();
             }
-        } else if (res.responseCode == 401) {
-            MainActivity.logoutUser(this.requireActivity(),getString(R.string.authentication_error));
-            return;
+
+        } else {
+            // some error occurred, return to the fragment and show a snack bar
+            //FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+            switch (res.responseCode){
+                case 400:
+                    errorMessage = getString(R.string.bad_request);
+                    break;
+                case 401:
+                    errorMessage = getString(R.string.user_not_authenticated);
+                    break;
+                default:
+                    errorMessage = getString(R.string.server_error_generic);
+            }
         }
-
-        // no group found
-        //this.showDefaultListMessage(act);
-        if (res.responseCode != 404 && this.getView() != null) {
-            // in this case there was an error
-            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
-        }
-    }
-
-    private void populateAndShowObjectInfo(MyObject obj){
-
+        act.findViewById(R.id.info_object_loading_layout).setVisibility(View.GONE);
+        act.findViewById(R.id.info_object_main_layout).setVisibility(View.VISIBLE);
+        Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
 
     public void onClickLoanButton( View v){
