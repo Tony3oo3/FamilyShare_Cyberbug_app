@@ -240,6 +240,11 @@ public class GroupAccessFrag extends Fragment {
         }else if(res.responseCode == 401){
             // Auth error
             MainActivity.logoutUser(this.requireActivity(),getString(R.string.authentication_error));
+        }else if(res.responseCode == 500) {
+            if(this.getView() != null){
+                Snackbar.make(this.getView(), getString(R.string.group_already_joined), Snackbar.LENGTH_LONG).show();
+            }
+            showGroupListView(act);
         }else{
             // Generic error
             showGenericErrorSnackBar();
