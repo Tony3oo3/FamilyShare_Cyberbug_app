@@ -49,13 +49,13 @@ public class GroupInfoFrag extends Fragment {
     }
 
     private void preInfoRequest(View v) {
-        // TODO show loading
         ProgressBar pb = v.findViewById(R.id.progressBar_group_info);
         pb.setVisibility(View.VISIBLE);
         ScrollView sv = v.findViewById(R.id.scrollView_group_info);
         sv.setVisibility(View.GONE);
     }
 
+    // TODO if an error occurres show another page?
     private void postInfoRequest(View v, List<APIResponse> resList) {
         APIResponse res = resList.get(0);
         if (res.responseCode == 200) {
@@ -110,7 +110,6 @@ public class GroupInfoFrag extends Fragment {
                     Snackbar.make(v, R.string.server_error_generic, Snackbar.LENGTH_LONG).show();
                 }
             }
-            // TODO hide loading and show main layout
             ProgressBar pb = v.findViewById(R.id.progressBar_group_info);
             pb.setVisibility(View.GONE);
             ScrollView sv = v.findViewById(R.id.scrollView_group_info);
