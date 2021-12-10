@@ -87,7 +87,7 @@ public class MyGroupsFragment extends Fragment {
             Group g = (Group) clicked;
             MainActivity.sData.selectedGroupId = g.id;
             // TODO navigation to the specific group page
-            GroupPageFrag groupPageFrag = GroupPageFrag.newInstance();
+            GroupPageFrag groupPageFrag = GroupPageFrag.newInstance(g.name);
             FragmentManager fragmentManager = this.getParentFragmentManager();
             fragmentManager.popBackStack();
             fragmentManager.beginTransaction().replace(R.id.home_fragment_container, groupPageFrag).commit();

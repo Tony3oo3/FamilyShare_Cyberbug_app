@@ -3,6 +3,7 @@ package com.cyberbug.view;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -22,24 +23,46 @@ import com.google.android.material.tabs.TabLayoutMediator;
  */
 public class GroupPageFrag extends Fragment {
 
+    private static final String ARG_TOOLBAR_TITLE = "Toolbar title";
+    private String toolTitle = null;
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
     private TabItem info, myObjs, board, members;
 
-
     // TODO: Rename and change types and number of parameters
-    public static GroupPageFrag newInstance() {
-        return new GroupPageFrag();
+    public static GroupPageFrag newInstance(String groupName) {
+        GroupPageFrag groupPageFrag = new GroupPageFrag();
+        Bundle args = new Bundle();
+        args.putString(ARG_TOOLBAR_TITLE, groupName);
+        groupPageFrag.setArguments(args);
+        return groupPageFrag;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // Check for args
+        if (getArguments() != null) {
+            toolTitle = getArguments().getString(ARG_TOOLBAR_TITLE);
+        }
+
+        Fragment parent = this.getParentFragment();
+
+        if (parent != null) {
+            // Check to avoid crash if the parent fragment does not exists (should not happen)
+
+            Toolbar tBar = parent.requireView().findViewById(R.id.toolbar);
+            tBar.setTitle(toolTitle);
+            parent.setHasOptionsMenu(false);
+        }
+
         View v = inflater.inflate(R.layout.fragment_group_page, container, false);
 
         viewPager2 = v.findViewById(R.id.group_viewPager2);
