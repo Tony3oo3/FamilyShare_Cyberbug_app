@@ -138,6 +138,7 @@ public class MyGroupsFragment extends Fragment {
             }
         } else if (res.responseCode == 401) {
             MainActivity.logoutUser(this.requireActivity(),getString(R.string.authentication_error));
+            return;
         }
 
         // no group found
