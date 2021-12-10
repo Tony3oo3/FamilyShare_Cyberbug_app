@@ -6,27 +6,39 @@
     android:layout_height="match_parent"
     tools:context="com.cyberbug.view.ViewProfileFrag">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ProgressBar
+            android:id="@+id/progressBar_UserProfile"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:id="@+id/info_user_main_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/txt_view_birthdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="12dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/label_profile_birthdate"
                 app:layout_constraintTop_toBottomOf="@+id/label_profile_birthdate" />
@@ -35,8 +47,6 @@
                 android:id="@+id/txt_view_surname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="12dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/label_profile_surname"
                 app:layout_constraintTop_toBottomOf="@+id/label_profile_surname" />
@@ -45,10 +55,11 @@
                 android:id="@+id/label_profile_name"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="wrap_content"
-                android:layout_height="53dp"
-                android:layout_marginStart="56dp"
-                android:layout_marginTop="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="75dp"
                 android:gravity="center_vertical"
+                android:minHeight="48dp"
                 android:text="@string/name"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
@@ -59,10 +70,11 @@
                 android:id="@+id/label_profile_surname"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="wrap_content"
-                android:layout_height="53dp"
-                android:layout_marginTop="85dp"
-                android:layout_marginEnd="92dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="75dp"
+                android:layout_marginEnd="80dp"
                 android:gravity="center_vertical"
+                android:minHeight="48dp"
                 android:text="@string/lastname"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
@@ -72,23 +84,21 @@
             <TextView
                 android:id="@+id/label_profile_gender"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="89dp"
-                android:layout_height="54dp"
-                android:layout_marginStart="56dp"
-                android:layout_marginTop="228dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="125dp"
                 android:gravity="center_vertical"
+                android:minHeight="48dp"
                 android:text="@string/sex"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/label_profile_name"
+                app:layout_constraintTop_toBottomOf="@+id/label_profile_name" />
 
             <TextView
                 android:id="@+id/txt_view_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="12dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/label_profile_name"
                 app:layout_constraintTop_toBottomOf="@+id/label_profile_name" />
@@ -97,35 +107,35 @@
                 android:id="@+id/label_profile_birthdate"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="wrap_content"
-                android:layout_height="54dp"
-                android:layout_marginTop="230dp"
-                android:layout_marginEnd="64dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
                 android:gravity="center_vertical"
+                android:minHeight="48dp"
                 android:text="@string/birthdate"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/label_profile_gender" />
 
             <TextView
                 android:id="@+id/label_profile_phone"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="wrap_content"
-                android:layout_height="54dp"
-                android:layout_marginTop="520dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
                 android:gravity="center_vertical"
+                android:minHeight="48dp"
                 android:text="@string/phone_number"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/label_profile_email" />
 
             <TextView
                 android:id="@+id/txt_view_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -135,21 +145,21 @@
                 android:id="@+id/label_profile_email"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="wrap_content"
-                android:layout_height="54dp"
-                android:layout_marginTop="380dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
                 android:gravity="center_vertical"
+                android:minHeight="48dp"
                 android:text="@string/email"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/label_profile_gender" />
 
             <TextView
                 android:id="@+id/txt_view_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -159,15 +169,13 @@
                 android:id="@+id/txt_view_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="12dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/label_profile_gender"
                 app:layout_constraintTop_toBottomOf="@+id/label_profile_gender" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
