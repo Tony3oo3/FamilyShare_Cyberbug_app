@@ -93,7 +93,7 @@ public class InfoObjFrag extends Fragment {
         ownerText = v.findViewById(R.id.txt_obj_owner);
         descText = v.findViewById(R.id.txt_obj_desc);
         stateText = v.findViewById(R.id.txt_obj_state);
-        //sharedGroupText = v.findViewById(R.id.txt_obj_group);
+        sharedGroupText = v.findViewById(R.id.txt_obj_shared_groups);
 
         // Set buttons listeners
         Button loan = v.findViewById(R.id.btn_obj_loan);
@@ -118,7 +118,7 @@ public class InfoObjFrag extends Fragment {
     }
 
     private void populateTextViews(){
-        APIRequest getObjectInfo = MainActivity.fsAPI.searchObject(MainActivity.sData.authToken, objectId);
+        APIRequest getObjectInfo = MainActivity.fsAPI.searchObjectRequest(MainActivity.sData.authToken, objectId);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), this::showLoading);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::populateAndShowObjectInfo);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getObjectInfo);
@@ -141,6 +141,7 @@ public class InfoObjFrag extends Fragment {
                 String desc = obj.getString("object_description");
                 String owner = obj.getString("owner");
                 String state = obj.getString("shared_with_user");
+                //Collection<String> shared_groups = obj.getJSONArray("group_ids");
 
                 ownerText.setText(owner);
                 descText.setText(desc);
@@ -171,23 +172,10 @@ public class InfoObjFrag extends Fragment {
     }
 
     public void onClickLoanButton( View v){
-        // Get text
-        String name = null;
-        String desc = null;
-
-        // Error handling
-        if(name.isEmpty() || desc.isEmpty()) {
-            Snackbar.make(this.requireView(), getString(R.string.insert_required_fields), Snackbar.LENGTH_LONG).show();
-            return;
-        }
-
-        // All is ok
         // Send the request to the serve
-        // TODO change this
-        FSAPIWrapper.ObjectData obj = new FSAPIWrapper.ObjectData(name, desc, MainActivity.sData.thisUserId);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), InfoObjFrag::onPreInfoObjectRequest);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostInfoObjectRequest);
-        APIRequest req = MainActivity.fsAPI.insertObjectRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId ,obj);
+        APIRequest req = MainActivity.fsAPI.loanObjectRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId ,objectId);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
     }
 

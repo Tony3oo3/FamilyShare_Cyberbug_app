@@ -38,13 +38,13 @@
             android:layout_width="wrap_content"
             android:layout_height="51dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:gravity="center_vertical"
             android:text="@string/obj_shared_group"
             android:textIsSelectable="true"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_obj_state" />
+            app:layout_constraintTop_toBottomOf="@+id/label_obj_state" />
 
         <Button
             android:id="@+id/btn_obj_loan"
@@ -52,7 +52,7 @@
             android:layout_height="70dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="40dp"
             android:text="@string/btn_obj_loan"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -115,23 +115,37 @@
             android:id="@+id/txt_obj_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="21dp"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/label_obj_state"
-            app:layout_constraintTop_toBottomOf="@+id/label_obj_state" />
+            app:layout_constraintStart_toEndOf="@+id/label_obj_state"
+            app:layout_constraintTop_toBottomOf="@+id/txt_obj_desc" />
 
         <EditText
             android:id="@+id/txt_obj_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="307dp"
+            android:layout_height="84dp"
             android:layout_marginStart="21dp"
             android:layout_marginTop="12dp"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
+            android:scrollbars="vertical"
             app:layout_constraintStart_toStartOf="@+id/label_obj_desc"
             app:layout_constraintTop_toBottomOf="@+id/label_obj_desc" />
+
+        <EditText
+            android:id="@+id/txt_obj_shared_groups"
+            android:layout_width="307dp"
+            android:layout_height="84dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            app:layout_constraintStart_toStartOf="@+id/label_obj_group"
+            app:layout_constraintTop_toBottomOf="@+id/label_obj_group" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

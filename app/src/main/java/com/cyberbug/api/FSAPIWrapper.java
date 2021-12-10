@@ -153,9 +153,15 @@ public class FSAPIWrapper {
         return req;
     }
 
-    public APIRequest searchObject(String authToken, String objectId){
+    public APIRequest searchObjectRequest(String authToken, String objectId){
         String endpoint = baseURL + "/api/objects/" + objectId + "/search";
-        APIRequest req = new APIRequest(endpoint, "GET", null);
+        APIRequest req = new APIRequest(endpoint, "POST", null);
+        req.addHeader("Authorization", "Bearer " + authToken);
+        return req;
+    }
+    public APIRequest loanObjectRequest(String authToken, String thisUserId, String obj){
+        String endpoint = baseURL + "/api/objects/" + obj + "/share";
+        APIRequest req = new APIRequest(endpoint, "POST", null);
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }
