@@ -84,6 +84,11 @@
     <string name="my_group_objs">I miei oggetti</string>
     <string name="group_members">Membri</string>
     <string name="group_board">Bacheca</string>
+    <string name="group_location_label">Location:</string>
+    <string name="group_info_label">Informazioni del gruppo</string>
+    <string name="group_name_label">Nome gruppo:</string>
+    <string name="group_descr_label">Descrizione:</string>
+    <string name="group_owner_label">Creatore del gruppo:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="group_already_joined">Hai già affettuato l\'accesso a questo gruppo</string>
