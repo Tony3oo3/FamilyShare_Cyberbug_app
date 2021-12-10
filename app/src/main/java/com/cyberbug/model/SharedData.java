@@ -25,4 +25,5 @@ public class SharedData {
         this.thisUserId = null;
         this.selectedGroupId = null;
     }
+
 }

@@ -29,6 +29,7 @@ import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
 import com.cyberbug.model.Group;
+import com.cyberbug.model.SharedData;
 import com.example.grafica.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -84,6 +85,7 @@ public class MyGroupsFragment extends Fragment {
         Object clicked = parent.getItemAtPosition(position);
         if (clicked instanceof Group) {
             Group g = (Group) clicked;
+            MainActivity.sData.selectedGroupId = g.id;
             // TODO navigation to the specific group page
             GroupPageFrag groupPageFrag = GroupPageFrag.newInstance();
             FragmentManager fragmentManager = this.getParentFragmentManager();
