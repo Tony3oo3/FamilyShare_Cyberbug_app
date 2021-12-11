@@ -2,127 +2,160 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context="com.cyberbug.view.GroupInfoFrag">
 
-    <EditText
-        android:id="@+id/text_group_descr"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="48dp"
-        android:duplicateParentState="false"
-        android:ems="10"
-        android:enabled="false"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:nestedScrollingEnabled="true"
-        android:scrollbars="vertical"
-        android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\n"
+    <ProgressBar
+        android:id="@+id/progressBar_group_info"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_group_desc" />
-
-    <TextView
-        android:id="@+id/text_group_owner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="13dp"
-        android:text="@string/group_owner_label"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_group_owner" />
-
-    <TextView
-        android:id="@+id/text_group_loc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="13dp"
-        android:text="@string/group_location_label"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_group_loc" />
-
-    <TextView
-        android:id="@+id/label_group_owner"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="13dp"
-        android:gravity="center_vertical"
-        android:text="@string/group_owner_label"
-        android:textIsSelectable="true"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_info_group" />
-
-    <TextView
-        android:id="@+id/text_group_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="13dp"
-        android:text="@string/group_name_label"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_group_name" />
-
-    <TextView
-        android:id="@+id/label_info_group"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="25dp"
-        android:text="@string/group_info_label"
-        android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/label_group_name"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="13dp"
-        android:gravity="center_vertical"
-        android:text="@string/group_name_label"
-        android:textIsSelectable="true"
-        android:textSize="20sp"
+    <ScrollView
+        android:id="@+id/scrollView_group_info"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_group_owner" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/label_group_desc"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="13dp"
-        android:gravity="center_vertical"
-        android:text="@string/group_descr_label"
-        android:textIsSelectable="true"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_group_loc" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/label_group_loc"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="13dp"
-        android:gravity="center_vertical"
-        android:text="@string/group_location_label"
-        android:textIsSelectable="true"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_group_name" />
+            <TextView
+                android:id="@+id/label_group_name"
+                style="@style/Widget.AppCompat.TextView.SpinnerItem"
+                android:layout_width="wrap_content"
+                android:layout_height="51dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                android:text="@string/group_name_label"
+                android:textIsSelectable="true"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_group_owner" />
+
+            <TextView
+                android:id="@+id/label_group_loc"
+                style="@style/Widget.AppCompat.TextView.SpinnerItem"
+                android:layout_width="wrap_content"
+                android:layout_height="51dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                android:text="@string/group_location_label"
+                android:textIsSelectable="true"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_group_name" />
+
+            <TextView
+                android:id="@+id/text_group_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="13dp"
+                android:text="@string/group_name_label"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_group_name" />
+
+            <TextView
+                android:id="@+id/label_group_owner"
+                style="@style/Widget.AppCompat.TextView.SpinnerItem"
+                android:layout_width="wrap_content"
+                android:layout_height="51dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                android:text="@string/group_owner_label"
+                android:textIsSelectable="true"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_info_group" />
+
+            <TextView
+                android:id="@+id/text_group_loc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="13dp"
+                android:text="@string/group_location_label"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_group_loc" />
+
+            <TextView
+                android:id="@+id/label_info_group"
+                style="@style/Widget.AppCompat.TextView.SpinnerItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/group_info_label"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/label_group_desc"
+                style="@style/Widget.AppCompat.TextView.SpinnerItem"
+                android:layout_width="wrap_content"
+                android:layout_height="51dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                android:text="@string/group_descr_label"
+                android:textIsSelectable="true"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_group_loc" />
+
+            <TextView
+                android:id="@+id/text_group_owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="13dp"
+                android:text="@string/group_owner_label"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_group_owner" />
+
+            <EditText
+                android:id="@+id/text_group_descr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="48dp"
+                android:duplicateParentState="false"
+                android:ems="10"
+                android:enabled="false"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"
+                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasos\n"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_group_desc" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -86,14 +86,13 @@ public class MyGroupsFragment extends Fragment {
         if (clicked instanceof Group) {
             Group g = (Group) clicked;
             MainActivity.sData.selectedGroupId = g.id;
-            // TODO navigation to the specific group page
             GroupPageFrag groupPageFrag = GroupPageFrag.newInstance(g.name);
             FragmentManager fragmentManager = this.getParentFragmentManager();
             fragmentManager.popBackStack();
+            // TODO fix the back button
             fragmentManager.beginTransaction().replace(R.id.home_fragment_container, groupPageFrag).commit();
         }
     }
-
 
     private void populateGroupList() {
         // First we get all the group the users is in
