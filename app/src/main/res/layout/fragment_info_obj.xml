@@ -29,7 +29,7 @@
         android:id="@+id/info_object_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-16dp">
 
         <TextView
@@ -134,18 +134,18 @@
             app:layout_constraintStart_toStartOf="@+id/label_obj_desc"
             app:layout_constraintTop_toBottomOf="@+id/label_obj_desc" />
 
-        <EditText
+        <ListView
             android:id="@+id/txt_obj_shared_groups"
             android:layout_width="307dp"
             android:layout_height="84dp"
-            android:layout_marginStart="21dp"
             android:layout_marginTop="12dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:scrollbars="vertical"
-            app:layout_constraintStart_toStartOf="@+id/label_obj_group"
-            app:layout_constraintTop_toBottomOf="@+id/label_obj_group" />
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.355"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_obj_group">
+
+        </ListView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -141,7 +142,7 @@ public class InfoObjFrag extends Fragment {
                 String desc = obj.getString("object_description");
                 String owner = obj.getString("owner");
                 String state = obj.getString("shared_with_user");
-                JSONArray shared_groups = obj.getJSONArray("group_ids");
+                //JSONArray shared_groups = obj.getJSONArray("group_ids");
                 //TODO populate sharedGroupsText (list of groups)
                 ownerText.setText(owner);
                 descText.setText(desc);
@@ -166,6 +167,9 @@ public class InfoObjFrag extends Fragment {
                     errorMessage = getString(R.string.server_error_generic);
             }
         }
+        // ArrayAdapter<String> myLentObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, lent);
+        // lentObjs.setAdapter(myLentObjectAdapter);
+
         act.findViewById(R.id.info_object_loading_layout).setVisibility(View.GONE);
         act.findViewById(R.id.info_object_main_layout).setVisibility(View.VISIBLE);
         Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
