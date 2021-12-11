@@ -29,11 +29,6 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.jar.Attributes;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ViewProfileFrag#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ViewProfileFrag extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,14 +47,6 @@ public class ViewProfileFrag extends Fragment {
     public ViewProfileFrag(String UserId) {
         this.userId = MainActivity.sData.thisUserId;
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param errorMessage Parameter 1.
-     * @return A new instance of fragment ViewProfileFrag.
-     */
 
     public static ViewProfileFrag newInstance(String errorMessage, String userId) {
         ViewProfileFrag iof = new ViewProfileFrag(userId);

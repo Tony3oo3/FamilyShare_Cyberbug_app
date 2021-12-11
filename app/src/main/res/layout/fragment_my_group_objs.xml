@@ -6,27 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MyGroupObjsFrag">
 
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Info"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button9"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="19dp"
-        android:text="Rimuovi"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/label_obj_owner"
-        app:layout_constraintStart_toEndOf="@+id/button8" />
-
     <TextView
         android:id="@+id/textView14"
         style="@style/Widget.AppCompat.TextView.SpinnerItem"
@@ -38,29 +17,5 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/label_obj_owner"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="84dp"
-        android:background="@drawable/group_item_shape"
-        android:text="Oggetto 1"
-        android:textIsSelectable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
