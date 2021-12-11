@@ -18,12 +18,12 @@ import android.widget.TextView;
 import com.cyberbug.api.APIRequest;
 import com.cyberbug.api.APIResponse;
 import com.cyberbug.api.AsyncRESTDispatcher;
-import com.cyberbug.api.FSAPIWrapper;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
 import com.example.grafica.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,7 +46,7 @@ public class InfoObjFrag extends Fragment {
     private TextView ownerText;
     private TextView descText;
     private TextView stateText;
-    private TextView sharedGroupText;
+    private TextView sharedGroupsText;
 
     public InfoObjFrag() {
         // Required empty public constructor
@@ -93,7 +93,7 @@ public class InfoObjFrag extends Fragment {
         ownerText = v.findViewById(R.id.txt_obj_owner);
         descText = v.findViewById(R.id.txt_obj_desc);
         stateText = v.findViewById(R.id.txt_obj_state);
-        sharedGroupText = v.findViewById(R.id.txt_obj_shared_groups);
+        sharedGroupsText = v.findViewById(R.id.txt_obj_shared_groups);
 
         // Set buttons listeners
         Button loan = v.findViewById(R.id.btn_obj_loan);
@@ -141,12 +141,12 @@ public class InfoObjFrag extends Fragment {
                 String desc = obj.getString("object_description");
                 String owner = obj.getString("owner");
                 String state = obj.getString("shared_with_user");
-                //Collection<String> shared_groups = obj.getJSONArray("group_ids");
-
+                JSONArray shared_groups = obj.getJSONArray("group_ids");
+                //TODO populate sharedGroupsText (list of groups)
                 ownerText.setText(owner);
                 descText.setText(desc);
                 stateText.setText(state);
-                sharedGroupText.setText("");
+                sharedGroupsText.setText("");
             } catch (JSONException e) {
                 // Just to debug, user error feedback given below
                 e.printStackTrace();
