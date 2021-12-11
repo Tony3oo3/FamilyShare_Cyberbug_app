@@ -80,13 +80,17 @@ public class HomeFragment extends Fragment {
 
         // Navigate to different pages
         switch (item.getItemId()) {
+            case R.id.nav_profile:
+                this.switchHomeFragment(ViewProfileFrag.newInstance(null, MainActivity.sData.thisUserId));
+                break;
+
             case R.id.nav_my_groups:
                 this.switchHomeFragment(MyGroupsFragment.newInstance());
                 break;
 
             case R.id.nav_group_access:
-                    this.switchHomeFragment(GroupAccessFrag.newInstance());
-                    break;
+                this.switchHomeFragment(GroupAccessFrag.newInstance());
+                break;
 
             case R.id.nav_create_group:
                 this.switchHomeFragment(CreateGroupFrag.newInstance(null));
