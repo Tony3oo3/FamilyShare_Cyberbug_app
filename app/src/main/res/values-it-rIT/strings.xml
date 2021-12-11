@@ -73,7 +73,7 @@
     <string name="btn_obj_loan">Richiedi prestito</string>
     <string name="btn_add_obj">AGGIUNGI</string>
     <string name="obj_info">INFORMAZIONI OGGETTO</string>
-    <string name="my_profile_info">IL MIO PROFILO</string>
+    <string name="my_profile_info">Il mio profilo</string>
     <string name="obj_addition_success">Oggetto aggiunto correttamente</string>
     <string name="obj_loan_success">Oggetto prestato con successo</string>
     <string name="group_info">Info</string>
