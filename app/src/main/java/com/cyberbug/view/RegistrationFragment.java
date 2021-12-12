@@ -117,7 +117,7 @@ public class RegistrationFragment extends Fragment {
             Snackbar.make(this.requireView(), getString(R.string.password_too_short), Snackbar.LENGTH_LONG).show();
             return;
         }
-        if (password.equals(confirmedPassword)) {
+        if (!password.equals(confirmedPassword)) {
             Snackbar.make(this.requireView(), getString(R.string.passwords_dont_match), Snackbar.LENGTH_LONG).show();
             return;
         }
