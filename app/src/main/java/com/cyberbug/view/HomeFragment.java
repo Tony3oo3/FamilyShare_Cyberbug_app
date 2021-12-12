@@ -23,7 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cyberbug.functional.BiConsumer;
-import com.example.grafica.R;
+import com.cyberbug.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeFragment extends Fragment {

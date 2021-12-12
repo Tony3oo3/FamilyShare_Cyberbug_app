@@ -4,13 +4,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,8 +27,7 @@ import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
 import com.cyberbug.model.Group;
-import com.cyberbug.model.SharedData;
-import com.example.grafica.R;
+import com.cyberbug.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;

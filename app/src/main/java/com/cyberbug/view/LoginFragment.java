@@ -24,7 +24,7 @@ import com.cyberbug.api.FSAPIWrapper;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
 import com.cyberbug.model.SharedData;
-import com.example.grafica.R;
+import com.cyberbug.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;

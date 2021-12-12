@@ -7,12 +7,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -21,10 +19,9 @@ import com.cyberbug.api.APIResponse;
 import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
-import com.example.grafica.R;
+import com.cyberbug.R;
 import com.google.android.material.snackbar.Snackbar;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -218,12 +215,15 @@ public class InfoObjFrag extends Fragment {
         activity.findViewById(R.id.info_object_main_layout).setVisibility(View.VISIBLE);
         Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
+
+    /*
+    // TODO check if necessary
     private void returnToMyObjects(String message){
         MyGroupObjsFrag myGroupObjs = MyGroupObjsFrag.newInstance(message);
         FragmentManager fragmentManager = this.getChildFragmentManager();
         fragmentManager.popBackStack();
         fragmentManager.beginTransaction().replace(R.id.home_fragment_container, myGroupObjs).commit();
     }
-
+    */
 
 }

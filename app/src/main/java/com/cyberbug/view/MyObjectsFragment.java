@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.grafica.R;
+import com.cyberbug.R;
 
 public class MyObjectsFragment extends Fragment {
 

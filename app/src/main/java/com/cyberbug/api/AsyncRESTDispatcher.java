@@ -52,6 +52,7 @@ public class AsyncRESTDispatcher extends AsyncTask<APIRequest, Integer, List<API
             try {
                 URL endpoint = new URL(req.endpointUrl);
                 HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
+
                 // TODO add method check
                 connection.setRequestMethod(req.method);
                 if (req.method.equals("POST")) connection.setDoOutput(true);

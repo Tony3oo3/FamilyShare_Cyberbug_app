@@ -11,8 +11,6 @@ import androidx.fragment.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cyberbug.api.APIRequest;
@@ -20,14 +18,13 @@ import com.cyberbug.api.APIResponse;
 import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
-import com.example.grafica.R;
+import com.cyberbug.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
-import java.util.jar.Attributes;
 
 public class ViewProfileFrag extends Fragment {
 

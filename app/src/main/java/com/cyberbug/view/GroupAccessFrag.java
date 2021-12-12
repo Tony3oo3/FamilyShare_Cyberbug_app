@@ -28,7 +28,7 @@ import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
 import com.cyberbug.model.Group;
-import com.example.grafica.R;
+import com.cyberbug.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;

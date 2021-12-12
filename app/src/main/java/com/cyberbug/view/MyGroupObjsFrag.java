@@ -3,63 +3,61 @@ package com.cyberbug.view;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.grafica.R;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 
-import com.cyberbug.view.MyObjectsFragment;
+import com.cyberbug.api.UIUpdaterResponse;
+import com.cyberbug.api.UIUpdaterVoid;
+import com.cyberbug.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyGroupObjsFrag#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class MyGroupObjsFrag extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public MyGroupObjsFrag() {
-        // Required empty public constructor
-    }
-    public static MyGroupObjsFrag newInstance(String errorMessage) {
-        MyGroupObjsFrag groupObjsFrag = new MyGroupObjsFrag();
-        Bundle args = new Bundle();
-        groupObjsFrag.setArguments(args);
-        return groupObjsFrag;
-    }
-
-    // TODO: Rename and change types and number of parameters
-    public static MyGroupObjsFrag newInstance(String param1, String param2) {
-        MyGroupObjsFrag fragment = new MyGroupObjsFrag();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public static MyGroupObjsFrag newInstance() {
+        return new MyGroupObjsFrag();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_group_objs, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_my_group_objs, container, false);
+
+        // Set the action button callback
+        FloatingActionButton shareObj = v.findViewById(R.id.actionButton_add_obj);
+        shareObj.setOnClickListener(this::onShareObjectClick);
+
+        // Populate the list
+        populateSharedObject(v);
+
+        // Set the item click listener
+
+
+        return v;
     }
+
+    private void onShareObjectClick(View v){
+        // TODO go to share object page
+    }
+
+    private void populateSharedObject(View v){
+        // APIResponse sharedObjectsRequest = MainActivity.fsAPI.getMySharedObjectsRequest();
+        UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), this::showLoading);
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), null);
+        // new AsyncRESTDispatcher(preUpdater, postUpdater).execute();
+    }
+
+    private void showLoading(FragmentActivity act){
+        ProgressBar pr = act.findViewById(R.id.progressBar_mySharedObj);
+        pr.setVisibility(View.VISIBLE);
+        ListView lw = act.findViewById(R.id.listview_your_shared_obj);
+        lw.setVisibility(View.GONE);
+    }
+
 }
