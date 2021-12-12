@@ -85,6 +85,8 @@
     <string name="group_name_label">Nome gruppo:</string>
     <string name="group_descr_label">Descrizione:</string>
     <string name="group_owner_label">Creatore del gruppo:</string>
+    <string name="no_group_member">Questo gruppo è vuoto</string>
+    <string name="group_members_label">Membri del gruppo:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="group_already_joined">Hai già affettuato l\'accesso a questo gruppo</string>
