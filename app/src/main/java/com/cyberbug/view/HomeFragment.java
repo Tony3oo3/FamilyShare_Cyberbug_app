@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cyberbug.controller.HomeBackStack;
 import com.cyberbug.functional.BiConsumer;
 import com.cyberbug.R;
 import com.google.android.material.navigation.NavigationView;
@@ -32,6 +33,7 @@ public class HomeFragment extends Fragment {
     private BiConsumer<Menu,MenuInflater> onCreateMenuCallback;
 
     public static FragmentManager homeFragmentManager;
+    public static HomeBackStack homeBackStack;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -44,6 +46,7 @@ public class HomeFragment extends Fragment {
         menu.setNavigationItemSelectedListener(this::onMenuItemClicked);
 
         HomeFragment.homeFragmentManager = this.getChildFragmentManager();
+        HomeFragment.homeBackStack = new HomeBackStack(HomeFragment.homeFragmentManager);
 
         switchHomeFragment(MyGroupsFragment.newInstance());
     }
@@ -61,22 +64,12 @@ public class HomeFragment extends Fragment {
         toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
         drawer.addDrawerListener(toggle);
-        // Overrides the back button to close the menu if it is open
-        /*
-        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                if (drawer.isDrawerOpen(GravityCompat.START))
-                    drawer.closeDrawer(GravityCompat.START);
-                else
-                    HomeFragment.this.requireActivity().moveTaskToBack(true);
-            }
-        });
-         */
     }
 
     private void switchHomeFragment(Fragment f){
         HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, f).commit();
+        // Clears the back stack
+        homeBackStack.clear();
     }
 
     @SuppressLint("NonConstantResourceId")

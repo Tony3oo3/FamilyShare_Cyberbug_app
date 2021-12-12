@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
             drawer.closeDrawer(GravityCompat.START);
         else{
             // Get the Home fragment manager and handles the stack
-            if (HomeFragment.homeFragmentManager != null && HomeFragment.homeFragmentManager.getBackStackEntryCount() > 0)
-                HomeFragment.homeFragmentManager.popBackStack();
+            if (HomeFragment.homeFragmentManager != null && HomeFragment.homeBackStack != null)
+                HomeFragment.homeBackStack.popAndShowFragment();
             else
                 super.onBackPressed();
         }

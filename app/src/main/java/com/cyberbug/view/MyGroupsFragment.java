@@ -85,8 +85,8 @@ public class MyGroupsFragment extends Fragment {
             MainActivity.sData.selectedGroupId = g.id;
             GroupPageFrag groupPageFrag = GroupPageFrag.newInstance(g.name);
             FragmentManager fragmentManager = this.getParentFragmentManager();
-            fragmentManager.popBackStack();
-            fragmentManager.beginTransaction().replace(R.id.home_fragment_container, groupPageFrag).addToBackStack(null).commit();
+            HomeFragment.homeBackStack.add(this);
+            fragmentManager.beginTransaction().replace(R.id.home_fragment_container, groupPageFrag).commit();
         }
     }
 

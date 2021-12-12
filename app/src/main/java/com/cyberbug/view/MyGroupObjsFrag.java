@@ -64,7 +64,8 @@ public class MyGroupObjsFrag extends Fragment {
         if (clicked instanceof MyObject && HomeFragment.homeFragmentManager != null) {
             MyObject g = (MyObject) clicked;
             InfoObjFrag objFrag = InfoObjFrag.newInstance(null, g.id);
-            HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).addToBackStack(null).commit();
+            HomeFragment.homeBackStack.add(GroupPageFrag.newInstance(null));
+            HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).commit();
         }
     }
 

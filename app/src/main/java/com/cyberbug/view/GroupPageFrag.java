@@ -16,26 +16,25 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GroupPageFrag#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class GroupPageFrag extends Fragment {
 
     private static final String ARG_TOOLBAR_TITLE = "Toolbar title";
     private String toolTitle = null;
-    private TabLayout tabLayout;
-    private ViewPager2 viewPager2;
     private TabItem info, myObjs, board, members;
 
-    // TODO: Rename and change types and number of parameters
+    private static GroupPageFrag thisFrag;
+
     public static GroupPageFrag newInstance(String groupName) {
-        GroupPageFrag groupPageFrag = new GroupPageFrag();
-        Bundle args = new Bundle();
-        args.putString(ARG_TOOLBAR_TITLE, groupName);
-        groupPageFrag.setArguments(args);
-        return groupPageFrag;
+        if(thisFrag == null)
+            thisFrag = new GroupPageFrag();
+
+        if(groupName != null) {
+            Bundle args = new Bundle();
+            args.putString(ARG_TOOLBAR_TITLE, groupName);
+            thisFrag.setArguments(args);
+        }
+        return thisFrag;
     }
 
     @Override
@@ -65,8 +64,8 @@ public class GroupPageFrag extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_group_page, container, false);
 
-        viewPager2 = v.findViewById(R.id.group_viewPager2);
-        tabLayout = v.findViewById(R.id.group_tab_menu);
+        ViewPager2 viewPager2 = v.findViewById(R.id.group_viewPager2);
+        TabLayout tabLayout = v.findViewById(R.id.group_tab_menu);
 
         viewPager2.setAdapter(new GroupPageAdapter(this.requireActivity()));
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
