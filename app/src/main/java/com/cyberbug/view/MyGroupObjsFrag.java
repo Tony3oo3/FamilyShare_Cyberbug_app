@@ -144,7 +144,7 @@ public class MyGroupObjsFrag extends Fragment {
         }finally {
             // Show default list message if nothing is shown
             ListView lv = v.findViewById(R.id.listview_your_shared_obj);
-            if(lv.getAdapter().isEmpty()) {
+            if(lv.getAdapter() == null || lv.getAdapter().isEmpty()) {
                 this.showDefaultListMessage(v);
             }
 
