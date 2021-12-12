@@ -1,5 +1,10 @@
 package com.cyberbug.model;
 
+import androidx.annotation.NonNull;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MyObject {
     public final String id;
     public final String objName;
@@ -15,8 +20,19 @@ public class MyObject {
         this.state = state;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return objName;
+    }
+
+    public static MyObject newFromJson(JSONObject jObj) throws JSONException {
+        return new MyObject(
+                jObj.getString("object_id"),
+                jObj.getString("object_name"),
+                jObj.getString("object_description"),
+                jObj.getString("owner"),
+                jObj.getString("shared_with_user")
+        );
     }
 }

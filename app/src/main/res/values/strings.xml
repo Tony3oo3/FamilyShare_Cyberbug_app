@@ -94,4 +94,5 @@
     <string name="group_already_joined">Hai già affettuato l\'accesso a questo gruppo</string>
     <string name="your_shared_objs">I tuoi oggetti condivisi con il gruppo:</string>
     <string name="obj_loans">Oggetti scambiati</string>
+    <string name="no_shared_objects">Nessun oggetto condiviso</string>
 </resources>

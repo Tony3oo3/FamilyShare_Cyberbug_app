@@ -173,6 +173,13 @@ public class FSAPIWrapper {
         return req;
     }
 
+    public APIRequest getMySharedGroupObjectsRequest(String authToken, String groupId){
+        String endpoint = baseURL + "/api/objects/" + groupId + "/mySharedObjs";
+        APIRequest req = new APIRequest(endpoint, "POST", null);
+        req.addHeader("Authorization", "Bearer " + authToken);
+        return req;
+    }
+
     public static class UserRegInfo{
         public final String name;
         public final String lastname;
