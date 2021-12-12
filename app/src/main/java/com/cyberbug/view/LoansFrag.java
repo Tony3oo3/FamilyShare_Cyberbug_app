@@ -2,13 +2,35 @@ package com.cyberbug.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.cyberbug.api.APIRequest;
+import com.cyberbug.api.APIResponse;
+import com.cyberbug.api.AsyncRESTDispatcher;
+import com.cyberbug.api.UIUpdaterResponse;
+import com.cyberbug.api.UIUpdaterVoid;
+import com.cyberbug.model.Group;
 import com.example.grafica.R;
+import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,14 +39,11 @@ import com.example.grafica.R;
  */
 public class LoansFrag extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_ERROR_MESSAGE = "errorMessage";
+    private String errorMessage = null;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ListView lentObjs;
+    private ListView borrowedObjs;
 
     public LoansFrag() {
         // Required empty public constructor
@@ -34,33 +53,128 @@ public class LoansFrag extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param errorMessage Parameter 1.
      * @return A new instance of fragment LoansFrag.
      */
     // TODO: Rename and change types and number of parameters
-    public static LoansFrag newInstance(String param1, String param2) {
-        LoansFrag fragment = new LoansFrag();
+    public static LoansFrag newInstance(String errorMessage) {
+        LoansFrag lf = new LoansFrag();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        args.putString(ARG_ERROR_MESSAGE, errorMessage);
+        lf.setArguments(args);
+        return lf;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_loans, container, false);
+        // Check for args
+        if (getArguments() != null) {
+            errorMessage = getArguments().getString(ARG_ERROR_MESSAGE);
+        }
+
+        // Create fragment view
+        View v = inflater.inflate(R.layout.fragment_loans, container, false);
+
+        // Initialize fragment components
+        lentObjs = v.findViewById(R.id.txt_lent_object);
+        borrowedObjs = v.findViewById(R.id.txt_borrowed_object);
+
+        // Set fragment title
+        Fragment parent = this.getParentFragment();
+        if (parent != null) {
+            // Check to avoid crash if the parent fragment does not exists (should not happen)
+            Toolbar tBar = parent.requireView().findViewById(R.id.toolbar);
+            tBar.setTitle(getString(R.string.obj_loans));
+            parent.setHasOptionsMenu(false);
+        }
+
+        return v;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        populateLentTextView();
+    }
+
+    private void populateLentTextView() {
+        APIRequest getLentObjs = MainActivity.fsAPI.getUserLentObjectsRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
+        UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), this::showLoading);
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::populateBorrowedTextView);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getLentObjs);
+    }
+
+    private void populateBorrowedTextView(FragmentActivity act, List<APIResponse> resList) {
+        boolean error = false;
+        List<String> lent = new ArrayList<>();
+        // if some responses are not good then set the error flag
+        for (APIResponse res : resList) {
+            try {
+                if (res.responseCode == 200 && res.jsonResponse != null) {
+                    String name = res.jsonResponse.getString("object_name");
+                    String id = res.jsonResponse.getString("object_id");
+                    String owner = res.jsonResponse.getString("onwer");
+                    lent.add("Dovrai restituire " + name + " a " + owner);
+                } else {
+                    error = true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                error = true;
+            }
+        }
+
+        if (error && this.getView() != null) {
+            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+        }
+        ArrayAdapter<String> myLentObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, lent);
+        lentObjs.setAdapter(myLentObjectAdapter);
+
+        APIRequest getBorrowedObjs = MainActivity.fsAPI.getUserBorrowedObjectsRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
+        UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(null, (x) -> {});
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::showBorrowedTextView);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getBorrowedObjs);
+    }
+
+    private void showBorrowedTextView(FragmentActivity act, List<APIResponse> resList) {
+        boolean error = false;
+        List<String> borrowed = new ArrayList<>();
+        // if some responses are not good then set the error flag
+        for (APIResponse res : resList) {
+            try {
+                if (res.responseCode == 200 && res.jsonResponse != null) {
+                    String name = res.jsonResponse.getString("object_name");
+                    String id = res.jsonResponse.getString("object_id");
+                    String owner = res.jsonResponse.getString("onwer");
+                    borrowed.add("Dovrai restituire " + name + " a " + owner);
+                } else {
+                    error = true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                error = true;
+            }
+        }
+
+        if (error && this.getView() != null) {
+            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+        }
+        ArrayAdapter<String> myBorrowedObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, borrowed);
+        borrowedObjs.setAdapter(myBorrowedObjectAdapter);
+
+        act.findViewById(R.id.loans_loading_layout).setVisibility(View.GONE);
+        act.findViewById(R.id.loans_main_fragment).setVisibility(View.VISIBLE);
+    }
+
+    private void showLoading(FragmentActivity act) {
+        act.findViewById(R.id.loans_main_fragment).setVisibility(View.GONE);
+        act.findViewById(R.id.loans_loading_layout).setVisibility(View.VISIBLE);
+    }
+
 }
