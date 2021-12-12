@@ -6,24 +6,24 @@ package com.cyberbug.model;
 public class SharedData {
     public String authToken;
     public String thisUserId;
-    public String selectedGroupId;
+    public Group selectedGroup;
 
-    public SharedData(String authToken, String thisUserId, String thisGroupId) {
+    public SharedData(String authToken, String thisUserId, Group thisGroup) {
         this.authToken = authToken;
         this.thisUserId = thisUserId;
-        this.selectedGroupId = thisGroupId;
+        this.selectedGroup = thisGroup;
     }
 
     public SharedData(String authToken, String thisUserId) {
         this.authToken = authToken;
         this.thisUserId = thisUserId;
-        this.selectedGroupId = null;
+        this.selectedGroup = null;
     }
 
     public SharedData() {
         this.authToken = null;
         this.thisUserId = null;
-        this.selectedGroupId = null;
+        this.selectedGroup = null;
     }
 
 }

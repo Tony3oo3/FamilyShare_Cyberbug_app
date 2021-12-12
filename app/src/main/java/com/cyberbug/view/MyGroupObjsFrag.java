@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.cyberbug.R;
 import com.cyberbug.api.APIRequest;
@@ -18,7 +17,6 @@ import com.cyberbug.api.APIResponse;
 import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
-import com.cyberbug.model.Group;
 import com.cyberbug.model.MyObject;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -31,8 +29,14 @@ import java.util.List;
 
 public class MyGroupObjsFrag extends Fragment {
 
-    public static MyGroupObjsFrag newInstance() {
-        return new MyGroupObjsFrag();
+    private final GroupPageFrag parentFrag;
+
+    public MyGroupObjsFrag(GroupPageFrag parent) {
+        this.parentFrag = parent;
+    }
+
+    public static MyGroupObjsFrag newInstance(GroupPageFrag parent) {
+        return new MyGroupObjsFrag(parent);
     }
 
     @Override
@@ -55,6 +59,7 @@ public class MyGroupObjsFrag extends Fragment {
         return v;
     }
 
+
     private void onShareObjectClick(View v){
         // TODO go to share object page
     }
@@ -64,13 +69,13 @@ public class MyGroupObjsFrag extends Fragment {
         if (clicked instanceof MyObject && HomeFragment.homeFragmentManager != null) {
             MyObject g = (MyObject) clicked;
             InfoObjFrag objFrag = InfoObjFrag.newInstance(null, g.id);
-            HomeFragment.homeBackStack.add(GroupPageFrag.newInstance(null));
+            HomeFragment.homeBackStack.add(this.parentFrag);
             HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).commit();
         }
     }
 
     private void populateSharedObject(View v){
-        APIRequest sharedObjectsRequest = MainActivity.fsAPI.getMySharedGroupObjectsRequest(MainActivity.sData.authToken, MainActivity.sData.selectedGroupId);
+        APIRequest sharedObjectsRequest = MainActivity.fsAPI.getMySharedGroupObjectsRequest(MainActivity.sData.authToken, MainActivity.sData.selectedGroup.id);
         UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(v, this::showLoading);
         UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(v, this::postGetMySharedObjects);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(sharedObjectsRequest);

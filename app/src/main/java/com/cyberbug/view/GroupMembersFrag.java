@@ -42,7 +42,7 @@ public class GroupMembersFrag extends Fragment {
     }
 
     private void populateMemberList(View v) {
-        APIRequest apiRequest= MainActivity.fsAPI.getGroupMembersRequest(MainActivity.sData.selectedGroupId);
+        APIRequest apiRequest= MainActivity.fsAPI.getGroupMembersRequest(MainActivity.sData.selectedGroup.id);
         UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(v, this::showLoading);
         UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(v, this::searchUserFromId);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(apiRequest);

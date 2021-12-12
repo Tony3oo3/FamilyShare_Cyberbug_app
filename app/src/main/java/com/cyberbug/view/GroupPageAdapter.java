@@ -7,9 +7,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 
 public class GroupPageAdapter extends FragmentStateAdapter {
+    private final GroupPageFrag parent;
 
-    public GroupPageAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public GroupPageAdapter(@NonNull FragmentActivity fragmentActivity, GroupPageFrag parent) {
         super(fragmentActivity);
+        this.parent = parent;
     }
 
     @NonNull
@@ -18,7 +20,7 @@ public class GroupPageAdapter extends FragmentStateAdapter {
         switch (position){
             //my group objects
             case 1:
-                return MyGroupObjsFrag.newInstance();
+                return MyGroupObjsFrag.newInstance(parent);
             //group board
             case 2:
                 return GroupBoardFrag.newInstance();
@@ -35,4 +37,6 @@ public class GroupPageAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 4;
     }
+
+
 }

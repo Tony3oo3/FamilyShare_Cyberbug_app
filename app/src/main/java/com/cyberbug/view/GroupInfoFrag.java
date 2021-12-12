@@ -36,7 +36,7 @@ public class GroupInfoFrag extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_group_info, container, false);
 
-        getAndShowGroupInfo(v, MainActivity.sData.selectedGroupId);
+        getAndShowGroupInfo(v, MainActivity.sData.selectedGroup.id);
 
         return v;
     }

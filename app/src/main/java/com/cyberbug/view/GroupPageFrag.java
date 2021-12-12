@@ -23,11 +23,9 @@ public class GroupPageFrag extends Fragment {
     private String toolTitle = null;
     private TabItem info, myObjs, board, members;
 
-    private static GroupPageFrag thisFrag;
 
     public static GroupPageFrag newInstance(String groupName) {
-        if(thisFrag == null)
-            thisFrag = new GroupPageFrag();
+        GroupPageFrag thisFrag = new GroupPageFrag();
 
         if(groupName != null) {
             Bundle args = new Bundle();
@@ -39,7 +37,6 @@ public class GroupPageFrag extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
@@ -67,7 +64,10 @@ public class GroupPageFrag extends Fragment {
         ViewPager2 viewPager2 = v.findViewById(R.id.group_viewPager2);
         TabLayout tabLayout = v.findViewById(R.id.group_tab_menu);
 
-        viewPager2.setAdapter(new GroupPageAdapter(this.requireActivity()));
+        GroupPageAdapter adt = new GroupPageAdapter(this.requireActivity(), this);
+        viewPager2.setAdapter(adt);
+
+
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {

@@ -82,7 +82,7 @@ public class MyGroupsFragment extends Fragment {
         Object clicked = parent.getItemAtPosition(position);
         if (clicked instanceof Group) {
             Group g = (Group) clicked;
-            MainActivity.sData.selectedGroupId = g.id;
+            MainActivity.sData.selectedGroup = g;
             GroupPageFrag groupPageFrag = GroupPageFrag.newInstance(g.name);
             FragmentManager fragmentManager = this.getParentFragmentManager();
             HomeFragment.homeBackStack.add(this);

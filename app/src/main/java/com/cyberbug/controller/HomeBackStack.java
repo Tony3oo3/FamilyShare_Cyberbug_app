@@ -2,6 +2,7 @@ package com.cyberbug.controller;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.cyberbug.R;
 
@@ -19,7 +20,9 @@ public class HomeBackStack {
     public void popAndShowFragment(){
         if(!fragStack.empty()){
             Fragment f = fragStack.pop();
-            fm.beginTransaction().replace(R.id.home_fragment_container, f).commit();
+
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.home_fragment_container, f).commit();
         }
     }
 
