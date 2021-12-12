@@ -1,6 +1,8 @@
 package com.cyberbug.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -14,7 +16,7 @@ import com.cyberbug.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static FSAPIWrapper fsAPI = new FSAPIWrapper("http://192.168.1.9");
+    public final static FSAPIWrapper fsAPI = new FSAPIWrapper("http://192.168.1.122");
     public static SharedData sData = new SharedData();
 
     @Override
@@ -61,5 +63,21 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = act.getSupportFragmentManager();
         fm.popBackStack();
         fm.beginTransaction().replace(R.id.main_fragment_container, LoginFragment.newInstance(message)).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Get the drawer
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        // Check if it is open or not
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START))
+            drawer.closeDrawer(GravityCompat.START);
+        else{
+            // Get the Home fragment manager and handles the stack
+            if (HomeFragment.homeFragmentManager != null && HomeFragment.homeFragmentManager.getBackStackEntryCount() > 0)
+                HomeFragment.homeFragmentManager.popBackStack();
+            else
+                super.onBackPressed();
+        }
     }
 }

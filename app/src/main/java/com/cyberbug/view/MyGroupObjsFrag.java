@@ -1,24 +1,23 @@
 package com.cyberbug.view;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.cyberbug.R;
 import com.cyberbug.api.APIRequest;
 import com.cyberbug.api.APIResponse;
 import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
-import com.cyberbug.R;
-
 import com.cyberbug.model.Group;
 import com.cyberbug.model.MyObject;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +25,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +49,23 @@ public class MyGroupObjsFrag extends Fragment {
         populateSharedObject(v);
 
         // TODO Set the item click listener
-
+        ListView lv = v.findViewById(R.id.listview_your_shared_obj);
+        lv.setOnItemClickListener(this::onMenuItemClick);
 
         return v;
     }
 
     private void onShareObjectClick(View v){
         // TODO go to share object page
+    }
+
+    public void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Object clicked = parent.getItemAtPosition(position);
+        if (clicked instanceof MyObject && HomeFragment.homeFragmentManager != null) {
+            MyObject g = (MyObject) clicked;
+            InfoObjFrag objFrag = InfoObjFrag.newInstance(null, g.id);
+            HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).addToBackStack(null).commit();
+        }
     }
 
     private void populateSharedObject(View v){

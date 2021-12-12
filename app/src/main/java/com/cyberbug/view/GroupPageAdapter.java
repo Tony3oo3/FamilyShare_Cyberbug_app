@@ -18,16 +18,16 @@ public class GroupPageAdapter extends FragmentStateAdapter {
         switch (position){
             //my group objects
             case 1:
-                return new MyGroupObjsFrag();
+                return MyGroupObjsFrag.newInstance();
             //group board
             case 2:
-                return new GroupBoardFrag();
+                return GroupBoardFrag.newInstance();
             //group members
             case 3:
-                return new GroupMembersFrag();
+                return GroupMembersFrag.newInstance();
             //group info
             default:
-                return new GroupInfoFrag();
+                return GroupInfoFrag.newInstance();
         }
     }
 

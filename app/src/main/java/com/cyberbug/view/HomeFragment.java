@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,6 +31,8 @@ public class HomeFragment extends Fragment {
 
     private BiConsumer<Menu,MenuInflater> onCreateMenuCallback;
 
+    public static FragmentManager homeFragmentManager;
+
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -39,6 +42,8 @@ public class HomeFragment extends Fragment {
         this.setUpSideMenu(view);
         NavigationView menu = view.findViewById(R.id.nav_view_side_menu);
         menu.setNavigationItemSelectedListener(this::onMenuItemClicked);
+
+        HomeFragment.homeFragmentManager = this.getChildFragmentManager();
 
         switchHomeFragment(MyGroupsFragment.newInstance());
     }
@@ -57,6 +62,7 @@ public class HomeFragment extends Fragment {
         toggle.syncState();
         drawer.addDrawerListener(toggle);
         // Overrides the back button to close the menu if it is open
+        /*
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -66,10 +72,11 @@ public class HomeFragment extends Fragment {
                     HomeFragment.this.requireActivity().moveTaskToBack(true);
             }
         });
+         */
     }
 
     private void switchHomeFragment(Fragment f){
-        this.getChildFragmentManager().beginTransaction().replace(R.id.home_fragment_container, f).commit();
+        HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, f).commit();
     }
 
     @SuppressLint("NonConstantResourceId")

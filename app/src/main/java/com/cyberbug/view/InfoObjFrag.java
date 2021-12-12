@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cyberbug.api.APIRequest;
@@ -44,7 +45,7 @@ public class InfoObjFrag extends Fragment {
     private TextView ownerText;
     private TextView descText;
     private TextView stateText;
-    private TextView sharedGroupsText;
+    private ListView sharedGroupsText;
 
     public InfoObjFrag() {
         // Required empty public constructor
@@ -144,7 +145,7 @@ public class InfoObjFrag extends Fragment {
                 ownerText.setText(owner);
                 descText.setText(desc);
                 stateText.setText(state);
-                sharedGroupsText.setText("");
+                // sharedGroupsText.setText("");
             } catch (JSONException e) {
                 // Just to debug, user error feedback given below
                 e.printStackTrace();

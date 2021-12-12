@@ -86,8 +86,7 @@ public class MyGroupsFragment extends Fragment {
             GroupPageFrag groupPageFrag = GroupPageFrag.newInstance(g.name);
             FragmentManager fragmentManager = this.getParentFragmentManager();
             fragmentManager.popBackStack();
-            // TODO fix the back button
-            fragmentManager.beginTransaction().replace(R.id.home_fragment_container, groupPageFrag).commit();
+            fragmentManager.beginTransaction().replace(R.id.home_fragment_container, groupPageFrag).addToBackStack(null).commit();
         }
     }
 
