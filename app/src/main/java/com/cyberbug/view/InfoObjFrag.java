@@ -41,18 +41,21 @@ public class InfoObjFrag extends Fragment {
     private String errorMessage = null;
 
     private String objectId;
+    private String rmFromGroupId;
 
     private TextView ownerText;
     private TextView descText;
     private TextView stateText;
     private ListView sharedGroupsText;
 
+
     public InfoObjFrag() {
         // Required empty public constructor
     }
 
-    public InfoObjFrag(String objectId) {
+    public InfoObjFrag(String objectId, String rmFromGroupId) {
         this.objectId = objectId;
+        this.rmFromGroupId = rmFromGroupId;
     }
 
     /**
@@ -63,8 +66,8 @@ public class InfoObjFrag extends Fragment {
      * @param  objectId Parameter 2
      * @return A new instance of fragment InfoObjFrag.
      */
-    public static InfoObjFrag newInstance(String errorMessage, String objectId) {
-        InfoObjFrag iof = new InfoObjFrag(objectId);
+    public static InfoObjFrag newInstance(String errorMessage, String objectId, String rmFromGroupId) {
+        InfoObjFrag iof = new InfoObjFrag(objectId, rmFromGroupId);
         Bundle args = new Bundle();
         args.putString(ARG_ERROR_MESSAGE, errorMessage);
         iof.setArguments(args);
@@ -94,9 +97,16 @@ public class InfoObjFrag extends Fragment {
         stateText = v.findViewById(R.id.txt_obj_state);
         sharedGroupsText = v.findViewById(R.id.txt_obj_shared_groups);
 
+
         // Set buttons listeners
         Button loan = v.findViewById(R.id.btn_obj_loan);
         loan.setOnClickListener(this::onClickLoanButton);
+        Button rmLoan = v.findViewById(R.id.btn_remove_loan);
+        rmLoan.setOnClickListener(this::onClickRemoveLoanButton);
+
+        if(rmFromGroupId != null){
+            rmLoan.setVisibility(View.VISIBLE);
+        }
 
         // Set fragment title
         Fragment parent = this.getParentFragment();
@@ -181,6 +191,14 @@ public class InfoObjFrag extends Fragment {
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
     }
 
+    public void onClickRemoveLoanButton( View v){
+        // Send the request to the serve
+        UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), InfoObjFrag::onPreRemoveLoanRequest);
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostRemoveLoanRequest);
+        APIRequest req = MainActivity.fsAPI.getMyObjectRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
+    }
+
     private static void onPreInfoObjectRequest(FragmentActivity activity) {
         // Changes to LoadingFragment
         activity.findViewById(R.id.info_object_main_layout).setVisibility(View.GONE);
@@ -188,6 +206,42 @@ public class InfoObjFrag extends Fragment {
     }
 
     private void onPostInfoObjectRequest(FragmentActivity activity, List<APIResponse> responseList) {
+        APIResponse res = responseList.get(0);
+        // 200 ok
+        // 400 bad request
+        // 401 user not authenticated or unauthorized
+        // else server error
+        if (res.responseCode == 200) {
+            //this.returnToMyObjects(getString(R.string.obj_loan_success));
+            errorMessage = getString(R.string.obj_loan_success);
+        } else {
+            // some error occurred, return to the fragment and show a snack bar
+            //FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+
+
+            switch (res.responseCode){
+                case 400:
+                    errorMessage = getString(R.string.bad_request);
+                    break;
+                case 401:
+                    errorMessage = getString(R.string.user_not_authenticated);
+                    break;
+                default:
+                    errorMessage = getString(R.string.server_error_generic);
+            }
+        }
+        activity.findViewById(R.id.info_object_loading_layout).setVisibility(View.GONE);
+        activity.findViewById(R.id.info_object_main_layout).setVisibility(View.VISIBLE);
+        Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
+    }
+
+    private static void onPreRemoveLoanRequest(FragmentActivity activity) {
+        // Changes to LoadingFragment
+        activity.findViewById(R.id.info_object_main_layout).setVisibility(View.GONE);
+        activity.findViewById(R.id.info_object_loading_layout).setVisibility(View.VISIBLE);
+    }
+
+    private void onPostRemoveLoanRequest(FragmentActivity activity, List<APIResponse> responseList) {
         APIResponse res = responseList.get(0);
         // 200 ok
         // 400 bad request

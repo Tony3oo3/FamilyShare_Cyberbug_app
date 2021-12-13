@@ -50,14 +50,14 @@
             android:id="@+id/btn_obj_loan"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="36dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="40dp"
             android:text="@string/btn_obj_loan"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/btn_remove_loan" />
 
         <TextView
             android:id="@+id/label_obj_owner"
@@ -146,6 +146,19 @@
             app:layout_constraintTop_toBottomOf="@+id/label_obj_group">
 
         </ListView>
+
+        <Button
+            android:id="@+id/btn_remove_loan"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/btn_obj_remove_loan"
+            android:textColor="#FFFFFF"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_obj_loan"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
