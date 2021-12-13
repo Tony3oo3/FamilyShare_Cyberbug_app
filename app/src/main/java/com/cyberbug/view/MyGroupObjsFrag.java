@@ -1,5 +1,6 @@
 package com.cyberbug.view;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.cyberbug.R;
@@ -30,10 +33,12 @@ import java.util.List;
 public class MyGroupObjsFrag extends Fragment {
 
     private final GroupPageFrag parentFrag;
+    private MyObject selectedObject;
 
     public MyGroupObjsFrag(GroupPageFrag parent) {
         this.parentFrag = parent;
     }
+
 
     public static MyGroupObjsFrag newInstance(GroupPageFrag parent) {
         return new MyGroupObjsFrag(parent);
@@ -61,8 +66,9 @@ public class MyGroupObjsFrag extends Fragment {
 
 
     private void onShareObjectClick(View v){
-        // TODO go to share object page
-        
+        MyObjectsFragment myObjectsFragment = MyObjectsFragment.newInstance(true, true);
+        HomeFragment.homeBackStack.add(this.parentFrag);
+        HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, myObjectsFragment).commit();
     }
 
     public void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -85,15 +91,15 @@ public class MyGroupObjsFrag extends Fragment {
     private void showLoading(View v){
         ProgressBar pr = v.findViewById(R.id.progressBar_mySharedObj);
         pr.setVisibility(View.VISIBLE);
-        ListView lw = v.findViewById(R.id.listview_your_shared_obj);
-        lw.setVisibility(View.GONE);
+        ConstraintLayout lay = v.findViewById(R.id.layout_your_shared_objs);
+        lay.setVisibility(View.GONE);
     }
 
     private void showListView(View v){
         ProgressBar pr = v.findViewById(R.id.progressBar_mySharedObj);
         pr.setVisibility(View.GONE);
-        ListView lw = v.findViewById(R.id.listview_your_shared_obj);
-        lw.setVisibility(View.VISIBLE);
+        ConstraintLayout lay = v.findViewById(R.id.layout_your_shared_objs);
+        lay.setVisibility(View.VISIBLE);
     }
 
     private void showSnackBar(String message, View v){

@@ -1,9 +1,11 @@
 package com.cyberbug.view;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -40,16 +42,17 @@ import java.util.List;
 
 public class MyObjectsFragment extends Fragment {
 
-    private final QuadConsumer<AdapterView<?>, View, Integer, Long> onListItemClickCallBack;
+    private final boolean shareMode;
     private final boolean disableAddButton;
+    private MyObject selectedObject;
 
-    public MyObjectsFragment(QuadConsumer<AdapterView<?>, View, Integer, Long> onListItemClickCallBack, boolean disableAddButton) {
-        this.onListItemClickCallBack = onListItemClickCallBack;
+    public MyObjectsFragment(boolean shareMode, boolean disableAddButton) {
+        this.shareMode = shareMode;
         this.disableAddButton = disableAddButton;
     }
 
-    public static MyObjectsFragment newInstance(QuadConsumer<AdapterView<?>, View, Integer, Long> onListItemClickCallBack, boolean disableAddButton) {
-        return new MyObjectsFragment(onListItemClickCallBack, disableAddButton);
+    public static MyObjectsFragment newInstance(boolean shareMode, boolean disableAddButton) {
+        return new MyObjectsFragment(shareMode, disableAddButton);
     }
 
     @Override
@@ -71,10 +74,7 @@ public class MyObjectsFragment extends Fragment {
             shareObj.setVisibility(View.GONE);
         }
 
-        if (getParentFragment() instanceof HomeFragment) {
-            HomeFragment parent = (HomeFragment) getParentFragment();
-            parent.setOptionsMenu(this::createSearchActionMenu);
-        }
+        HomeFragment.setOptionsMenu(this::createSearchActionMenu);
 
         // Set toolbar title
         Fragment parent = this.getParentFragment();
@@ -101,8 +101,8 @@ public class MyObjectsFragment extends Fragment {
 
     public void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
         // If a callback is set exec that else show object info
-        if(onListItemClickCallBack != null){
-            this.onListItemClickCallBack.consume(parent, view, position, id);
+        if(shareMode){
+            showDialogShareObject(parent, view, position, id);
         }else {
             Object clicked = parent.getItemAtPosition(position);
             if (clicked instanceof MyObject && HomeFragment.homeFragmentManager != null) {
@@ -214,6 +214,49 @@ public class MyObjectsFragment extends Fragment {
         sharedObjectsListView.setAdapter(sharedObjectsAdapter);
     }
 
+    // Callback used if share is true
+    private void showDialogShareObject(AdapterView<?> parent, View view, int position, long id){
+        // Show dialog to ask if the user wants to share the object with the group
+        Object clicked = parent.getItemAtPosition(position);
+        if (clicked instanceof MyObject) {
+            MyObject g = (MyObject) clicked;
+            this.selectedObject = g;
+            new AlertDialog.Builder(this.requireContext())
+                    .setTitle(g.toString())
+                    .setMessage(getString(R.string.sure_want_to_share))
+                    .setIcon(android.R.drawable.ic_input_add)
+                    .setPositiveButton(R.string.yes, this::shareObject)
+                    .setNegativeButton(R.string.no, null).show();
+        }
+    }
+
+    private void shareObject(DialogInterface dialogInterface, int i) {
+        if(this.selectedObject != null && MainActivity.sData.selectedGroup != null){
+            APIRequest shareObjRequest = MainActivity.fsAPI.shareObjectWithGroup(
+                    MainActivity.sData.authToken,
+                    MainActivity.sData.selectedGroup.id,
+                    this.selectedObject.id
+            );
+            UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(this.requireView() ,(x) -> {});
+            UIUpdaterResponse<View> postUpdate = new UIUpdaterResponse<>(this.requireView(), this::onPostShareObject);
+            new AsyncRESTDispatcher(preUpdater, postUpdate).execute(shareObjRequest);
+        }
+    }
+
+    private void onPostShareObject(View v, List<APIResponse> resList){
+        APIResponse res = resList.get(0);
+        if(res.responseCode == 200){
+            // Show ok message
+            this.showSnackBar(getString(R.string.object_shared) , v);
+        }else if(res.responseCode == 401){
+            MainActivity.logoutUser(this.requireActivity(), getString(R.string.user_not_authenticated));
+        }else{
+            // Generic error mesage
+            this.showSnackBar(getString(R.string.server_error_generic), v);
+        }
+    }
+
+    // Sets the search
     private void createSearchActionMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.menu_item_search);

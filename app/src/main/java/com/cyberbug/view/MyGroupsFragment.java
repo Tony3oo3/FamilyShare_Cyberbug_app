@@ -52,10 +52,7 @@ public class MyGroupsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_my_groups, container, false);
 
         // Sets up search bar
-        if (getParentFragment() instanceof HomeFragment) {
-            HomeFragment parent = (HomeFragment) getParentFragment();
-            parent.setOptionsMenu(this::createSearchActionMenu);
-        }
+        HomeFragment.setOptionsMenu(this::createSearchActionMenu);
 
         // Set toolbar title
         Fragment parent = this.getParentFragment();

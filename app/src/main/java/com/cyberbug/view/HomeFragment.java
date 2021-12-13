@@ -35,8 +35,11 @@ public class HomeFragment extends Fragment {
     public static FragmentManager homeFragmentManager;
     public static HomeBackStack homeBackStack;
 
+    private static HomeFragment thisFrag;
+
     public static HomeFragment newInstance() {
-        return new HomeFragment();
+        thisFrag = new HomeFragment();
+        return thisFrag;
     }
 
     @Override
@@ -85,7 +88,7 @@ public class HomeFragment extends Fragment {
                 break;
 
             case R.id.nav_my_objs:
-                this.switchHomeFragment(MyObjectsFragment.newInstance(null, false));
+                this.switchHomeFragment(MyObjectsFragment.newInstance(false, false));
                 break;
 
             case R.id.nav_my_groups:
@@ -126,9 +129,12 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    protected void setOptionsMenu(BiConsumer<Menu,MenuInflater> onCreateMenuCallback){
-        this.onCreateMenuCallback = onCreateMenuCallback;
-        this.requireActivity().invalidateOptionsMenu();
+    protected static void setOptionsMenu(BiConsumer<Menu,MenuInflater> onCreateMenuCallback){
+        if(HomeFragment.thisFrag != null) {
+            HomeFragment.thisFrag.setHasOptionsMenu(true);
+            HomeFragment.thisFrag.onCreateMenuCallback = onCreateMenuCallback;
+            HomeFragment.thisFrag.requireActivity().invalidateOptionsMenu();
+        }
     }
 
     private void showAreYouSureDialog(){

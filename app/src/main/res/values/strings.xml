@@ -100,4 +100,6 @@
     <string name="no_object_inserted">Nessun oggetto inserito</string>
     <string name="search_an_object">Cerca un oggetto</string>
     <string name="btn_obj_remove_loan">Rimuovi</string>
+    <string name="sure_want_to_share">Sicuro di voler condividere l\'oggetto?</string>
+    <string name="object_shared">L\'oggetto è stato condiviso</string>
 </resources>

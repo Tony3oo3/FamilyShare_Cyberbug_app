@@ -186,6 +186,13 @@ public class FSAPIWrapper {
         return req;
     }
 
+    public APIRequest shareObjectWithGroup(String authToken, String groupId, String objId){
+        String endpoint = baseURL + "/api/objects/group/" + objId + "/shareObj";
+        APIRequest req = new APIRequest(endpoint, "POST", strToURI("group_id", groupId));
+        req.addHeader("Authorization", "Bearer " + authToken);
+        return req;
+    }
+
     public static class UserRegInfo{
         public final String name;
         public final String lastname;
