@@ -95,4 +95,5 @@
     <string name="no_shared_objects">Nessun oggetto condiviso</string>
     <string name="no_object_inserted">Nessun oggetto inserito</string>
     <string name="search_an_object">Cerca un oggetto</string>
+    <string name="btn_obj_remove_loan">Rimuovi</string>
 </resources>
