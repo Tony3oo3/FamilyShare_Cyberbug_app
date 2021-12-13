@@ -23,7 +23,7 @@ public class GroupPageAdapter extends FragmentStateAdapter {
                 return MyGroupObjsFrag.newInstance(parent);
             //group board
             case 2:
-                return GroupBoardFrag.newInstance();
+                return GroupBoardFrag.newInstance(parent);
             //group members
             case 3:
                 return GroupMembersFrag.newInstance();
