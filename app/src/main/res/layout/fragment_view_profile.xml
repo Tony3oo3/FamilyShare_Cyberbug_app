@@ -32,24 +32,10 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/txt_view_birthdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/label_profile_birthdate"
-                app:layout_constraintTop_toBottomOf="@+id/label_profile_birthdate" />
-
-            <TextView
-                android:id="@+id/txt_view_surname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/label_profile_surname"
-                app:layout_constraintTop_toBottomOf="@+id/label_profile_surname" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/label_profile_name"
@@ -71,74 +57,59 @@
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="75dp"
-                android:layout_marginEnd="80dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:minHeight="48dp"
                 android:text="@string/lastname"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_view_name" />
 
             <TextView
-                android:id="@+id/label_profile_gender"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
+                android:id="@+id/txt_view_surname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="125dp"
-                android:gravity="center_vertical"
-                android:minHeight="48dp"
-                android:text="@string/sex"
-                android:textIsSelectable="true"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="12dp"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/label_profile_name"
-                app:layout_constraintTop_toBottomOf="@+id/label_profile_name" />
+                app:layout_constraintStart_toStartOf="@+id/label_profile_surname"
+                app:layout_constraintTop_toBottomOf="@+id/label_profile_surname" />
 
             <TextView
                 android:id="@+id/txt_view_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="12dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/label_profile_name"
                 app:layout_constraintTop_toBottomOf="@+id/label_profile_name" />
-
-            <TextView
-                android:id="@+id/label_profile_birthdate"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
-                android:gravity="center_vertical"
-                android:minHeight="48dp"
-                android:text="@string/birthdate"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/label_profile_gender" />
 
             <TextView
                 android:id="@+id/label_profile_phone"
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:minHeight="48dp"
                 android:text="@string/phone_number"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label_profile_email" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_view_email" />
 
             <TextView
                 android:id="@+id/txt_view_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="12dp"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/label_profile_phone"
                 app:layout_constraintTop_toBottomOf="@+id/label_profile_phone" />
 
             <TextView
@@ -146,32 +117,25 @@
                 style="@style/Widget.AppCompat.TextView.SpinnerItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:minHeight="48dp"
                 android:text="@string/email"
                 android:textIsSelectable="true"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label_profile_gender" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_view_surname" />
 
             <TextView
                 android:id="@+id/txt_view_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="12dp"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/label_profile_email"
                 app:layout_constraintTop_toBottomOf="@+id/label_profile_email" />
-
-            <TextView
-                android:id="@+id/txt_view_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/label_profile_gender"
-                app:layout_constraintTop_toBottomOf="@+id/label_profile_gender" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

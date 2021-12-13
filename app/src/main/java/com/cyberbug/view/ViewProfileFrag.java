@@ -59,7 +59,7 @@ public class ViewProfileFrag extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Check for args
@@ -73,8 +73,6 @@ public class ViewProfileFrag extends Fragment {
         // Initialize fragment components
         nameText = v.findViewById(R.id.txt_view_name);
         surnameText = v.findViewById(R.id.txt_view_surname);
-        genderText = v.findViewById(R.id.txt_view_gender);
-        birthdateText = v.findViewById(R.id.txt_view_birthdate);
         emailText = v.findViewById(R.id.txt_view_email);
         phoneText = v.findViewById(R.id.txt_view_phone);
 
@@ -110,21 +108,21 @@ public class ViewProfileFrag extends Fragment {
 
     private void populateAndShowUserInfo(FragmentActivity act, List<APIResponse> resList){
         APIResponse res = resList.get(0);
-        if (res.responseCode == 200 && res.jsonResponseArray != null) {
+        if (res.responseCode == 200) {
             // All ok
             try {
-                JSONObject usr = res.jsonResponseArray.getJSONObject(0);
-                String name = usr.getString("user_name");
-                String lastname = usr.getString("user_lastname");
-                String gender = usr.getString("user_gender");
-                String birthdate = usr.getString("user_birthdate");
-                String email = usr.getString("user_email");
-                String phone = usr.getString("user_phone");
+                JSONObject usr = res.jsonResponse;
+                String name = usr.getString("given_name");
+                String lastname = usr.getString("family_name");
+                //String gender = usr.getString("user_gender");
+                //String birthdate = usr.getString("user_birthdate");
+                String email = usr.getString("email");
+                String phone = usr.getString("phone");
 
                 nameText.setText(name);
                 surnameText.setText(lastname);
-                genderText.setText(gender);
-                birthdateText.setText(birthdate);
+                //genderText.setText(gender);
+                //birthdateText.setText(birthdate);
                 emailText.setText(email);
                 phoneText.setText(phone);
 
@@ -146,10 +144,10 @@ public class ViewProfileFrag extends Fragment {
                 default:
                     errorMessage = getString(R.string.server_error_generic);
             }
+            Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
         }
         act.findViewById(R.id.progressBar_UserProfile).setVisibility(View.GONE);
         act.findViewById(R.id.info_user_main_layout).setVisibility(View.VISIBLE);
-        Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
 
 }

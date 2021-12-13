@@ -175,13 +175,13 @@ public class InfoObjFrag extends Fragment {
                 default:
                     errorMessage += getString(R.string.server_error_generic);
             }
+            Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
         }
         // ArrayAdapter<String> myLentObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, lent);
         // lentObjs.setAdapter(myLentObjectAdapter);
 
         act.findViewById(R.id.info_object_loading_layout).setVisibility(View.GONE);
         act.findViewById(R.id.info_object_main_layout).setVisibility(View.VISIBLE);
-        Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
 
     public void onClickLoanButton( View v){

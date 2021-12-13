@@ -77,7 +77,7 @@ public class AddObjFrag extends Fragment {
 
         // Initialize fragment components
         objName = v.findViewById(R.id.txt_obj_name);
-        objDesc = v.findViewById(R.id.txt_obj_desc);
+        objDesc = v.findViewById(R.id.mulTxt_obj_desc);
 
         // Set buttons listeners
         Button cancObj = v.findViewById(R.id.btn_canc_obj_add);
@@ -116,7 +116,7 @@ public class AddObjFrag extends Fragment {
 
         // All is ok
         // Send the request to the serve
-        FSAPIWrapper.ObjectData obj = new FSAPIWrapper.ObjectData(name, desc, MainActivity.sData.thisUserId);
+        FSAPIWrapper.ObjectData obj = new FSAPIWrapper.ObjectData(name, desc);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), AddObjFrag::onPreAddObjectRequest);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostAddObjectRequest);
         APIRequest req = MainActivity.fsAPI.insertObjectRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId ,obj);
@@ -154,6 +154,7 @@ public class AddObjFrag extends Fragment {
                 default:
                     errorMessage = getString(R.string.server_error_generic);
             }
+
         }
         activity.findViewById(R.id.add_object_loading_layout).setVisibility(View.GONE);
         activity.findViewById(R.id.add_object_main_layout).setVisibility(View.VISIBLE);

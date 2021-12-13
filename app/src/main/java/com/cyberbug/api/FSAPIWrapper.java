@@ -389,18 +389,15 @@ public class FSAPIWrapper {
     public static class ObjectData {
         public final String objName;
         public final String objDescription;
-        public final String objOwner;
 
-        public ObjectData(String objName, String objDescription, String objOwner){
+        public ObjectData(String objName, String objDescription){
             this.objName = objName;
             this.objDescription = objDescription;
-            this.objOwner = objOwner;
         }
         public String getURI(){
             Uri.Builder b = new Uri.Builder();
             b.appendQueryParameter("object_name", this.objName);
             b.appendQueryParameter("object_description", this.objDescription);
-            b.appendQueryParameter("owner_id", this.objDescription);
             return b.toString().substring(1);
         }
     }
