@@ -162,7 +162,7 @@ public class FSAPIWrapper {
 
     public APIRequest searchObjectRequest(String authToken, String objectId){
         String endpoint = baseURL + "/api/objects/" + objectId + "/search";
-        APIRequest req = new APIRequest(endpoint, "POST", null);
+        APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }

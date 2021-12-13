@@ -140,11 +140,12 @@ public class InfoObjFrag extends Fragment {
 
     private void populateAndShowObjectInfo(FragmentActivity act, List<APIResponse> resList){
         APIResponse res = resList.get(0);
-        if (res.responseCode == 200 && res.jsonResponseArray != null) {
+
+        if (res.responseCode == 200) {
             // All ok
             // There is one id, we need to get the info from the object with that id
             try {
-                JSONObject obj = res.jsonResponseArray.getJSONObject(0);
+                JSONObject obj = res.jsonResponse;
                 String id = obj.getString("object_id");
                 String name = obj.getString("object_name");
                 String desc = obj.getString("object_description");
@@ -172,7 +173,7 @@ public class InfoObjFrag extends Fragment {
                     errorMessage = getString(R.string.user_not_authenticated);
                     break;
                 default:
-                    errorMessage = getString(R.string.server_error_generic);
+                    errorMessage += getString(R.string.server_error_generic);
             }
         }
         // ArrayAdapter<String> myLentObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, lent);
