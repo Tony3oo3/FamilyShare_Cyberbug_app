@@ -151,6 +151,9 @@ public class InfoObjFrag extends Fragment {
                 String desc = obj.getString("object_description");
                 String owner = obj.getString("owner");
                 String state = obj.getString("shared_with_user");
+                if(state.compareTo("null") == 0)
+                    state = "";
+
                 //JSONArray shared_groups = obj.getJSONArray("group_ids");
                 //TODO populate sharedGroupsText (list of groups)
                 ownerText.setText(owner);
