@@ -36,8 +36,6 @@ public class ViewProfileFrag extends Fragment {
 
     private TextView nameText;
     private TextView surnameText;
-    private TextView genderText;
-    private TextView birthdateText;
     private TextView emailText;
     private TextView phoneText;
 
@@ -114,15 +112,11 @@ public class ViewProfileFrag extends Fragment {
                 JSONObject usr = res.jsonResponse;
                 String name = usr.getString("given_name");
                 String lastname = usr.getString("family_name");
-                //String gender = usr.getString("user_gender");
-                //String birthdate = usr.getString("user_birthdate");
                 String email = usr.getString("email");
                 String phone = usr.getString("phone");
 
                 nameText.setText(name);
                 surnameText.setText(lastname);
-                //genderText.setText(gender);
-                //birthdateText.setText(birthdate);
                 emailText.setText(email);
                 phoneText.setText(phone);
 
