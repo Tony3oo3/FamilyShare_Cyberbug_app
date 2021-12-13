@@ -76,7 +76,7 @@ public class GroupPageFrag extends Fragment {
                         tab.setText(R.string.group_info);
                         break;
                     case 1:
-                        tab.setText(R.string.my_group_objs);
+                        tab.setText(R.string.my_objs);
                         break;
                     case 2:
                         tab.setText(R.string.group_board);

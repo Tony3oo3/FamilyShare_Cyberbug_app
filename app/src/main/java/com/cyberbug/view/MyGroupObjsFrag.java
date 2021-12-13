@@ -52,7 +52,7 @@ public class MyGroupObjsFrag extends Fragment {
         // Populate the list
         populateSharedObject(v);
 
-        // TODO Set the item click listener
+        // Set the item click listener
         ListView lv = v.findViewById(R.id.listview_your_shared_obj);
         lv.setOnItemClickListener(this::onMenuItemClick);
 
@@ -62,6 +62,7 @@ public class MyGroupObjsFrag extends Fragment {
 
     private void onShareObjectClick(View v){
         // TODO go to share object page
+        
     }
 
     public void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {

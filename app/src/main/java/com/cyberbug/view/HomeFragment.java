@@ -84,6 +84,10 @@ public class HomeFragment extends Fragment {
                 this.switchHomeFragment(ViewProfileFrag.newInstance(null, MainActivity.sData.thisUserId));
                 break;
 
+            case R.id.nav_my_objs:
+                this.switchHomeFragment(MyObjectsFragment.newInstance(null, false));
+                break;
+
             case R.id.nav_my_groups:
                 this.switchHomeFragment(MyGroupsFragment.newInstance());
                 break;

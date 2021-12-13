@@ -180,6 +180,13 @@ public class FSAPIWrapper {
         return req;
     }
 
+    public APIRequest getMyObjectRequest(String authToken, String thisUserId) {
+        String endpoint = baseURL + "/api/objects/" + thisUserId + "/objects";
+        APIRequest req = new APIRequest(endpoint, "GET", null);
+        req.addHeader("Authorization", "Bearer " + authToken);
+        return req;
+    }
+
     public static class UserRegInfo{
         public final String name;
         public final String lastname;

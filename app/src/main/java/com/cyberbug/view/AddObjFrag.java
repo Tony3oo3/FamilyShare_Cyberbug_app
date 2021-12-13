@@ -159,10 +159,12 @@ public class AddObjFrag extends Fragment {
         activity.findViewById(R.id.add_object_main_layout).setVisibility(View.VISIBLE);
         Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
+    /*
     private void returnToMyObjects(String message){
         MyObjectsFragment myObjectsFragment = MyObjectsFragment.newInstance(message);
         FragmentManager fragmentManager = this.getChildFragmentManager();
         fragmentManager.popBackStack();
         fragmentManager.beginTransaction().replace(R.id.home_fragment_container, myObjectsFragment).commit();
     }
+    */
 }

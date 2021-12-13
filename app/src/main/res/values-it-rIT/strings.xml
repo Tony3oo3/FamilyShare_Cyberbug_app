@@ -77,7 +77,7 @@
     <string name="obj_addition_success">Oggetto aggiunto correttamente</string>
     <string name="obj_loan_success">Oggetto prestato con successo</string>
     <string name="group_info">Info</string>
-    <string name="my_group_objs">I miei oggetti</string>
+    <string name="my_objs">I miei oggetti</string>
     <string name="group_members">Membri</string>
     <string name="group_board">Bacheca</string>
     <string name="group_location_label">Location:</string>
@@ -93,4 +93,6 @@
     <string name="your_shared_objs">I tuoi oggetti condivisi con il gruppo:</string>
     <string name="obj_loans">Oggetti scambiati</string>
     <string name="no_shared_objects">Nessun oggetto condiviso</string>
+    <string name="no_object_inserted">Nessun oggetto inserito</string>
+    <string name="search_an_object">Cerca un oggetto</string>
 </resources>
