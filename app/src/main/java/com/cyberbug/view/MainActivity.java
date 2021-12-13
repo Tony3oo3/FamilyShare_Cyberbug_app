@@ -16,7 +16,7 @@ import com.cyberbug.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static FSAPIWrapper fsAPI = new FSAPIWrapper("http://192.168.1.117");
+    public final static FSAPIWrapper fsAPI = new FSAPIWrapper("http://192.168.1.122");
     public static SharedData sData = new SharedData();
 
     @Override

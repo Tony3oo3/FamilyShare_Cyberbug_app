@@ -107,7 +107,7 @@ public class MyObjectsFragment extends Fragment {
             Object clicked = parent.getItemAtPosition(position);
             if (clicked instanceof MyObject && HomeFragment.homeFragmentManager != null) {
                 MyObject g = (MyObject) clicked;
-                InfoObjFrag objFrag = InfoObjFrag.newInstance(null, g.id);
+                InfoObjFrag objFrag = InfoObjFrag.newInstance(null, g.id, null);
                 HomeFragment.homeBackStack.add(this);
                 HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).commit();
             }

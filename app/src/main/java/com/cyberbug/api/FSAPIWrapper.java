@@ -168,7 +168,7 @@ public class FSAPIWrapper {
     }
     public APIRequest getMyObjectRequest(String authToken, String thisUserId){
         String endpoint = baseURL + "/api/objects/" + thisUserId + "/objects";
-        APIRequest req = new APIRequest(endpoint, "POST", null);
+        APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }
@@ -181,13 +181,6 @@ public class FSAPIWrapper {
 
     public APIRequest getMySharedGroupObjectsRequest(String authToken, String groupId){
         String endpoint = baseURL + "/api/objects/" + groupId + "/mySharedObjs";
-        APIRequest req = new APIRequest(endpoint, "GET", null);
-        req.addHeader("Authorization", "Bearer " + authToken);
-        return req;
-    }
-
-    public APIRequest getMyObjectRequest(String authToken, String thisUserId) {
-        String endpoint = baseURL + "/api/objects/" + thisUserId + "/objects";
         APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
