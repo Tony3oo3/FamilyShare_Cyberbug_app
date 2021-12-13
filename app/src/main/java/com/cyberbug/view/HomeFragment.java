@@ -100,6 +100,10 @@ public class HomeFragment extends Fragment {
                 this.switchHomeFragment(CreateGroupFrag.newInstance(null));
                 break;
 
+            case R.id.nav_loan:
+                this.switchHomeFragment(LoansFrag.newInstance(null));
+                break;
+
             case R.id.nav_logout:
                 showAreYouSureDialog();
                 break;

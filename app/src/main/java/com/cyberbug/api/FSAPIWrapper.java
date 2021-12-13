@@ -148,14 +148,14 @@ public class FSAPIWrapper {
 
     public APIRequest getUserLentObjectsRequest(String authToken, String thisUserId) {
         String endpoint = baseURL + "/api/objects/" + thisUserId + "/lentObjects";
-        APIRequest req = new APIRequest(endpoint, "POST", null);
+        APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }
 
     public APIRequest getUserBorrowedObjectsRequest(String authToken, String thisUserId) {
         String endpoint = baseURL + "/api/objects/" + thisUserId + "/borrowedObjects";
-        APIRequest req = new APIRequest(endpoint, "POST", null);
+        APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }
