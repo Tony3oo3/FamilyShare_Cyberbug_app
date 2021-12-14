@@ -69,10 +69,10 @@
     <string name="sure_want_to_join">"Sei sicuro di voler accedere a "</string>
     <string name="group_join_dome">Accesso al gruppo effettuato</string>
     <string name="obj_state">Stato:</string>
-    <string name="obj_shared_group">Gruppo in cui è stato condiviso:</string>
+    <string name="obj_shared_group">Gruppi in cui è stato condiviso:</string>
     <string name="btn_obj_loan">Richiedi prestito</string>
     <string name="btn_add_obj">AGGIUNGI</string>
-    <string name="obj_info">INFORMAZIONI OGGETTO</string>
+    <string name="obj_info">Informazioni dell\'oggetto</string>
     <string name="my_profile_info">Il mio profilo</string>
     <string name="obj_addition_success">Oggetto aggiunto correttamente</string>
     <string name="obj_loan_success">Oggetto prestato con successo</string>
@@ -97,10 +97,18 @@
     <string name="no_shared_objects">Nessun oggetto condiviso</string>
     <string name="no_object_inserted">Nessun oggetto inserito</string>
     <string name="search_an_object">Cerca un oggetto</string>
-    <string name="btn_obj_remove_loan">Rimuovi</string>
+    <string name="btn_obj_remove_loan">Rimuovi condivisione</string>
     <string name="sure_want_to_share">Sicuro di voler condividere l\'oggetto?</string>
     <string name="object_shared">L\'oggetto è stato condiviso</string>
     <string name="incoming_requests">Richieste in entrata</string>
     <string name="outgoing_requests">Richieste in uscita</string>
     <string name="my_requests">Le mie richieste</string>
+    <string name="object_already_shared">L\'oggetto è già condiviso con il gruppo</string>
+    <string name="btn_obj_delete">Elimina dal sistema</string>
+    <string name="not_shared">Non in prestito</string>
+    <string name="shared">In prestito</string>
+    <string name="obj_deleted">Oggetto eliminato</string>
+    <string name="sure_want_to_delete">Sicuro di voler eliminare l\'oggetto?</string>
+    <string name="sure_want_to_loan">Sei sicuro di voler richiedere il prestito?</string>
+    <string name="sure_want_to_remove_loan">Sei sicuro di voler rimovere la condivisione con questo gruppo?</string>
 </resources>

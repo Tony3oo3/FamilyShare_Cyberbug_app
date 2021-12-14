@@ -75,7 +75,7 @@ public class MyGroupObjsFrag extends Fragment {
         Object clicked = parent.getItemAtPosition(position);
         if (clicked instanceof MyObject && HomeFragment.homeFragmentManager != null) {
             MyObject g = (MyObject) clicked;
-            InfoObjFrag objFrag = InfoObjFrag.newInstance(null, g.id, null);
+            InfoObjFrag objFrag = InfoObjFrag.newInstance(g.id, InfoObjFrag.Mode.REMOVE_LOAN);
             HomeFragment.homeBackStack.add(this.parentFrag);
             HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).commit();
         }

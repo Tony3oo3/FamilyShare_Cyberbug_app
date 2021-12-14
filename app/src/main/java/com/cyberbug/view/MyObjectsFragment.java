@@ -107,7 +107,7 @@ public class MyObjectsFragment extends Fragment {
             Object clicked = parent.getItemAtPosition(position);
             if (clicked instanceof MyObject && HomeFragment.homeFragmentManager != null) {
                 MyObject g = (MyObject) clicked;
-                InfoObjFrag objFrag = InfoObjFrag.newInstance(null, g.id, null);
+                InfoObjFrag objFrag = InfoObjFrag.newInstance(g.id, InfoObjFrag.Mode.DELETE);
                 HomeFragment.homeBackStack.add(this);
                 HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).commit();
             }
@@ -250,8 +250,11 @@ public class MyObjectsFragment extends Fragment {
             this.showSnackBar(getString(R.string.object_shared) , v);
         }else if(res.responseCode == 401){
             MainActivity.logoutUser(this.requireActivity(), getString(R.string.user_not_authenticated));
+        }else if(res.responseCode == 502){
+            // The object is already shared
+            this.showSnackBar(getString(R.string.object_already_shared), v);
         }else{
-            // Generic error mesage
+            // Generic error message
             this.showSnackBar(getString(R.string.server_error_generic), v);
         }
     }
