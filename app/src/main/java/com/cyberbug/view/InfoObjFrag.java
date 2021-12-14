@@ -191,7 +191,7 @@ public class InfoObjFrag extends Fragment {
         // Send the request to the serve
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), InfoObjFrag::onPreInfoObjectRequest);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostInfoObjectRequest);
-        APIRequest req = MainActivity.fsAPI.loanObjectRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId ,objectId);
+        APIRequest req = MainActivity.fsAPI.loanObjectRequest(MainActivity.sData.authToken, objectId);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
     }
 

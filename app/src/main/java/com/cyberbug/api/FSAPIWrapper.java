@@ -172,9 +172,9 @@ public class FSAPIWrapper {
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }
-    public APIRequest loanObjectRequest(String authToken, String thisUserId, String obj){
+    public APIRequest loanObjectRequest(String authToken, String obj){
         String endpoint = baseURL + "/api/objects/" + obj + "/share";
-        APIRequest req = new APIRequest(endpoint, "POST", null);
+        APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }
