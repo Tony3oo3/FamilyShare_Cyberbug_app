@@ -2,13 +2,31 @@ package com.cyberbug.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.cyberbug.R;
+import com.cyberbug.api.APIRequest;
+import com.cyberbug.api.APIResponse;
+import com.cyberbug.api.AsyncRESTDispatcher;
+import com.cyberbug.api.UIUpdaterResponse;
+import com.cyberbug.api.UIUpdaterVoid;
+import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,14 +35,13 @@ import com.cyberbug.R;
  */
 public class RequestsFrag extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_ERROR_MESSAGE = "errorMessage";
+    private String errorMessage = null;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private TextView incomeRequestTitle;
+    private TextView outcomeRequestTitle;
+    private ListView incomeRequests;
+    private ListView outcomeRequests;
 
     public RequestsFrag() {
         // Required empty public constructor
@@ -34,33 +51,129 @@ public class RequestsFrag extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment RequestsFrag.
      */
-    // TODO: Rename and change types and number of parameters
-    public static RequestsFrag newInstance(String param1, String param2) {
-        RequestsFrag fragment = new RequestsFrag();
+    public static RequestsFrag newInstance(String errorMessage) {
+        RequestsFrag rf = new RequestsFrag();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        args.putString(ARG_ERROR_MESSAGE, errorMessage);
+        rf.setArguments(args);
+        return rf;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_requests, container, false);
+        // Check for args
+        if (getArguments() != null) {
+            errorMessage = getArguments().getString(ARG_ERROR_MESSAGE);
+        }
+        // Create fragment view
+        View v = inflater.inflate(R.layout.fragment_requests, container, false);
+
+        // Initialize fragment components
+        incomeRequestTitle = v.findViewById(R.id.income_requests_title);
+        incomeRequests = v.findViewById(R.id.income_requests_list);
+
+        outcomeRequestTitle = v.findViewById(R.id.outcomes_requests_title);
+        outcomeRequests = v.findViewById(R.id.outcome_requests_list);
+
+        // Set fragment title
+        Fragment parent = this.getParentFragment();
+        if (parent != null) {
+            // Check to avoid crash if the parent fragment does not exists (should not happen)
+            Toolbar tBar = parent.requireView().findViewById(R.id.toolbar);
+            tBar.setTitle(getString(R.string.my_requests));
+            parent.setHasOptionsMenu(false);
+        }
+
+        return v;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        populateIncomingTextView();
+    }
+
+    private void populateIncomingTextView() {
+        APIRequest getIncomeRequests = MainActivity.fsAPI.getIncomingRequestsObj(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
+        UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), this::showLoading);
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::populateIncomeRequestsList);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getIncomeRequests);
+    }
+
+    private void showLoading(FragmentActivity act) {
+        act.findViewById(R.id.requests_main_layout).setVisibility(View.GONE);
+        act.findViewById(R.id.progressBar_Requests).setVisibility(View.VISIBLE);
+    }
+
+    private void populateIncomeRequestsList(FragmentActivity act, List<APIResponse> resList) {
+        boolean error = false;
+        List<String> outRequests = new ArrayList<>();
+        // if some responses are not good then set the error flag
+        for (APIResponse res : resList) {
+            try {
+                if (res.responseCode == 200 && res.jsonResponse != null) {
+                    String name = res.jsonResponse.getString("object_name");
+                    String id = res.jsonResponse.getString("object_id");
+                    String user = res.jsonResponse.getString("user_id");
+                    outRequests.add("Richiesta di " + name + " da " + user);
+                } else {
+                    error = true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                error = true;
+            }
+        }
+
+        if (error && this.getView() != null) {
+            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+        }
+        ArrayAdapter<String> myIncomeRequestsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
+        incomeRequests.setAdapter(myIncomeRequestsAdapter);
+
+        APIRequest getBorrowedObjs = MainActivity.fsAPI.getOutgoingRequestsObj(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
+        UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(null, (x) -> {});
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::showOutcomeRequestsList);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getBorrowedObjs);
+    }
+
+    private void showOutcomeRequestsList(FragmentActivity act, List<APIResponse> resList) {
+        boolean error = false;
+        List<String> outRequests = new ArrayList<>();
+        // if some responses are not good then set the error flag
+        for (APIResponse res : resList) {
+            try {
+                if (res.responseCode == 200 && res.jsonResponse != null) {
+                    String name = res.jsonResponse.getString("object_name");
+                    String id = res.jsonResponse.getString("object_id");
+                    String owner = res.jsonResponse.getString("owner");
+                    String user = res.jsonResponse.getString("user_id");
+                    outRequests.add("Richiesta di " + name + " a " + owner);
+                } else {
+                    error = true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                error = true;
+            }
+        }
+
+        if (error && this.getView() != null) {
+            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+        }
+        ArrayAdapter<String> myBorrowedObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
+        outcomeRequests.setAdapter(myBorrowedObjectAdapter);
+
+        act.findViewById(R.id.progressBar_Requests).setVisibility(View.GONE);
+        act.findViewById(R.id.requests_main_layout).setVisibility(View.VISIBLE);
+    }
+
 }

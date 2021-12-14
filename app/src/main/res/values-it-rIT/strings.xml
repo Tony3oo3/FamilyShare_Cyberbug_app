@@ -100,4 +100,7 @@
     <string name="btn_obj_remove_loan">Rimuovi</string>
     <string name="sure_want_to_share">Sicuro di voler condividere l\'oggetto?</string>
     <string name="object_shared">L\'oggetto è stato condiviso</string>
+    <string name="incoming_requests">Richieste in entrata</string>
+    <string name="outgoing_requests">Richieste in uscita</string>
+    <string name="my_requests">Le mie richieste</string>
 </resources>

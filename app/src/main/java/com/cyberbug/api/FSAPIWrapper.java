@@ -200,6 +200,20 @@ public class FSAPIWrapper {
         return req;
     }
 
+    public APIRequest getIncomingRequestsObj(String authToken, String groupId){
+        String endpoint = baseURL + "/api/objects/" + groupId + "/mySharedObjs";
+        APIRequest req = new APIRequest(endpoint, "GET", null);
+        req.addHeader("Authorization", "Bearer " + authToken);
+        return req;
+    }
+
+    public APIRequest getOutgoingRequestsObj(String authToken, String groupId){
+        String endpoint = baseURL + "/api/objects/" + groupId + "/mySharedObjs";
+        APIRequest req = new APIRequest(endpoint, "GET", null);
+        req.addHeader("Authorization", "Bearer " + authToken);
+        return req;
+    }
+
     public static class UserRegInfo{
         public final String name;
         public final String lastname;
