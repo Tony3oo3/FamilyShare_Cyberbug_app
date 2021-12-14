@@ -110,6 +110,10 @@ public class HomeFragment extends Fragment {
             case R.id.nav_logout:
                 showAreYouSureDialog();
                 break;
+
+            case R.id.nav_req:
+                this.switchHomeFragment(RequestsFrag.newInstance(null));
+                break;
         }
         return true;
     }
