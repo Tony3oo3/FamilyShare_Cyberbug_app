@@ -27,6 +27,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 public class GroupBoardFrag extends Fragment {
@@ -63,10 +65,11 @@ public class GroupBoardFrag extends Fragment {
     }
 
     private void populateBoard(View v){
+        APIRequest userSharedObjectRequest = MainActivity.fsAPI.getMySharedGroupObjectsRequest(MainActivity.sData.authToken, MainActivity.sData.selectedGroup.id);
         APIRequest sharedObjectsRequest = MainActivity.fsAPI.getSharedGroupObjectsRequest(MainActivity.sData.authToken, MainActivity.sData.selectedGroup.id);
         UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(v, this::showLoading);
         UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(v, this::postGetBoard);
-        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(sharedObjectsRequest);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(sharedObjectsRequest, userSharedObjectRequest);
     }
 
     private void postGetBoard(View v, List<APIResponse> resList){
@@ -78,7 +81,8 @@ public class GroupBoardFrag extends Fragment {
                 // OK
                 if(res.jsonResponseArray != null){
                     // Construct the list
-                    this.setBoardListView(res.jsonResponseArray, v);
+                    Collection<MyObject> myObjects = this.getObjectList(resList.get(1));
+                    this.setBoardListView(res.jsonResponseArray, v, myObjects);
                 }else{
                     // Generic error
                     this.showSnackBar(getString(R.string.server_error_generic), v);
@@ -109,13 +113,24 @@ public class GroupBoardFrag extends Fragment {
 
     }
 
-    private void setBoardListView(JSONArray jArr, View v) throws JSONException{
+    private Collection<MyObject> getObjectList(APIResponse res) throws JSONException{
+        List<MyObject> l = new ArrayList<>();
+        if(res.responseCode == 200 && res.jsonResponseArray != null){
+            for(int i = 0; i<res.jsonResponseArray.length(); i++){
+                l.add(MyObject.newFromJson(res.jsonResponseArray.getJSONObject(i)));
+            }
+        }
+        return l;
+    }
+
+    private void setBoardListView(JSONArray jArr, View v, Collection<MyObject> myObjects) throws JSONException{
         ListView sharedObjectsListView = v.findViewById(R.id.listview_board);
         List<MyObject> sharedObjects = new ArrayList<>();
 
-
         for(int i = 0; i<jArr.length(); i++){
-            sharedObjects.add(MyObject.newFromJson(jArr.getJSONObject(i)));
+            MyObject temp = MyObject.newFromJson(jArr.getJSONObject(i));
+            if(!myObjects.contains(temp))
+                sharedObjects.add(temp);
         }
 
         ArrayAdapter<MyObject> sharedObjectsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, sharedObjects);
