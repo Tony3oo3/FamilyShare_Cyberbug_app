@@ -169,8 +169,8 @@ public class RequestsFrag extends Fragment {
         if (error && this.getView() != null) {
             Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
         }
-        ArrayAdapter<String> myBorrowedObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
-        outcomeRequestsListView.setAdapter(myBorrowedObjectAdapter);
+        ArrayAdapter<String> myOutcomeRequestsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
+        outcomeRequestsListView.setAdapter(myOutcomeRequestsAdapter);
 
         act.findViewById(R.id.progressBar_Requests).setVisibility(View.GONE);
         act.findViewById(R.id.requests_main_layout).setVisibility(View.VISIBLE);
