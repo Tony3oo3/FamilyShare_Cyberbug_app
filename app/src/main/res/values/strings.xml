@@ -20,11 +20,13 @@
     <string name="male">Maschio</string>
     <string name="other">Altro</string>
     <string name="birthdate">Data di nascita</string>
+    <string name="date">gg/mm/aaaa</string>
     <string name="phone_number">Numero di telefono</string>
     <string name="email_address">Indirizzo email</string>
     <string name="new_password">Nuova password</string>
     <string name="repeat_password">Ripeti password</string>
     <string name="cancel">Annulla</string>
+    <string name="shifted_cancel">ANNULLA</string>
     <string name="register">Registrati</string>
     <string name="passwords_dont_match">Le password non coincidono</string>
     <string name="user_registerd_success">Utente registrato con successo</string>
@@ -54,6 +56,7 @@
     <string name="group_location_text">Location gruppo:</string>
     <string name="group_location">Location gruppo*</string>
     <string name="confirm">Conferma</string>
+    <string name="shifted_confirm">CONFERMA</string>
     <string name="erase">Cancella</string>
     <string name="search">Cerca</string>
     <string name="search_a_group">Cerca un gruppo</string>
@@ -107,6 +110,8 @@
     <string name="incoming_requests">Richieste in entrata</string>
     <string name="outgoing_requests">Richieste in uscita</string>
     <string name="my_requests">Le mie richieste</string>
+    <string name="request_an_object">Richiedi un oggetto</string>
+    <string name="return_data">Data di restituzione</string>
     <string name="object_already_shared">L\'oggetto è già condiviso con il gruppo</string>
     <string name="btn_obj_delete">Elimina dal sistema</string>
     <string name="not_shared">Non in prestito</string>

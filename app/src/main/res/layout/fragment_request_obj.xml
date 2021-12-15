@@ -5,121 +5,122 @@
     android:layout_height="match_parent"
     tools:context="com.cyberbug.view.RequestObjFrag">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="411dp"
-        android:layout_height="659dp"
-        android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/info_object_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="10dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/design_default_color_primary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="" />
+        <ProgressBar
+        android:id="@+id/progressBar_requestObj"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        </ProgressBar>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView39"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="51dp"
-                android:gravity="center_vertical"
-                android:text="Data restituzione:"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="228dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/requestObj_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView40"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="gg/mm/aaaa"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="37dp"
-                tools:layout_editor_absoluteY="278dp" />
+        <TextView
+            android:id="@+id/owner_obj_request"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="100dp"
+            android:gravity="center_vertical"
+            android:text="@string/obj_owner"
+            android:textIsSelectable="true"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView35"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="51dp"
-                android:gravity="center_vertical"
-                android:text="Proprietario:"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="74dp" />
+        <TextView
+            android:id="@+id/name_lastname_ownerObj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Nome cognome utente proprietario"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/owner_obj_request"
+            app:layout_constraintTop_toBottomOf="@+id/owner_obj_request" />
 
-            <TextView
-                android:id="@+id/textView36"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nome cognome utente proprietario"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="37dp"
-                tools:layout_editor_absoluteY="124dp" />
+        <TextView
+            android:id="@+id/descr_obj_request"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center_vertical"
+            android:text="@string/obj_desc_title"
+            android:textIsSelectable="true"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/owner_obj_request"
+            app:layout_constraintTop_toBottomOf="@+id/name_lastname_ownerObj" />
 
-            <TextView
-                android:id="@+id/textView37"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:text="Descrizione oggetto:"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="151dp" />
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="315dp"
+            android:layout_height="100dp"
+            android:text="@string/obj_desc_text"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/name_lastname_ownerObj"
+            app:layout_constraintTop_toBottomOf="@+id/descr_obj_request" />
 
-            <TextView
-                android:id="@+id/textView38"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descrizione oggetto"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="37dp"
-                tools:layout_editor_absoluteY="201dp" />
+        <TextView
+            android:id="@+id/return_date_obj_request"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center_vertical"
+            android:text="@string/return_data"
+            android:textIsSelectable="true"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/descr_obj_request"
+            app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
-            <Button
-                android:id="@+id/btn_canc_obj_create"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Annulla"
-                android:textColor="#FFFFFF"
-                tools:layout_editor_absoluteX="52dp"
-                tools:layout_editor_absoluteY="474dp" />
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/textView38"
+            app:layout_constraintTop_toBottomOf="@+id/return_date_obj_request" />
 
-            <Button
-                android:id="@+id/btn_obj_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Conferma"
-                android:textColor="#FFFFFF"
-                tools:layout_editor_absoluteX="216dp"
-                tools:layout_editor_absoluteY="474dp" />
+        <Button
+            android:id="@+id/btn_canc_requestObj"
+            android:layout_width="120dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="120dp"
+            android:text="@string/shifted_cancel"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/textView13"
-                style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Richiedi un oggetto:"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="29dp" />
+        <Button
+            android:id="@+id/btn_confirm_requestObj"
+            android:layout_width="120dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="120dp"
+            android:text="@string/shifted_confirm"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
