@@ -120,4 +120,6 @@
     <string name="sure_want_to_delete">Sicuro di voler eliminare l\'oggetto?</string>
     <string name="sure_want_to_loan">Sei sicuro di voler richiedere il prestito?</string>
     <string name="sure_want_to_remove_loan">Sei sicuro di voler rimovere la condivisione con questo gruppo?</string>
+    <string name="no_lent_objs">Non hai oggetti prestati</string>
+    <string name="no_borrowed_objs">Non hai oggetti presi in prestito</string>
 </resources>
