@@ -122,4 +122,5 @@
     <string name="sure_want_to_remove_loan">Sei sicuro di voler rimovere la condivisione con questo gruppo?</string>
     <string name="no_lent_objs">Non hai oggetti prestati</string>
     <string name="no_borrowed_objs">Non hai oggetti presi in prestito</string>
+    <string name="no_requests">Non hai richieste di condivisione</string>
 </resources>

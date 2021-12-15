@@ -114,27 +114,31 @@ public class RequestsFrag extends Fragment {
     }
 
     private void populateIncomeRequestsList(FragmentActivity act, List<APIResponse> resList) {
-        boolean error = false;
+        String error = "";
         List<String> outRequests = new ArrayList<>();
         // if some responses are not good then set the error flag
         for (APIResponse res : resList) {
             try {
-                if (res.responseCode == 200 && res.jsonResponse != null) {
-                    String name = res.jsonResponse.getString("object_name");
-                    String id = res.jsonResponse.getString("object_id");
-                    String user = res.jsonResponse.getString("user_id");
-                    outRequests.add("Richiesta di " + name + " da " + user);
+                if (res.responseCode == 200) {
+                    if (res.jsonResponse != null) {
+                        String name = res.jsonResponse.getString("object_name");
+                        String id = res.jsonResponse.getString("object_id");
+                        String user = res.jsonResponse.getString("user_id");
+                        outRequests.add("Richiesta di " + name + " da " + user);
+                    } else {
+                        error = getString(R.string.no_requests);
+                    }
                 } else {
-                    error = true;
+                    error = getString(R.string.server_error_generic);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                error = true;
+                error = getString(R.string.server_error_generic);
             }
         }
 
-        if (error && this.getView() != null) {
-            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+        if (!error.equals("") && this.getView() != null) {
+            Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
         ArrayAdapter<String> myIncomeRequestsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
         incomeRequestsListView.setAdapter(myIncomeRequestsAdapter);
@@ -146,28 +150,32 @@ public class RequestsFrag extends Fragment {
     }
 
     private void showOutcomeRequestsList(FragmentActivity act, List<APIResponse> resList) {
-        boolean error = false;
+        String error = "";
         List<String> outRequests = new ArrayList<>();
         // if some responses are not good then set the error flag
         for (APIResponse res : resList) {
             try {
-                if (res.responseCode == 200 && res.jsonResponse != null) {
-                    String name = res.jsonResponse.getString("object_name");
-                    String id = res.jsonResponse.getString("object_id");
-                    String owner = res.jsonResponse.getString("owner");
-                    String user = res.jsonResponse.getString("user_id");
-                    outRequests.add("Richiesta di " + name + " a " + owner);
+                if (res.responseCode == 200) {
+                    if (res.jsonResponse != null) {
+                        String name = res.jsonResponse.getString("object_name");
+                        String id = res.jsonResponse.getString("object_id");
+                        String owner = res.jsonResponse.getString("owner");
+                        String user = res.jsonResponse.getString("user_id");
+                        outRequests.add("Richiesta di " + name + " a " + owner);
+                    } else {
+                        error = getString(R.string.no_requests);
+                    }
                 } else {
-                    error = true;
+                    error = getString(R.string.server_error_generic);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                error = true;
+                error = getString(R.string.server_error_generic);
             }
         }
 
-        if (error && this.getView() != null) {
-            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+        if (!error.equals("") && this.getView() != null) {
+            Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
         ArrayAdapter<String> myOutcomeRequestsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
         outcomeRequestsListView.setAdapter(myOutcomeRequestsAdapter);
