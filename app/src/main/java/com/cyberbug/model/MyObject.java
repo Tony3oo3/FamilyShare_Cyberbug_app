@@ -1,11 +1,12 @@
 package com.cyberbug.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MyObject {
+public class MyObject implements Comparable<MyObject>{
     public final String id;
     public final String objName;
     public final String objDescription;
@@ -34,5 +35,17 @@ public class MyObject {
                 jObj.getString("owner"),
                 jObj.getString("shared_with_user")
         );
+    }
+
+    @Override
+    public int compareTo(MyObject o) {
+        return this.id.compareTo(o.id);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj instanceof MyObject)
+            return this.id.equals(((MyObject) obj).id);
+        else return false;
     }
 }

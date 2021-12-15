@@ -106,27 +106,32 @@ public class LoansFrag extends Fragment {
     }
 
     private void populateBorrowedTextView(FragmentActivity act, List<APIResponse> resList) {
-        boolean error = false;
+        String error = "";
         List<String> lent = new ArrayList<>();
         // if some responses are not good then set the error flag
         for (APIResponse res : resList) {
             try {
-                if (res.responseCode == 200 && res.jsonResponse != null) {
-                    String name = res.jsonResponse.getString("object_name");
-                    String id = res.jsonResponse.getString("object_id");
-                    String owner = res.jsonResponse.getString("onwer");
-                    lent.add("Dovrai restituire " + name + " a " + owner);
+                if (res.responseCode == 200) {
+                    if(res.jsonResponse != null) {
+                        String name = res.jsonResponse.getString("object_name");
+                        String id = res.jsonResponse.getString("object_id");
+                        String owner = res.jsonResponse.getString("onwer");
+                        lent.add("Dovrai restituire " + name + " a " + owner);
+                    }
+                    else{
+                        error = getString(R.string.no_lent_objs);
+                    }
                 } else {
-                    error = true;
+                    error = getString(R.string.server_error_generic);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                error = true;
+                error = getString(R.string.server_error_generic);
             }
         }
 
-        if (error && this.getView() != null) {
-            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+        if (!error.equals("") && this.getView() != null) {
+            Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
         ArrayAdapter<String> myLentObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, lent);
         lentObjs.setAdapter(myLentObjectAdapter);
@@ -138,27 +143,33 @@ public class LoansFrag extends Fragment {
     }
 
     private void showBorrowedTextView(FragmentActivity act, List<APIResponse> resList) {
-        boolean error = false;
+        String error = "";
         List<String> borrowed = new ArrayList<>();
         // if some responses are not good then set the error flag
         for (APIResponse res : resList) {
             try {
-                if (res.responseCode == 200 && res.jsonResponse != null) {
-                    String name = res.jsonResponse.getString("object_name");
-                    String id = res.jsonResponse.getString("object_id");
-                    String owner = res.jsonResponse.getString("onwer");
-                    borrowed.add("Dovrai restituire " + name + " a " + owner);
+                if (res.responseCode == 200) {
+                    if(res.jsonResponse != null) {
+                        String name = res.jsonResponse.getString("object_name");
+                        String id = res.jsonResponse.getString("object_id");
+                        String owner = res.jsonResponse.getString("onwer");
+                        borrowed.add("Dovrai restituire " + name + " a " + owner);
+                    }
+                    else{
+                        error = getString(R.string.no_borrowed_objs);
+                    }
                 } else {
-                    error = true;
+                    error = getString(R.string.server_error_generic);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                error = true;
+                error = getString(R.string.server_error_generic);
             }
         }
 
-        if (error && this.getView() != null) {
-            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+
+        if (!error.equals("") && this.getView() != null) {
+            Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
         ArrayAdapter<String> myBorrowedObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, borrowed);
         borrowedObjs.setAdapter(myBorrowedObjectAdapter);
