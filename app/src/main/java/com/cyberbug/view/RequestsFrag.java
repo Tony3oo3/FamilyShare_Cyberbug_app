@@ -40,8 +40,8 @@ public class RequestsFrag extends Fragment {
 
     private TextView incomeRequestTitle;
     private TextView outcomeRequestTitle;
-    private ListView incomeRequests;
-    private ListView outcomeRequests;
+    private ListView incomeRequestsListView;
+    private ListView outcomeRequestsListView;
 
     public RequestsFrag() {
         // Required empty public constructor
@@ -78,10 +78,10 @@ public class RequestsFrag extends Fragment {
 
         // Initialize fragment components
         incomeRequestTitle = v.findViewById(R.id.income_requests_title);
-        incomeRequests = v.findViewById(R.id.income_requests_list);
+        incomeRequestsListView = v.findViewById(R.id.income_requests_list);
 
         outcomeRequestTitle = v.findViewById(R.id.outcomes_requests_title);
-        outcomeRequests = v.findViewById(R.id.outcome_requests_list);
+        outcomeRequestsListView = v.findViewById(R.id.outcome_requests_list);
 
         // Set fragment title
         Fragment parent = this.getParentFragment();
@@ -137,7 +137,7 @@ public class RequestsFrag extends Fragment {
             Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
         }
         ArrayAdapter<String> myIncomeRequestsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
-        incomeRequests.setAdapter(myIncomeRequestsAdapter);
+        incomeRequestsListView.setAdapter(myIncomeRequestsAdapter);
 
         APIRequest getBorrowedObjs = MainActivity.fsAPI.getOutgoingRequestsObj(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(null, (x) -> {});
@@ -170,7 +170,7 @@ public class RequestsFrag extends Fragment {
             Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
         }
         ArrayAdapter<String> myBorrowedObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
-        outcomeRequests.setAdapter(myBorrowedObjectAdapter);
+        outcomeRequestsListView.setAdapter(myBorrowedObjectAdapter);
 
         act.findViewById(R.id.progressBar_Requests).setVisibility(View.GONE);
         act.findViewById(R.id.requests_main_layout).setVisibility(View.VISIBLE);
