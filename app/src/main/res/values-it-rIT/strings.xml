@@ -119,4 +119,9 @@
     <string name="no_lent_objs">Non hai oggetti prestati</string>
     <string name="no_borrowed_objs">Non hai oggetti presi in prestito</string>
     <string name="no_requests">Non hai richieste di condivisione</string>
+    <string name="share_req_txt">Richiesta di prestito inviata</string>
+    <string name="btn_obj_accept">PRESTA</string>
+    <string name="sure_want_to_accept">Sei sicuro di voler prestare l\'oggetto?</string>
+    <string name="txt_lent_objs">Oggetti prestati</string>
+    <string name="txt_borrowed_objs">Oggetti presi in prestito</string>
 </resources>

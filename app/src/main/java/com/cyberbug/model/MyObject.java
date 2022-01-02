@@ -11,13 +11,17 @@ public class MyObject implements Comparable<MyObject>{
     public final String objName;
     public final String objDescription;
     public final String objOwner;
+    public final String req_userId;
+    public final String shared_with;
     public final String state;
 
-    public MyObject(String id, String objName, String objDescription, String objOwner, String state){
+    public MyObject(String id, String objName, String objDescription, String objOwner, String req_userId, String shared_with,String state){
         this.id = id;
         this.objName = objName;
         this.objDescription = objDescription;
         this.objOwner = objOwner;
+        this.req_userId = req_userId;
+        this.shared_with = shared_with;
         this.state = state;
     }
 
@@ -33,9 +37,12 @@ public class MyObject implements Comparable<MyObject>{
                 jObj.getString("object_name"),
                 jObj.getString("object_description"),
                 jObj.getString("owner"),
+                jObj.getString("req_to_share"),
+                jObj.getString("shared_with_user"),
                 jObj.getString("shared_with_user")
         );
     }
+
 
     @Override
     public int compareTo(MyObject o) {

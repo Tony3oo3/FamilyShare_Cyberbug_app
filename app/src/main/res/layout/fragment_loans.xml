@@ -34,19 +34,18 @@
         <ListView
             android:id="@+id/txt_lent_object"
             android:layout_width="370dp"
-            android:layout_height="170dp"
-            android:layout_marginTop="130dp"
+            android:layout_height="260dp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/lbl_lent_objs_txt">
 
         </ListView>
 
         <ListView
             android:id="@+id/txt_borrowed_object"
             android:layout_width="370dp"
-            android:layout_height="170dp"
+            android:layout_height="260dp"
             android:layout_marginBottom="48dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -54,6 +53,29 @@
             app:layout_constraintStart_toStartOf="parent">
 
         </ListView>
+
+        <TextView
+            android:id="@+id/lbl_lent_objs_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="@string/txt_lent_objs"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txt_lent_object"
+            app:layout_constraintStart_toStartOf="@+id/txt_lent_object"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lbl_borrowed_objs_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:text="@string/txt_borrowed_objs"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txt_borrowed_object"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

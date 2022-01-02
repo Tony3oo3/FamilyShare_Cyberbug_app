@@ -200,23 +200,29 @@ public class FSAPIWrapper {
         return req;
     }
 
-    public APIRequest getIncomingRequestsObj(String authToken, String groupId){
-        String endpoint = baseURL + "/api/objects/" + groupId + "/mySharedObjs";
+    public APIRequest getIncomingRequestsObj(String authToken, String userID){
+        String endpoint = baseURL + "/api/objects/" + userID + "/getInShareRequests";
         APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }
 
-    public APIRequest getOutgoingRequestsObj(String authToken, String groupId){
-        String endpoint = baseURL + "/api/objects/" + groupId + "/mySharedObjs";
+    public APIRequest getOutgoingRequestsObj(String authToken, String userID){
+        String endpoint = baseURL + "/api/objects/" + userID + "/getOutShareRequests";
+        APIRequest req = new APIRequest(endpoint, "GET", null);
+        req.addHeader("Authorization", "Bearer " + authToken);
+        return req;
+    }
+    public APIRequest acceptShareReq(String authToken, String objId){
+        String endpoint = baseURL + "/api/objects/" + objId + "/share/accept";
         APIRequest req = new APIRequest(endpoint, "GET", null);
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }
 
     public APIRequest removeSharedObjectFromGroupRequest(String authToken, String objectId, String groupId){
-        String endpoint = baseURL + "/api/objects/" + objectId + "/remove";
-        APIRequest req = new APIRequest(endpoint, "POST", strToURI("group_id", groupId));
+        String endpoint = baseURL + "/api/objects/" + objectId + "/share/return";
+        APIRequest req = new APIRequest(endpoint, "GET", strToURI("group_id", groupId));
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }

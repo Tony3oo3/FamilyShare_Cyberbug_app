@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -20,8 +21,10 @@ import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
 import com.cyberbug.R;
+import com.cyberbug.model.MyObject;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -80,6 +83,8 @@ public class LoansFrag extends Fragment {
         lentObjs = v.findViewById(R.id.txt_lent_object);
         borrowedObjs = v.findViewById(R.id.txt_borrowed_object);
 
+        lentObjs.setOnItemClickListener(this::onLentMenuItemClick);
+
         // Set fragment title
         Fragment parent = this.getParentFragment();
         if (parent != null) {
@@ -107,33 +112,34 @@ public class LoansFrag extends Fragment {
 
     private void populateBorrowedTextView(FragmentActivity act, List<APIResponse> resList) {
         String error = "";
-        List<String> lent = new ArrayList<>();
+        List<MyObject> lent = new ArrayList<>();
+        APIResponse res = resList.get(0);
         // if some responses are not good then set the error flag
-        for (APIResponse res : resList) {
-            try {
-                if (res.responseCode == 200) {
-                    if(res.jsonResponse != null) {
-                        String name = res.jsonResponse.getString("object_name");
-                        String id = res.jsonResponse.getString("object_id");
-                        String owner = res.jsonResponse.getString("onwer");
-                        lent.add("Dovrai restituire " + name + " a " + owner);
+
+        try {
+            if (res.responseCode == 200) {
+                if(res.jsonResponseArray != null) {
+                    JSONArray jRes = res.jsonResponseArray;
+                    for(int i = 0; i < jRes.length(); i++) {
+                        lent.add(MyObject.newFromJson(jRes.getJSONObject(i)));
                     }
-                    else{
-                        error = getString(R.string.no_lent_objs);
-                    }
-                } else {
-                    error = getString(R.string.server_error_generic);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+                else{
+                    error = getString(R.string.no_lent_objs);
+                }
+            } else {
                 error = getString(R.string.server_error_generic);
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            error = getString(R.string.server_error_generic);
         }
+
 
         if (!error.equals("") && this.getView() != null) {
             Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
-        ArrayAdapter<String> myLentObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, lent);
+        ArrayAdapter<MyObject> myLentObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, lent);
         lentObjs.setAdapter(myLentObjectAdapter);
 
         APIRequest getBorrowedObjs = MainActivity.fsAPI.getUserBorrowedObjectsRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
@@ -144,34 +150,35 @@ public class LoansFrag extends Fragment {
 
     private void showBorrowedTextView(FragmentActivity act, List<APIResponse> resList) {
         String error = "";
-        List<String> borrowed = new ArrayList<>();
+        List<MyObject> borrowed = new ArrayList<>();
+        APIResponse res = resList.get(0);
         // if some responses are not good then set the error flag
-        for (APIResponse res : resList) {
-            try {
-                if (res.responseCode == 200) {
-                    if(res.jsonResponse != null) {
-                        String name = res.jsonResponse.getString("object_name");
-                        String id = res.jsonResponse.getString("object_id");
-                        String owner = res.jsonResponse.getString("onwer");
-                        borrowed.add("Dovrai restituire " + name + " a " + owner);
+
+        try {
+            if (res.responseCode == 200) {
+                if(res.jsonResponseArray != null) {
+                    JSONArray jRes = res.jsonResponseArray;
+                    for(int i = 0; i < jRes.length(); i++) {
+                        borrowed.add(MyObject.newFromJson(jRes.getJSONObject(i)));
                     }
-                    else{
-                        error = getString(R.string.no_borrowed_objs);
-                    }
-                } else {
-                    error = getString(R.string.server_error_generic);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+                else{
+                    error = getString(R.string.no_borrowed_objs);
+                }
+            } else {
                 error = getString(R.string.server_error_generic);
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            error = getString(R.string.server_error_generic);
         }
+
 
 
         if (!error.equals("") && this.getView() != null) {
             Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
-        ArrayAdapter<String> myBorrowedObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, borrowed);
+        ArrayAdapter<MyObject> myBorrowedObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, borrowed);
         borrowedObjs.setAdapter(myBorrowedObjectAdapter);
 
         act.findViewById(R.id.loans_loading_layout).setVisibility(View.GONE);
@@ -181,6 +188,16 @@ public class LoansFrag extends Fragment {
     private void showLoading(FragmentActivity act) {
         act.findViewById(R.id.loans_main_fragment).setVisibility(View.GONE);
         act.findViewById(R.id.loans_loading_layout).setVisibility(View.VISIBLE);
+    }
+    public void onLentMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Object clicked = parent.getItemAtPosition(position);
+        if (HomeFragment.homeFragmentManager != null) {
+            MyObject g = (MyObject) clicked;
+            InfoObjFrag objFrag = InfoObjFrag.newInstance(g.id, null);
+            HomeFragment.homeBackStack.add(this);
+            HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).commit();
+
+        }
     }
 
 }

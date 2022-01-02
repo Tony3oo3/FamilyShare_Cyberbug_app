@@ -40,7 +40,8 @@ public class InfoObjFrag extends Fragment {
     public enum Mode{
         LOAN,
         REMOVE_LOAN,
-        DELETE
+        DELETE,
+        ACCEPT_REQ
     }
 
     public InfoObjFrag(String objectId, InfoObjFrag.Mode buttonMode) {
@@ -78,6 +79,12 @@ public class InfoObjFrag extends Fragment {
             // Delete object from system
             btn.setText(R.string.btn_obj_delete);
             btn.setOnClickListener(this::onClickDeleteButton);
+        }else if(buttonMode == Mode.ACCEPT_REQ) {
+            // Accept share request
+            btn.setText(R.string.btn_obj_accept);
+            btn.setOnClickListener(this::onClickAcceptButton);
+        }else{
+            btn.setVisibility(View.GONE);
         }
 
 
@@ -199,13 +206,24 @@ public class InfoObjFrag extends Fragment {
     public void onClickLoanButton(View v){
         this.showDialog(this::onLoanRequest, getString(R.string.sure_want_to_loan), this.objectName, android.R.drawable.ic_input_add);
     }
-
     public void onLoanRequest(DialogInterface d, int i){
         d.dismiss();
         if(this.getView() != null) {
             UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(this.getView(), this::showLoading);
             UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(this.getView(), this::onPostInfoObjectRequest);
             APIRequest req = MainActivity.fsAPI.loanObjectRequest(MainActivity.sData.authToken, objectId);
+            new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
+        }
+    }
+    public void onClickAcceptButton(View v){
+        this.showDialog(this::onAcceptRequest, getString(R.string.sure_want_to_accept), this.objectName, android.R.drawable.ic_input_add);
+    }
+    public void onAcceptRequest(DialogInterface d, int i){
+        d.dismiss();
+        if(this.getView() != null) {
+            UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(this.getView(), this::showLoading);
+            UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(this.getView(), this::onPostInfoObjectRequest);
+            APIRequest req = MainActivity.fsAPI.acceptShareReq(MainActivity.sData.authToken, objectId);
             new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
         }
     }
@@ -245,7 +263,7 @@ public class InfoObjFrag extends Fragment {
         String snackMessage = "";
         switch (res.responseCode){
             case 200:
-                snackMessage = getString(R.string.obj_loan_success);
+                snackMessage = getString(R.string.share_req_txt);
                 break;
             case 400:
                 snackMessage = getString(R.string.bad_request);
