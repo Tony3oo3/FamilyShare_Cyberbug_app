@@ -221,8 +221,8 @@ public class FSAPIWrapper {
     }
 
     public APIRequest removeSharedObjectFromGroupRequest(String authToken, String objectId, String groupId){
-        String endpoint = baseURL + "/api/objects/" + objectId + "/share/return";
-        APIRequest req = new APIRequest(endpoint, "GET", strToURI("group_id", groupId));
+        String endpoint = baseURL + "/api/objects/group/" + objectId + "/shareObj/remove";
+        APIRequest req = new APIRequest(endpoint, "POST", strToURI("group_id", groupId));
         req.addHeader("Authorization", "Bearer " + authToken);
         return req;
     }

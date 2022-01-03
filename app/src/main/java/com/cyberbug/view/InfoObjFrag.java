@@ -13,7 +13,9 @@ import androidx.fragment.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cyberbug.api.APIRequest;
@@ -25,9 +27,11 @@ import com.cyberbug.R;
 import com.cyberbug.functional.BiConsumer;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -156,8 +160,15 @@ public class InfoObjFrag extends Fragment {
                 TextView stateText = v.findViewById(R.id.txt_obj_state);
                 String state = (obj.getString("shared_with_user").equals("null")) ? getString(R.string.not_shared) : getString(R.string.shared);
                 stateText.setText(state);
-                // TODO get the groups when request is done
-                // TextView sharedGroupsText = v.findViewById(R.id.txt_obj_shared_groups);
+
+                ListView sharedGroupsText = v.findViewById(R.id.txt_obj_shared_groups);
+                JSONArray JSONGroups = obj.getJSONArray("group_ids");
+                List<String> sharedGroups = new ArrayList<>();
+                for(int i = 0; i < JSONGroups.length(); i++){
+                    sharedGroups.add((String)JSONGroups.get(i));
+                }
+                ArrayAdapter<String> sharedWithGroups = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, sharedGroups);
+                sharedGroupsText.setAdapter(sharedWithGroups);
 
                 // Get the user name from id
                 APIRequest ownerNameRequest = MainActivity.fsAPI.getUserProfileRequest(MainActivity.sData.authToken, obj.getString("owner"));
@@ -285,7 +296,7 @@ public class InfoObjFrag extends Fragment {
         String snackMessage = "";
         switch (res.responseCode){
             case 200:
-                snackMessage = getString(R.string.obj_loan_success);
+                snackMessage = getString(R.string.obj_remove_share);
                 break;
             case 400:
                 snackMessage = getString(R.string.bad_request);
