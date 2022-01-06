@@ -125,4 +125,6 @@
     <string name="txt_lent_objs">Oggetti prestati</string>
     <string name="txt_borrowed_objs">Oggetti presi in prestito</string>
     <string name="obj_remove_share">Condivisione con gruppo rimossa</string>
+    <string name="btn_guide">Apri il PDF per leggere la guida</string>
+    <string name="user_guide">Guida all\'utilizzo</string>
 </resources>

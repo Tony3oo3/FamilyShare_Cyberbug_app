@@ -55,7 +55,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // if we have saved the token -> skip this and ho to the home fragment
+        // if we have saved the token -> skip this and go to the home fragment
 
     }
 

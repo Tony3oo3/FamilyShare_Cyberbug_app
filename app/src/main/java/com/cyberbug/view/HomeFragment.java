@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -113,6 +112,10 @@ public class HomeFragment extends Fragment {
 
             case R.id.nav_req:
                 this.switchHomeFragment(RequestsFrag.newInstance(null));
+                break;
+
+            case R.id.nav_guide:
+                this.switchHomeFragment(GuideViewFrag.newInstance(null));
                 break;
         }
         return true;
