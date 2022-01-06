@@ -131,4 +131,7 @@
     <string name="obj_remove_share">Condivisione con gruppo rimossa</string>
     <string name="btn_guide">Apri il PDF per leggere la guida</string>
     <string name="user_guide">Guida all\'utilizzo</string>
+    <string name="btn_obj_return">Restituisci</string>
+    <string name="sure_want_to_return">Sei sicuro di voler restituire l\'oggetto?</string>
+    <string name="obj_returned">Oggetto restituito</string>
 </resources>

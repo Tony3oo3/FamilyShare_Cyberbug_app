@@ -45,7 +45,8 @@ public class InfoObjFrag extends Fragment {
         LOAN,
         REMOVE_LOAN,
         DELETE,
-        ACCEPT_REQ
+        ACCEPT_REQ,
+        RETURN
     }
 
     public InfoObjFrag(String objectId, InfoObjFrag.Mode buttonMode) {
@@ -87,7 +88,11 @@ public class InfoObjFrag extends Fragment {
             // Accept share request
             btn.setText(R.string.btn_obj_accept);
             btn.setOnClickListener(this::onClickAcceptButton);
-        }else{
+        }else if(buttonMode == Mode.RETURN){
+            // Return object to owner
+            btn.setText(R.string.btn_obj_return);
+            btn.setOnClickListener(this::onClickReturnButton);
+        }else {
             btn.setVisibility(View.GONE);
         }
 
@@ -268,6 +273,21 @@ public class InfoObjFrag extends Fragment {
         }
     }
 
+    private void onClickReturnButton(View v){
+        this.showDialog(this::sendReturnRequest, getString(R.string.sure_want_to_return), this.objectName, android.R.drawable.ic_dialog_alert);
+    }
+
+    private void sendReturnRequest(DialogInterface d, int i){
+        d.dismiss();
+        // Send the request to the server
+        if(this.getView() != null) {
+            UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(this.getView(), this::showLoading);
+            UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(this.getView(), this::onPostReturnRequest);
+            APIRequest req = MainActivity.fsAPI.returnObjectRequest(MainActivity.sData.authToken, objectId);
+            new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
+        }
+    }
+
     // Click request handlers
     private void onPostInfoObjectRequest(View v, List<APIResponse> responseList) {
         APIResponse res = responseList.get(0);
@@ -318,7 +338,33 @@ public class InfoObjFrag extends Fragment {
         String snackMessage = "";
         switch (res.responseCode){
             case 200:
-                // snackMessage = getString(R.string.obj_deleted);
+                snackMessage = getString(R.string.obj_deleted);
+                HomeFragment.homeFragmentManager.beginTransaction()
+                        .replace(R.id.home_fragment_container, MyObjectsFragment.newInstance(false, false))
+                        .commit();
+                break;
+            case 400:
+                snackMessage = getString(R.string.bad_request);
+                break;
+            case 401:
+                MainActivity.logoutUser(this.requireActivity(), getString(R.string.user_not_authenticated));
+                break;
+            default:
+                snackMessage = getString(R.string.server_error_generic);
+        }
+
+        if(res.responseCode != 401 && res.responseCode != 200) {
+            this.showPage(v);
+            this.showSnackBar(snackMessage, v);
+        }
+    }
+
+    private void onPostReturnRequest(View v, List<APIResponse> responseList) {
+        APIResponse res = responseList.get(0);
+        String snackMessage = "";
+        switch (res.responseCode){
+            case 200:
+                snackMessage = getString(R.string.obj_returned);
                 HomeFragment.homeFragmentManager.beginTransaction()
                         .replace(R.id.home_fragment_container, MyObjectsFragment.newInstance(false, false))
                         .commit();

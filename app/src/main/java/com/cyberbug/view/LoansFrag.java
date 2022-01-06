@@ -84,6 +84,7 @@ public class LoansFrag extends Fragment {
         borrowedObjs = v.findViewById(R.id.txt_borrowed_object);
 
         lentObjs.setOnItemClickListener(this::onLentMenuItemClick);
+        borrowedObjs.setOnItemClickListener(this::onBorrowedMenuItemClick);
 
         // Set fragment title
         Fragment parent = this.getParentFragment();
@@ -194,6 +195,16 @@ public class LoansFrag extends Fragment {
         if (HomeFragment.homeFragmentManager != null) {
             MyObject g = (MyObject) clicked;
             InfoObjFrag objFrag = InfoObjFrag.newInstance(g.id, null);
+            HomeFragment.homeBackStack.add(this);
+            HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).commit();
+
+        }
+    }
+    public void onBorrowedMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Object clicked = parent.getItemAtPosition(position);
+        if (HomeFragment.homeFragmentManager != null) {
+            MyObject g = (MyObject) clicked;
+            InfoObjFrag objFrag = InfoObjFrag.newInstance(g.id, InfoObjFrag.Mode.RETURN);
             HomeFragment.homeBackStack.add(this);
             HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).commit();
 
