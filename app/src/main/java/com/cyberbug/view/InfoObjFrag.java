@@ -72,6 +72,7 @@ public class InfoObjFrag extends Fragment {
 
         // Set buttons listeners and text
         Button btn = v.findViewById(R.id.btn_info_object);
+        Button btnIgn = v.findViewById(R.id.btn_ignore_req);
         if(buttonMode == Mode.LOAN) {
             // Button is loan
             btn.setText(R.string.btn_obj_loan);
@@ -88,6 +89,9 @@ public class InfoObjFrag extends Fragment {
             // Accept share request
             btn.setText(R.string.btn_obj_accept);
             btn.setOnClickListener(this::onClickAcceptButton);
+            btnIgn.setVisibility(View.VISIBLE);
+            btnIgn.setText(R.string.btn_obj_ignore_txt);
+            btnIgn.setOnClickListener(this::onClickIgnoreReqButton);
         }else if(buttonMode == Mode.RETURN){
             // Return object to owner
             btn.setText(R.string.btn_obj_return);
@@ -238,7 +242,7 @@ public class InfoObjFrag extends Fragment {
         d.dismiss();
         if(this.getView() != null) {
             UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(this.getView(), this::showLoading);
-            UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(this.getView(), this::onPostInfoObjectRequest);
+            UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(this.getView(), this::onPostAcceptRequest);
             APIRequest req = MainActivity.fsAPI.acceptShareReq(MainActivity.sData.authToken, objectId);
             new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
         }
@@ -254,6 +258,20 @@ public class InfoObjFrag extends Fragment {
             UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(this.getView(), this::showLoading);
             UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(this.getView(), this::onPostRemoveLoanRequest);
             APIRequest req = MainActivity.fsAPI.removeSharedObjectFromGroupRequest(MainActivity.sData.authToken, objectId, MainActivity.sData.selectedGroup.id);
+            new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
+        }
+    }
+
+    public void onClickIgnoreReqButton(View v){
+        this.showDialog(this::onIgnoreReqRequest, getString(R.string.sure_want_to_ignore), this.objectName, android.R.drawable.ic_dialog_alert);
+    }
+
+    private void onIgnoreReqRequest(DialogInterface d, int i){
+        d.dismiss();
+        if(this.getView() != null) {
+            UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(this.getView(), this::showLoading);
+            UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(this.getView(), this::onPostIgnoreReqRequest);
+            APIRequest req = MainActivity.fsAPI.ignoreShareReq(MainActivity.sData.authToken, objectId);
             new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
         }
     }
@@ -365,6 +383,58 @@ public class InfoObjFrag extends Fragment {
         switch (res.responseCode){
             case 200:
                 snackMessage = getString(R.string.obj_returned);
+                HomeFragment.homeFragmentManager.beginTransaction()
+                        .replace(R.id.home_fragment_container, MyObjectsFragment.newInstance(false, false))
+                        .commit();
+                break;
+            case 400:
+                snackMessage = getString(R.string.bad_request);
+                break;
+            case 401:
+                MainActivity.logoutUser(this.requireActivity(), getString(R.string.user_not_authenticated));
+                break;
+            default:
+                snackMessage = getString(R.string.server_error_generic);
+        }
+
+        if(res.responseCode != 401 && res.responseCode != 200) {
+            this.showPage(v);
+            this.showSnackBar(snackMessage, v);
+        }
+    }
+
+    private void onPostAcceptRequest(View v, List<APIResponse> responseList) {
+        APIResponse res = responseList.get(0);
+        String snackMessage = "";
+        switch (res.responseCode){
+            case 200:
+                snackMessage = getString(R.string.obj_req_ignored);
+                HomeFragment.homeFragmentManager.beginTransaction()
+                        .replace(R.id.home_fragment_container, MyObjectsFragment.newInstance(false, false))
+                        .commit();
+                break;
+            case 400:
+                snackMessage = getString(R.string.bad_request);
+                break;
+            case 401:
+                MainActivity.logoutUser(this.requireActivity(), getString(R.string.user_not_authenticated));
+                break;
+            default:
+                snackMessage = getString(R.string.server_error_generic);
+        }
+
+        if(res.responseCode != 401 && res.responseCode != 200) {
+            this.showPage(v);
+            this.showSnackBar(snackMessage, v);
+        }
+    }
+
+    private void onPostIgnoreReqRequest(View v, List<APIResponse> responseList) {
+        APIResponse res = responseList.get(0);
+        String snackMessage = "";
+        switch (res.responseCode){
+            case 200:
+                snackMessage = getString(R.string.obj_req_ignored);
                 HomeFragment.homeFragmentManager.beginTransaction()
                         .replace(R.id.home_fragment_container, MyObjectsFragment.newInstance(false, false))
                         .commit();

@@ -134,4 +134,8 @@
     <string name="btn_obj_return">Restituisci</string>
     <string name="sure_want_to_return">Sei sicuro di voler restituire l\'oggetto?</string>
     <string name="obj_returned">Oggetto restituito</string>
+    <string name="sure_want_to_ignore">Sei sicuro di voler ignorare la richiesta?</string>
+    <string name="obj_req_ignored">Richiesta di prestito ignorata</string>
+    <string name="btn_obj_ignore_txt">Ignora</string>
+    <string name="obj_accept_req">Oggetto prestato con successo</string>
 </resources>
