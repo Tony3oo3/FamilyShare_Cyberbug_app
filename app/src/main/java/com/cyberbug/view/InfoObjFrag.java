@@ -172,6 +172,10 @@ public class InfoObjFrag extends Fragment {
                 TextView stateText = act.findViewById(R.id.txt_obj_state);
                 String state = (obj.getString("shared_with_user").equals("null")) ? getString(R.string.not_shared) : getString(R.string.shared);
                 stateText.setText(state);
+                if(state.equals(getString(R.string.shared))){
+                    Button btn = act.findViewById(R.id.btn_info_object);
+                    btn.setVisibility(View.GONE);
+                }
 
                 // Get the group ids
                 JSONArray JSONGroups = obj.getJSONArray("group_ids");

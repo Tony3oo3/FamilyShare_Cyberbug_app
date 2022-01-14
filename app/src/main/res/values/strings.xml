@@ -120,8 +120,6 @@
     <string name="sure_want_to_delete">Sicuro di voler eliminare l\'oggetto?</string>
     <string name="sure_want_to_loan">Sei sicuro di voler richiedere il prestito?</string>
     <string name="sure_want_to_remove_loan">Sei sicuro di voler rimovere la condivisione con questo gruppo?</string>
-    <string name="no_lent_objs">Non hai oggetti prestati</string>
-    <string name="no_borrowed_objs">Non hai oggetti presi in prestito</string>
     <string name="no_requests">Non hai richieste di condivisione</string>
     <string name="share_req_txt">Richiesta di prestito inviata</string>
     <string name="btn_obj_accept">PRESTA</string>
@@ -138,4 +136,8 @@
     <string name="obj_req_ignored">Richiesta di prestito ignorata</string>
     <string name="btn_obj_ignore_txt">Ignora</string>
     <string name="obj_accept_req">Oggetto prestato con successo</string>
+    <string name="no_in_requests">Nessuna richiesta in entrata</string>
+    <string name="no_out_requests">Nessuna richiesta in uscita</string>
+    <string name="no_lent_obj">Nessun oggetto prestato</string>
+    <string name="no_borrowed_obj">Nessun oggetto preso in prestito</string>
 </resources>

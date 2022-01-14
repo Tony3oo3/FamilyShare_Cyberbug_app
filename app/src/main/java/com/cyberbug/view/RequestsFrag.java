@@ -120,7 +120,7 @@ public class RequestsFrag extends Fragment {
 
     private void populateIncomeRequestsList(FragmentActivity act, List<APIResponse> resList) {
         String error = "";
-        List<MyObject> outRequests = new ArrayList<>();
+        List<MyObject> inRequests = new ArrayList<>();
         APIResponse res = resList.get(0);
         // if some responses are not good then set the error flag
 
@@ -129,7 +129,7 @@ public class RequestsFrag extends Fragment {
                 if (res.jsonResponseArray != null) {
                     JSONArray jRes = res.jsonResponseArray;
                     for(int i = 0; i < jRes.length(); i++) {
-                        outRequests.add(MyObject.newFromJson(jRes.getJSONObject(i)));
+                        inRequests.add(MyObject.newFromJson(jRes.getJSONObject(i)));
                     }
                 } else {
                     error = getString(R.string.no_requests);
@@ -146,8 +146,18 @@ public class RequestsFrag extends Fragment {
         if (!error.equals("") && this.getView() != null) {
             Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
-        ArrayAdapter<MyObject> myIncomeRequestsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
-        incomeRequestsListView.setAdapter(myIncomeRequestsAdapter);
+        if(!inRequests.isEmpty()) {
+            ArrayAdapter<MyObject> myIncomeRequestsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, inRequests);
+            incomeRequestsListView.setAdapter(myIncomeRequestsAdapter);
+        } else {
+            ArrayAdapter<String> defMess = new ArrayAdapter<String>(this.requireContext(), R.layout.textview_group) {
+                public boolean isEnabled(int position) {
+                    return false;
+                }
+            };
+            defMess.add(getString(R.string.no_in_requests));
+            incomeRequestsListView.setAdapter(defMess);
+        }
 
         APIRequest getBorrowedObjs = MainActivity.fsAPI.getOutgoingRequestsObj(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(null, (x) -> {});
@@ -182,8 +192,18 @@ public class RequestsFrag extends Fragment {
         if (!error.equals("") && this.getView() != null) {
             Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
-        ArrayAdapter<MyObject> myOutcomeRequestsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
-        outcomeRequestsListView.setAdapter(myOutcomeRequestsAdapter);
+        if(!outRequests.isEmpty()) {
+            ArrayAdapter<MyObject> myOutcomeRequestsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, outRequests);
+            outcomeRequestsListView.setAdapter(myOutcomeRequestsAdapter);
+        } else {
+            ArrayAdapter<String> defMess = new ArrayAdapter<String>(this.requireContext(), R.layout.textview_group) {
+                public boolean isEnabled(int position) {
+                    return false;
+                }
+            };
+            defMess.add(getString(R.string.no_out_requests));
+            outcomeRequestsListView.setAdapter(defMess);
+        }
 
         act.findViewById(R.id.progressBar_Requests).setVisibility(View.GONE);
         act.findViewById(R.id.requests_main_layout).setVisibility(View.VISIBLE);
@@ -199,5 +219,4 @@ public class RequestsFrag extends Fragment {
 
         }
     }
-
 }

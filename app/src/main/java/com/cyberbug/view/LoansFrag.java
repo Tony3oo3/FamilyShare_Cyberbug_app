@@ -126,7 +126,7 @@ public class LoansFrag extends Fragment {
                     }
                 }
                 else{
-                    error = getString(R.string.no_lent_objs);
+                    error = getString(R.string.no_lent_obj);
                 }
             } else {
                 error = getString(R.string.server_error_generic);
@@ -140,8 +140,18 @@ public class LoansFrag extends Fragment {
         if (!error.equals("") && this.getView() != null) {
             Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
-        ArrayAdapter<MyObject> myLentObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, lent);
-        lentObjs.setAdapter(myLentObjectAdapter);
+        if(!lent.isEmpty()) {
+            ArrayAdapter<MyObject> myLentObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, lent);
+            lentObjs.setAdapter(myLentObjectAdapter);
+        } else {
+            ArrayAdapter<String> defMess = new ArrayAdapter<String>(this.requireContext(), R.layout.textview_group) {
+                public boolean isEnabled(int position) {
+                    return false;
+                }
+            };
+            defMess.add(getString(R.string.no_lent_obj));
+            lentObjs.setAdapter(defMess);
+        }
 
         APIRequest getBorrowedObjs = MainActivity.fsAPI.getUserBorrowedObjectsRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(null, (x) -> {});
@@ -164,7 +174,7 @@ public class LoansFrag extends Fragment {
                     }
                 }
                 else{
-                    error = getString(R.string.no_borrowed_objs);
+                    error = getString(R.string.no_borrowed_obj);
                 }
             } else {
                 error = getString(R.string.server_error_generic);
@@ -174,13 +184,21 @@ public class LoansFrag extends Fragment {
             error = getString(R.string.server_error_generic);
         }
 
-
-
         if (!error.equals("") && this.getView() != null) {
             Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
-        ArrayAdapter<MyObject> myBorrowedObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, borrowed);
-        borrowedObjs.setAdapter(myBorrowedObjectAdapter);
+        if(!borrowed.isEmpty()) {
+            ArrayAdapter<MyObject> myBorrowedObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, borrowed);
+            borrowedObjs.setAdapter(myBorrowedObjectAdapter);
+        } else {
+            ArrayAdapter<String> defMess = new ArrayAdapter<String>(this.requireContext(), R.layout.textview_group) {
+                public boolean isEnabled(int position) {
+                    return false;
+                }
+            };
+            defMess.add(getString(R.string.no_borrowed_obj));
+            borrowedObjs.setAdapter(defMess);
+        }
 
         act.findViewById(R.id.loans_loading_layout).setVisibility(View.GONE);
         act.findViewById(R.id.loans_main_fragment).setVisibility(View.VISIBLE);
