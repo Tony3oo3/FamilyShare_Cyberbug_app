@@ -35,13 +35,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Fragment used to show object information and to loan, delete, return an object.
+ * It is also used to remove a loan and accept a loan request
+ */
 public class InfoObjFrag extends Fragment {
 
     private final String objectId;
     private String objectName;
     private final Mode buttonMode;
 
+    // enum used to set fragment layout
     public enum Mode{
         LOAN,
         REMOVE_LOAN,
@@ -74,31 +78,38 @@ public class InfoObjFrag extends Fragment {
         // Set buttons listeners and text
         Button btn = v.findViewById(R.id.btn_info_object);
         Button btnIgn = v.findViewById(R.id.btn_ignore_req);
-        if(buttonMode == Mode.LOAN) {
-            // Button is loan
-            btn.setText(R.string.btn_obj_loan);
-            btn.setOnClickListener(this::onClickLoanButton);
-        }else if(buttonMode == Mode.REMOVE_LOAN){
-            // Button is remove
-            btn.setText(R.string.btn_obj_remove_loan);
-            btn.setOnClickListener(this::onClickRemoveLoanButton);
-        }else if(buttonMode == Mode.DELETE){
-            // Delete object from system
-            btn.setText(R.string.btn_obj_delete);
-            btn.setOnClickListener(this::onClickDeleteButton);
-        }else if(buttonMode == Mode.ACCEPT_REQ) {
-            // Accept share request
-            btn.setText(R.string.btn_obj_accept);
-            btn.setOnClickListener(this::onClickAcceptButton);
-            btnIgn.setVisibility(View.VISIBLE);
-            btnIgn.setText(R.string.btn_obj_ignore_txt);
-            btnIgn.setOnClickListener(this::onClickIgnoreReqButton);
-        }else if(buttonMode == Mode.RETURN){
-            // Return object to owner
-            btn.setText(R.string.btn_obj_return);
-            btn.setOnClickListener(this::onClickReturnButton);
-        }else {
-            btn.setVisibility(View.GONE);
+        switch (buttonMode) {
+            case LOAN:
+                // Button is loan
+                btn.setText(R.string.btn_obj_loan);
+                btn.setOnClickListener(this::onClickLoanButton);
+                break;
+            case REMOVE_LOAN:
+                // Button is remove
+                btn.setText(R.string.btn_obj_remove_loan);
+                btn.setOnClickListener(this::onClickRemoveLoanButton);
+                break;
+            case DELETE:
+                // Delete object from system
+                btn.setText(R.string.btn_obj_delete);
+                btn.setOnClickListener(this::onClickDeleteButton);
+                break;
+            case ACCEPT_REQ:
+                // Accept share request
+                btn.setText(R.string.btn_obj_accept);
+                btn.setOnClickListener(this::onClickAcceptButton);
+                btnIgn.setVisibility(View.VISIBLE);
+                btnIgn.setText(R.string.btn_obj_ignore_txt);
+                btnIgn.setOnClickListener(this::onClickIgnoreReqButton);
+                break;
+            case RETURN:
+                // Return object to owner
+                btn.setText(R.string.btn_obj_return);
+                btn.setOnClickListener(this::onClickReturnButton);
+                break;
+            default:
+                btn.setVisibility(View.GONE);
+                break;
         }
 
 
@@ -157,6 +168,7 @@ public class InfoObjFrag extends Fragment {
         }
     }
 
+    // Method that shows the object information get from APIResponse
     private void populateAndShowObjectInfo(FragmentActivity act, List<APIResponse> resList){
         APIResponse res = resList.get(0);
         boolean waitToShowPage = false;
@@ -172,6 +184,8 @@ public class InfoObjFrag extends Fragment {
                 TextView stateText = act.findViewById(R.id.txt_obj_state);
                 String state = (obj.getString("shared_with_user").equals("null")) ? getString(R.string.not_shared) : getString(R.string.shared);
                 stateText.setText(state);
+
+                // Disables loan request button if object is already lent
                 if(state.equals(getString(R.string.shared))){
                     Button btn = act.findViewById(R.id.btn_info_object);
                     btn.setVisibility(View.GONE);
@@ -202,7 +216,6 @@ public class InfoObjFrag extends Fragment {
             e.printStackTrace();
             this.showSnackBar(getString(R.string.server_error_generic), this.requireView());
         }finally {
-            // TODO show default?
             if(!waitToShowPage) this.showPage(this.requireView());
         }
     }
@@ -217,7 +230,6 @@ public class InfoObjFrag extends Fragment {
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(act, this::populateAndShowGroupList);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
     }
-
 
     private void populateAndShowGroupList(FragmentActivity act, List<APIResponse> resList) {
         ListView sharedGroupsText = act.findViewById(R.id.txt_obj_shared_groups);

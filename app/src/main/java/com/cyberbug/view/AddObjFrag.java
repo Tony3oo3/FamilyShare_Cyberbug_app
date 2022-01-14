@@ -36,6 +36,9 @@ public class AddObjFrag extends Fragment {
     private EditText objName;
     private EditText objDesc;
 
+    /**
+     * Factory method that creates a new instance of AddObjFrag
+     */
     public static AddObjFrag newInstance(String errorMessage) {
         AddObjFrag aof = new AddObjFrag();
         Bundle args = new Bundle();
@@ -100,7 +103,7 @@ public class AddObjFrag extends Fragment {
         }
 
         // All is ok
-        // Send the request to the serve
+        // Send the request to the server
         FSAPIWrapper.ObjectData obj = new FSAPIWrapper.ObjectData(name, desc);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), AddObjFrag::onPreAddObjectRequest);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::onPostAddObjectRequest);
@@ -110,7 +113,6 @@ public class AddObjFrag extends Fragment {
     }
     private static void onPreAddObjectRequest(FragmentActivity activity) {
         // Changes to LoadingFragment
-
         activity.findViewById(R.id.add_object_main_layout).setVisibility(View.GONE);
         activity.findViewById(R.id.add_object_loading_layout).setVisibility(View.VISIBLE);
     }
@@ -122,13 +124,9 @@ public class AddObjFrag extends Fragment {
         // 401 user not authenticated or unauthorized
         // else server error
         if (res.responseCode == 200) {
-            //this.returnToMyObjects(getString(R.string.obj_addition_success));
             errorMessage = getString(R.string.obj_addition_success);
         } else {
-            // some error occurred, return to the fragment and show a snack bar
-            //FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-
-
+            // some error occurred, set errorMessage
             switch (res.responseCode){
                 case 400:
                     errorMessage = getString(R.string.bad_request);

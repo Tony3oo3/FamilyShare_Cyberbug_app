@@ -31,9 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoansFrag#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment used to list lent and borrowed objects
  */
 public class LoansFrag extends Fragment {
 
@@ -48,13 +46,8 @@ public class LoansFrag extends Fragment {
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param errorMessage Parameter 1.
-     * @return A new instance of fragment LoansFrag.
+     * Factory method that creates a new instance of this LoansFrag
      */
-    // TODO: Rename and change types and number of parameters
     public static LoansFrag newInstance(String errorMessage) {
         LoansFrag lf = new LoansFrag();
         Bundle args = new Bundle();
@@ -103,14 +96,14 @@ public class LoansFrag extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         populateLentTextView();
     }
-
+    // Gets lent objects request
     private void populateLentTextView() {
         APIRequest getLentObjs = MainActivity.fsAPI.getUserLentObjectsRequest(MainActivity.sData.authToken, MainActivity.sData.thisUserId);
         UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(this.requireActivity(), this::showLoading);
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::populateBorrowedTextView);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getLentObjs);
     }
-
+    // Populates lentObjs listview and gets borrowed objects
     private void populateBorrowedTextView(FragmentActivity act, List<APIResponse> resList) {
         String error = "";
         List<MyObject> lent = new ArrayList<>();
@@ -140,6 +133,8 @@ public class LoansFrag extends Fragment {
         if (!error.equals("") && this.getView() != null) {
             Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
+
+        // Shows default message if there are no lent objects
         if(!lent.isEmpty()) {
             ArrayAdapter<MyObject> myLentObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, lent);
             lentObjs.setAdapter(myLentObjectAdapter);
@@ -158,13 +153,13 @@ public class LoansFrag extends Fragment {
         UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.requireActivity(), this::showBorrowedTextView);
         new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getBorrowedObjs);
     }
-
+    // Shows borrowed objects
     private void showBorrowedTextView(FragmentActivity act, List<APIResponse> resList) {
         String error = "";
         List<MyObject> borrowed = new ArrayList<>();
         APIResponse res = resList.get(0);
-        // if some responses are not good then set the error flag
 
+        // if some responses are not good then set the error flag
         try {
             if (res.responseCode == 200) {
                 if(res.jsonResponseArray != null) {
@@ -187,6 +182,8 @@ public class LoansFrag extends Fragment {
         if (!error.equals("") && this.getView() != null) {
             Snackbar.make(this.getView(), error, Snackbar.LENGTH_LONG).show();
         }
+
+        // Shows default message if there are no borrowed objects
         if(!borrowed.isEmpty()) {
             ArrayAdapter<MyObject> myBorrowedObjectAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, borrowed);
             borrowedObjs.setAdapter(myBorrowedObjectAdapter);
@@ -208,6 +205,7 @@ public class LoansFrag extends Fragment {
         act.findViewById(R.id.loans_main_fragment).setVisibility(View.GONE);
         act.findViewById(R.id.loans_loading_layout).setVisibility(View.VISIBLE);
     }
+    // Lent listview object click
     public void onLentMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
         Object clicked = parent.getItemAtPosition(position);
         if (HomeFragment.homeFragmentManager != null) {
@@ -215,9 +213,9 @@ public class LoansFrag extends Fragment {
             InfoObjFrag objFrag = InfoObjFrag.newInstance(g.id, null);
             HomeFragment.homeBackStack.add(this);
             HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).commit();
-
         }
     }
+    // Borrowed listview object click
     public void onBorrowedMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
         Object clicked = parent.getItemAtPosition(position);
         if (HomeFragment.homeFragmentManager != null) {
