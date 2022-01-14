@@ -8,6 +8,9 @@ import com.cyberbug.R;
 
 import java.util.Stack;
 
+/**
+ * A custom implemented stack to handle the back button press
+ */
 public class HomeBackStack {
     private final FragmentManager fm;
     private final Stack<Fragment> fragStack;

@@ -4,7 +4,7 @@ import android.net.Uri;
 
 /**
  * Class that wraps all the necessary REST API calls of Families Share server.
- * All the requests are executed with an async task.
+ * All the requests should be executed with {@link com.cyberbug.api.AsyncRESTDispatcher}AsyncRESTDispatcher
  */
 public class FSAPIWrapper {
     private final String baseURL;

@@ -1,11 +1,5 @@
 package com.cyberbug.api;
 
-
-//TODO forse si può usare una anonymous class invece che definirla in questo modo
-// lo svantaggio è che se in caso bisognasse aggiungere qualcosa è più facile farlo con una classe
-
-//TODO si potrebbe aggiungere un bound al type parameter
-
 import com.cyberbug.functional.Consumer;
 
 /**

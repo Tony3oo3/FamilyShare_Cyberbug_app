@@ -6,6 +6,9 @@ import androidx.annotation.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class holds all the "object" information
+ */
 public class MyObject implements Comparable<MyObject>{
     public final String id;
     public final String objName;

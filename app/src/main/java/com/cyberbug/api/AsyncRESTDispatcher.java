@@ -42,10 +42,8 @@ public class AsyncRESTDispatcher extends AsyncTask<APIRequest, Integer, List<API
         preExec.updateUI();
     }
 
-    // TODO refactor
     @Override
     protected List<APIResponse> doInBackground(APIRequest... requests) {
-        // TODO add argument checks
         ArrayList<APIResponse> resArray = new ArrayList<>(requests.length);
         for(APIRequest req : requests) {
             APIResponse res = new APIResponse(400);
@@ -53,7 +51,6 @@ public class AsyncRESTDispatcher extends AsyncTask<APIRequest, Integer, List<API
                 URL endpoint = new URL(req.endpointUrl);
                 HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
 
-                // TODO add method check
                 connection.setRequestMethod(req.method);
                 if (req.method.equals("POST")) connection.setDoOutput(true);
 

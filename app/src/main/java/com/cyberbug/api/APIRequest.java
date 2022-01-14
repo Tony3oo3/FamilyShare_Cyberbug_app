@@ -11,7 +11,7 @@ import java.util.Collection;
  */
 public class APIRequest {
     public final String endpointUrl;
-    public final String method; // TODO crea un enum che contiene tutti i valori possibili per essere safe
+    public final String method;
     public final String bodyUri;
     public final Collection<Pair<String,String>> headers;
 

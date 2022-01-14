@@ -26,31 +26,16 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddObjFrag#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment used to register a new object in the system
  */
 public class AddObjFrag extends Fragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_ERROR_MESSAGE = "errorMessage";
     private String errorMessage = null;
 
     private EditText objName;
     private EditText objDesc;
 
-    public AddObjFrag() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param errorMessage Parameter 1.
-     * @return A new instance of fragment AddObjFrag.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AddObjFrag newInstance(String errorMessage) {
         AddObjFrag aof = new AddObjFrag();
         Bundle args = new Bundle();
@@ -160,12 +145,4 @@ public class AddObjFrag extends Fragment {
         activity.findViewById(R.id.add_object_main_layout).setVisibility(View.VISIBLE);
         Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
-    /*
-    private void returnToMyObjects(String message){
-        MyObjectsFragment myObjectsFragment = MyObjectsFragment.newInstance(message);
-        FragmentManager fragmentManager = this.getChildFragmentManager();
-        fragmentManager.popBackStack();
-        fragmentManager.beginTransaction().replace(R.id.home_fragment_container, myObjectsFragment).commit();
-    }
-    */
 }
