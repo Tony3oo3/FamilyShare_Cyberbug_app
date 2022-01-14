@@ -25,6 +25,7 @@ import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
 import com.cyberbug.R;
 import com.cyberbug.functional.BiConsumer;
+import com.cyberbug.model.Group;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -148,75 +149,119 @@ public class InfoObjFrag extends Fragment {
 
     // UI loaders
     private void populateTextViews(View v){
-        APIRequest getObjectInfo = MainActivity.fsAPI.searchObjectRequest(MainActivity.sData.authToken, objectId);
-        UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(v, this::showLoading);
-        UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(v, this::populateAndShowObjectInfo);
-        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getObjectInfo);
+        if(this.getActivity() != null) {
+            APIRequest getObjectInfo = MainActivity.fsAPI.searchObjectRequest(MainActivity.sData.authToken, objectId);
+            UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(v, this::showLoading);
+            UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(this.getActivity(), this::populateAndShowObjectInfo);
+            new AsyncRESTDispatcher(preUpdater, postUpdater).execute(getObjectInfo);
+        }
     }
 
-    private void populateAndShowObjectInfo(View v, List<APIResponse> resList){
+    private void populateAndShowObjectInfo(FragmentActivity act, List<APIResponse> resList){
         APIResponse res = resList.get(0);
         boolean waitToShowPage = false;
         try{
             if(res.responseCode == 200 && res.jsonResponse != null){
                 // OK
                 JSONObject obj = res.jsonResponse;
-                TextView nameText = v.findViewById(R.id.txt_info_obj_name);
+                TextView nameText = act.findViewById(R.id.txt_info_obj_name);
                 this.objectName = obj.getString("object_name");
                 nameText.setText(this.objectName);
-                TextView descText = v.findViewById(R.id.txt_obj_desc);
+                TextView descText = act.findViewById(R.id.txt_obj_desc);
                 descText.setText(obj.getString("object_description"));
-                TextView stateText = v.findViewById(R.id.txt_obj_state);
+                TextView stateText = act.findViewById(R.id.txt_obj_state);
                 String state = (obj.getString("shared_with_user").equals("null")) ? getString(R.string.not_shared) : getString(R.string.shared);
                 stateText.setText(state);
 
-                ListView sharedGroupsText = v.findViewById(R.id.txt_obj_shared_groups);
+                // Get the group ids
                 JSONArray JSONGroups = obj.getJSONArray("group_ids");
                 List<String> sharedGroups = new ArrayList<>();
                 for(int i = 0; i < JSONGroups.length(); i++){
                     sharedGroups.add((String)JSONGroups.get(i));
                 }
-                ArrayAdapter<String> sharedWithGroups = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, sharedGroups);
-                sharedGroupsText.setAdapter(sharedWithGroups);
+                setGroupNamesFromIds(act, sharedGroups);
+
 
                 // Get the user name from id
                 APIRequest ownerNameRequest = MainActivity.fsAPI.getUserProfileRequest(MainActivity.sData.authToken, obj.getString("owner"));
-                UIUpdaterVoid<View> preUpdater = new UIUpdaterVoid<>(v, (x)->{}); // do nothing
-                UIUpdaterResponse<View> postUpdater = new UIUpdaterResponse<>(v, this::setOwnerName);
+                UIUpdaterVoid<FragmentActivity> preUpdater = new UIUpdaterVoid<>(act, (x)->{}); // do nothing
+                UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(act, this::setOwnerName);
                 new AsyncRESTDispatcher(preUpdater, postUpdater).execute(ownerNameRequest);
                 waitToShowPage = true;
             }else if(res.responseCode == 401){
                 MainActivity.logoutUser(this.requireActivity(), getString(R.string.user_not_authenticated));
             }else{
                 // Generic error
-                this.showSnackBar(getString(R.string.server_error_generic), v);
+                this.showSnackBar(getString(R.string.server_error_generic), this.requireView());
             }
         }catch(JSONException e) {
             e.printStackTrace();
-            this.showSnackBar(getString(R.string.server_error_generic), v);
+            this.showSnackBar(getString(R.string.server_error_generic), this.requireView());
         }finally {
             // TODO show default?
-            if(!waitToShowPage) this.showPage(v);
+            if(!waitToShowPage) this.showPage(this.requireView());
         }
     }
 
-    private void setOwnerName(View v, List<APIResponse> resList) {
+    private void setGroupNamesFromIds(FragmentActivity act, List<String> sharedGroups) {
+        APIRequest[] req = new APIRequest[sharedGroups.size()];
+        for(int i = 0; i < sharedGroups.size(); i++){
+            // build a request for the id
+            req[i] = MainActivity.fsAPI.getGroupByIdRequest(sharedGroups.get(i));
+        }
+        UIUpdaterVoid<?> preUpdater = new UIUpdaterVoid<>(null, (x) -> {});
+        UIUpdaterResponse<FragmentActivity> postUpdater = new UIUpdaterResponse<>(act, this::populateAndShowGroupList);
+        new AsyncRESTDispatcher(preUpdater, postUpdater).execute(req);
+    }
+
+
+    private void populateAndShowGroupList(FragmentActivity act, List<APIResponse> resList) {
+        ListView sharedGroupsText = act.findViewById(R.id.txt_obj_shared_groups);
+        List<Group> sharedGroups = new ArrayList<>();
+
+        boolean error = false;
+        // For each response construct a Group object and add it to the Adapter
+        // if some responses are not good then set the error flag
+        for (APIResponse res : resList) {
+            try {
+                if (res.responseCode == 200 && res.jsonResponse != null) {
+                    String name = res.jsonResponse.getString("name");
+                    String id = res.jsonResponse.getString("group_id");
+                    sharedGroups.add(new Group(id, name));
+                } else {
+                    error = true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                error = true;
+            }
+        }
+
+        if (error && this.getView() != null) {
+            Snackbar.make(this.getView(), getString(R.string.server_error_generic), Snackbar.LENGTH_LONG).show();
+        }
+
+        ArrayAdapter<Group> myGroupsAdapter = new ArrayAdapter<>(this.requireContext(), R.layout.textview_group, sharedGroups);
+        sharedGroupsText.setAdapter(myGroupsAdapter);
+    }
+
+    private void setOwnerName(FragmentActivity act, List<APIResponse> resList) {
         APIResponse res = resList.get(0);
         try{
             if(res.responseCode == 200 && res.jsonResponse != null){
-                TextView ownerName = v.findViewById(R.id.txt_obj_owner);
+                TextView ownerName = act.findViewById(R.id.txt_obj_owner);
                 String name = res.jsonResponse.getString("family_name") + " " + res.jsonResponse.getString("given_name");
                 ownerName.setText(name);
             }else if(res.responseCode == 401){
                 MainActivity.logoutUser(this.requireActivity(), getString(R.string.user_not_authenticated));
             }else{
-                this.showSnackBar(getString(R.string.server_error_generic), v);
+                this.showSnackBar(getString(R.string.server_error_generic), this.requireView());
             }
         }catch (JSONException e){
             e.printStackTrace();
-            this.showSnackBar(getString(R.string.server_error_generic), v);
+            this.showSnackBar(getString(R.string.server_error_generic), this.requireView());
         }finally {
-            this.showPage(v);
+            this.showPage(this.requireView());
         }
     }
 
