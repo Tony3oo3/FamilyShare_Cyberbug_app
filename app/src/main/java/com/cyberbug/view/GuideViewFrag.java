@@ -44,7 +44,7 @@ public class GuideViewFrag extends Fragment {
 
         // Initialize fragment components
         PDFView pdfView = v.findViewById(R.id.pdfView);
-        pdfView.fromAsset("Families_Share_Walkthrough.pdf").load();
+        pdfView.fromAsset("Guida all'utilizzo.pdf").load();
 
         // Set fragment title
         Fragment parent = this.getParentFragment();
