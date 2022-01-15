@@ -37,6 +37,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A fragment used to join a group
+ */
 public class GroupAccessFrag extends Fragment {
 
     private static GroupAccessFrag thisFrag = null;
@@ -229,7 +232,6 @@ public class GroupAccessFrag extends Fragment {
         APIResponse res = resList.get(0);
         if(res.responseCode == 200){
             // OK
-            // TODO maybe redirect somewhere?
             showGroupListView(act);
             if(this.getView() != null){
                 Snackbar.make(this.getView(), getString(R.string.group_join_dome), Snackbar.LENGTH_LONG).show();

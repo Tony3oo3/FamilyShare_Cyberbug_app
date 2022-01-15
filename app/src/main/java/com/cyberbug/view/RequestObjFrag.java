@@ -1,58 +1,23 @@
 package com.cyberbug.view;
 
 import android.os.Bundle;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import com.cyberbug.R;
-import com.cyberbug.api.APIRequest;
-import com.cyberbug.api.AsyncRESTDispatcher;
-import com.cyberbug.api.FSAPIWrapper;
-import com.cyberbug.api.UIUpdaterResponse;
-import com.cyberbug.api.UIUpdaterVoid;
-import com.google.android.material.snackbar.Snackbar;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link RequestObjFrag#newInstance} factory method to
- * create an instance of this fragment.
+ * The fragment that handles the object requests
  */
 public class RequestObjFrag extends Fragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_ERROR_MESSAGE = "errorMessage";
-    private String errorMessage = null;
-
-    private TextView objOwner;
-    private TextView objDecription;
-    private TextView returnData;
-
-
-    public RequestObjFrag() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment RequestObjFrag.
-     */
-
-    public static RequestObjFrag newInstance(String errorMessage) {
-        RequestObjFrag iof = new RequestObjFrag();
-        Bundle args = new Bundle();
-        args.putString(ARG_ERROR_MESSAGE, errorMessage);
-        iof.setArguments(args);
-        return iof;
+    public static RequestObjFrag newInstance() {
+        return new RequestObjFrag();
     }
 
     @Override
@@ -63,18 +28,13 @@ public class RequestObjFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Check for args
-        if (getArguments() != null) {
-            errorMessage = getArguments().getString(ARG_ERROR_MESSAGE);
-        }
-
         // Create a fragment view
         View v = inflater.inflate(R.layout.fragment_request_obj, container, false);
 
         // Initialize fragment components
-        objOwner = v.findViewById(R.id.owner_obj_request);
-        objDecription = v.findViewById(R.id.descr_obj_request);
-        returnData = v.findViewById(R.id.return_date_obj_request);
+        // TextView objOwner = v.findViewById(R.id.owner_obj_request);
+        // TextView objDecription = v.findViewById(R.id.descr_obj_request);
+        // TextView returnData = v.findViewById(R.id.return_date_obj_request);
 
         // Set buttons listeners
         Button cancelRequest = v.findViewById(R.id.btn_canc_requestObj);
@@ -95,11 +55,7 @@ public class RequestObjFrag extends Fragment {
     }
 
 
-    public void onClickCancelButton(View v){
-    }
+    public void onClickCancelButton(View v){}
 
-    public void onClickAddRequestObjButton(View v){
-        // Get text
-
-    }
+    public void onClickAddRequestObjButton(View v){}
 }

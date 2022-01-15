@@ -27,6 +27,10 @@ import com.cyberbug.functional.BiConsumer;
 import com.cyberbug.R;
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * The main fragment after the login and registration. It contains the menu, toolbar
+ * and a fragment container (used to show all the app fragments)
+ */
 public class HomeFragment extends Fragment {
 
     private BiConsumer<Menu,MenuInflater> onCreateMenuCallback;
@@ -83,7 +87,7 @@ public class HomeFragment extends Fragment {
         // Navigate to different pages
         switch (item.getItemId()) {
             case R.id.nav_profile:
-                this.switchHomeFragment(ViewProfileFrag.newInstance(null, MainActivity.sData.thisUserId));
+                this.switchHomeFragment(ViewProfileFrag.newInstance(null));
                 break;
 
             case R.id.nav_my_objs:
@@ -103,7 +107,7 @@ public class HomeFragment extends Fragment {
                 break;
 
             case R.id.nav_loan:
-                this.switchHomeFragment(LoansFrag.newInstance(null));
+                this.switchHomeFragment(LoansFrag.newInstance());
                 break;
 
             case R.id.nav_logout:
@@ -111,7 +115,7 @@ public class HomeFragment extends Fragment {
                 break;
 
             case R.id.nav_req:
-                this.switchHomeFragment(RequestsFrag.newInstance(null));
+                this.switchHomeFragment(RequestsFrag.newInstance());
                 break;
 
             case R.id.nav_guide:

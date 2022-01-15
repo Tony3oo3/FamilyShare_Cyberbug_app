@@ -1,27 +1,30 @@
 package com.cyberbug.view;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.cyberbug.R;
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-
+/**
+ * The group page fragment, it contains:
+ * {@link com.cyberbug.view.GroupInfoFrag}GroupInfoFrag,
+ * {@link com.cyberbug.view.MyGroupObjsFrag}MyGroupObjsFrag
+ * {@link com.cyberbug.view.GroupBoardFrag}GroupBoardFrag
+ * {@link com.cyberbug.view.GroupMembersFrag}GroupMembersFrag
+ */
 public class GroupPageFrag extends Fragment {
 
     private static final String ARG_TOOLBAR_TITLE = "Toolbar title";
     private String toolTitle = null;
-    private TabItem info, myObjs, board, members;
 
 
     public static GroupPageFrag newInstance(String groupName) {
@@ -41,7 +44,7 @@ public class GroupPageFrag extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Check for args
@@ -68,23 +71,20 @@ public class GroupPageFrag extends Fragment {
         viewPager2.setAdapter(adt);
 
 
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                switch (position){
-                    case 0:
-                        tab.setText(R.string.group_info);
-                        break;
-                    case 1:
-                        tab.setText(R.string.my_objs);
-                        break;
-                    case 2:
-                        tab.setText(R.string.group_board);
-                        break;
-                    case 3:
-                        tab.setText(R.string.group_members);
-                        break;
-                }
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+            switch (position){
+                case 0:
+                    tab.setText(R.string.group_info);
+                    break;
+                case 1:
+                    tab.setText(R.string.my_objs);
+                    break;
+                case 2:
+                    tab.setText(R.string.group_board);
+                    break;
+                case 3:
+                    tab.setText(R.string.group_members);
+                    break;
             }
         });
         tabLayoutMediator.attach();

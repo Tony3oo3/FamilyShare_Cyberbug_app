@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-
+/**
+ * A fragment state adapter to manage the group page sections
+ */
 public class GroupPageAdapter extends FragmentStateAdapter {
     private final GroupPageFrag parent;
 

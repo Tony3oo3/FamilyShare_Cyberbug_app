@@ -1,30 +1,31 @@
 package com.cyberbug.view;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
+import com.cyberbug.R;
 import com.cyberbug.api.APIRequest;
 import com.cyberbug.api.APIResponse;
 import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.FSAPIWrapper;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
-import com.cyberbug.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
+/**
+ * Fragment used to create a new group
+ */
 public class CreateGroupFrag extends Fragment {
 
     private static final String ARG_ERROR_MESSAGE = "errorMessage";
@@ -35,14 +36,10 @@ public class CreateGroupFrag extends Fragment {
     private EditText locationET;
     private EditText descriptionET;
 
-    public CreateGroupFrag() {
-        // Required empty public constructor
-    }
-
-
     public static CreateGroupFrag newInstance(String errorMessage) {
         CreateGroupFrag createGroupFrag = new CreateGroupFrag();
         Bundle args = new Bundle();
+        args.putString(ARG_ERROR_MESSAGE, errorMessage);
         createGroupFrag.setArguments(args);
         return createGroupFrag;
     }
@@ -121,13 +118,6 @@ public class CreateGroupFrag extends Fragment {
     }
 
     private static void onPreCreateGroupRequest(FragmentActivity activity) {
-        // Changes to LoadingFragment
-        /* TODO non si puo più fare
-        LoadingFragment loadingFragment = LoadingFragment.newInstance();
-        FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_fragment_container, loadingFragment);
-        fragmentTransaction.commit();
-         */
         activity.findViewById(R.id.create_group_main_layout).setVisibility(View.GONE);
         activity.findViewById(R.id.create_group_loading_layout).setVisibility(View.VISIBLE);
     }
@@ -143,9 +133,6 @@ public class CreateGroupFrag extends Fragment {
             errorMessage = getString(R.string.group_creation_success);
         } else {
             // some error occurred, return to the fragment and show a snack bar
-            //FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-
-
             switch (res.responseCode){
                 case 400:
                     errorMessage = getString(R.string.bad_request);
@@ -162,11 +149,12 @@ public class CreateGroupFrag extends Fragment {
         Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show();
     }
 
-    // TODO change the return page with "my groups"
+    /*
     private void returnToCreateGroup(String message){
         CreateGroupFrag createGroupFrag = CreateGroupFrag.newInstance(message);
         FragmentManager fragmentManager = this.getChildFragmentManager();
         fragmentManager.popBackStack();
         fragmentManager.beginTransaction().replace(R.id.home_fragment_container, createGroupFrag).commit();
     }
+    */
 }

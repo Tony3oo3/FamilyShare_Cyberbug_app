@@ -1,20 +1,18 @@
 package com.cyberbug.view;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.cyberbug.R;
 import com.cyberbug.api.APIRequest;
@@ -27,42 +25,20 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link RequestsFrag#newInstance} factory method to
- * create an instance of this fragment.
+ * The fragment that handles the objects requests
  */
 public class RequestsFrag extends Fragment {
 
-    private static final String ARG_ERROR_MESSAGE = "errorMessage";
-    private String errorMessage = null;
-
-    private TextView incomeRequestTitle;
-    private TextView outcomeRequestTitle;
     private ListView incomeRequestsListView;
     private ListView outcomeRequestsListView;
 
-    public RequestsFrag() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment RequestsFrag.
-     */
-    public static RequestsFrag newInstance(String errorMessage) {
-        RequestsFrag rf = new RequestsFrag();
-        Bundle args = new Bundle();
-        args.putString(ARG_ERROR_MESSAGE, errorMessage);
-        rf.setArguments(args);
-        return rf;
+    public static RequestsFrag newInstance() {
+        return new RequestsFrag();
     }
 
     @Override
@@ -73,18 +49,14 @@ public class RequestsFrag extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Check for args
-        if (getArguments() != null) {
-            errorMessage = getArguments().getString(ARG_ERROR_MESSAGE);
-        }
         // Create fragment view
         View v = inflater.inflate(R.layout.fragment_requests, container, false);
 
         // Initialize fragment components
-        incomeRequestTitle = v.findViewById(R.id.income_requests_title);
-        incomeRequestsListView = v.findViewById(R.id.income_requests_list);
+        // TextView incomeRequestTitle = v.findViewById(R.id.income_requests_title);
+        // TextView outcomeRequestTitle = v.findViewById(R.id.outcomes_requests_title);
 
-        outcomeRequestTitle = v.findViewById(R.id.outcomes_requests_title);
+        incomeRequestsListView = v.findViewById(R.id.income_requests_list);
         outcomeRequestsListView = v.findViewById(R.id.outcome_requests_list);
 
         // Set fragment title

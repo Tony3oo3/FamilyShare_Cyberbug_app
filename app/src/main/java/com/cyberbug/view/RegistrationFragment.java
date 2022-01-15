@@ -27,6 +27,9 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * The fragment that handles the registration of a new user
+ */
 public class RegistrationFragment extends Fragment {
 
     private static final String ARG_ERROR_MESSAGE = "errorMessage";

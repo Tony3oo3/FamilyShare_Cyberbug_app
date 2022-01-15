@@ -1,21 +1,16 @@
 package com.cyberbug.view;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import androidx.fragment.app.Fragment;
+
+import com.cyberbug.R;
 import com.cyberbug.api.APIRequest;
 import com.cyberbug.api.APIResponse;
 import com.cyberbug.api.AsyncRESTDispatcher;
@@ -24,14 +19,15 @@ import com.cyberbug.api.UIUpdaterVoid;
 import com.cyberbug.model.User;
 import com.google.android.material.snackbar.Snackbar;
 
-import com.cyberbug.R;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A fragment that shows the group members inside the group page
+ */
 public class GroupMembersFrag extends Fragment {
 
     public GroupMembersFrag() {
@@ -52,24 +48,10 @@ public class GroupMembersFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_group_members, container, false);
-        ListView lv = v.findViewById(R.id.group_member_listview);
-        lv.setOnItemClickListener(this::onMenuItemClick);
+        // ListView lv = v.findViewById(R.id.group_member_listview);
+        // lv.setOnItemClickListener(this::onMenuItemClick);
         populateMemberList(v);
         return v;
-    }
-
-    public void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO go to the user profile page
-        /*
-        Object clicked = parent.getItemAtPosition(position);
-        if (clicked instanceof User) {
-            User u = (User) clicked;
-            GroupMembersFrag groupMembersFrag = GroupMembersFrag.newInstance();
-            FragmentManager fragmentManager = this.getParentFragmentManager();
-            fragmentManager.popBackStack();
-            fragmentManager.beginTransaction().replace(R.id.home_fragment_container, groupMembersFrag).commit();
-        }
-         */
     }
 
     private void populateAndShowMemberList(View v, List<APIResponse> resList) {

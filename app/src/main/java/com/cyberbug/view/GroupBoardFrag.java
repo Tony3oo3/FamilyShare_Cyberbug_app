@@ -1,11 +1,6 @@
 package com.cyberbug.view;
 
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import com.cyberbug.R;
 import com.cyberbug.api.APIRequest;
@@ -28,9 +26,11 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
+/**
+ * A fragment used inside the group page, it shows all the objects shared by the members without the ones shared by the user
+ */
 public class GroupBoardFrag extends Fragment {
 
     private final GroupPageFrag parentFrag;
@@ -91,7 +91,6 @@ public class GroupBoardFrag extends Fragment {
             } else if (res.responseCode == 401) {
                 // Logout user, unauthorized
                 MainActivity.logoutUser(this.requireActivity(), getString(R.string.authentication_error));
-
             }else if (res.responseCode != 404) {
                 // Generic error
                 this.showSnackBar(getString(R.string.server_error_generic), v);

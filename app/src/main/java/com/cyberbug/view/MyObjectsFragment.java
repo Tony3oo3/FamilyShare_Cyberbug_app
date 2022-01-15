@@ -38,6 +38,9 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragment that show the list of object registered in the system
+ */
 public class MyObjectsFragment extends Fragment {
 
     private final boolean shareMode;
@@ -100,7 +103,7 @@ public class MyObjectsFragment extends Fragment {
     public void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
         // If a callback is set exec that else show object info
         if(shareMode){
-            showDialogShareObject(parent, view, position, id);
+            showDialogShareObject(parent, position);
         }else {
             Object clicked = parent.getItemAtPosition(position);
             if (clicked instanceof MyObject && HomeFragment.homeFragmentManager != null) {
@@ -213,7 +216,7 @@ public class MyObjectsFragment extends Fragment {
     }
 
     // Callback used if share is true
-    private void showDialogShareObject(AdapterView<?> parent, View view, int position, long id){
+    private void showDialogShareObject(AdapterView<?> parent, int position){
         // Show dialog to ask if the user wants to share the object with the group
         Object clicked = parent.getItemAtPosition(position);
         if (clicked instanceof MyObject) {

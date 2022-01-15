@@ -13,14 +13,11 @@ import com.cyberbug.R;
 import com.github.barteksc.pdfviewer.PDFView;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link GuideViewFrag#newInstance} factory method to
- * create an instance of this fragment.
+ * The guide fragment
  */
 public class GuideViewFrag extends Fragment {
 
     private static final String ARG_ERROR_MESSAGE = "errorMessage";
-    private String errorMessage = null;
 
 
     public GuideViewFrag(){

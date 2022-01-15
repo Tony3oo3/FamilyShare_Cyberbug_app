@@ -14,6 +14,11 @@ import com.cyberbug.api.FSAPIWrapper;
 import com.cyberbug.model.SharedData;
 import com.cyberbug.R;
 
+/**
+ * The main and only activity of the app.
+ * Used to hold shared object accessible by all fragments.
+ * It also implements a logout procedure
+ */
 public class MainActivity extends AppCompatActivity {
 
     public final static FSAPIWrapper fsAPI = new FSAPIWrapper("http://192.168.1.122");

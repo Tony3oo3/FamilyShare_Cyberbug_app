@@ -36,6 +36,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragment that shows the list of joined groups
+ */
 public class MyGroupsFragment extends Fragment {
 
     private static MyGroupsFragment thisFrag;

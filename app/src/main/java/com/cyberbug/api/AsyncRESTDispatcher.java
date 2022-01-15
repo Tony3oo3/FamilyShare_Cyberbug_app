@@ -4,9 +4,6 @@ import android.os.AsyncTask;
 
 import androidx.core.util.Pair;
 
-import com.cyberbug.api.APIRequest;
-import com.cyberbug.api.APIResponse;
-
 import org.json.JSONException;
 
 import java.io.BufferedInputStream;
@@ -18,7 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 

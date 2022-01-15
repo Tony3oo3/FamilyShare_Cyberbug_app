@@ -8,6 +8,7 @@ public class SharedData {
     public String thisUserId;
     public Group selectedGroup;
 
+    @SuppressWarnings("unused")
     public SharedData(String authToken, String thisUserId, Group thisGroup) {
         this.authToken = authToken;
         this.thisUserId = thisUserId;

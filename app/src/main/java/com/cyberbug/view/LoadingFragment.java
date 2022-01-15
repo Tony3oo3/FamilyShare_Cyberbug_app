@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.cyberbug.R;
 
+/**
+ * A fragment that shows just a loading bar, used by login and registration
+ */
 public class LoadingFragment extends Fragment {
 
     private static LoadingFragment thisFrag;

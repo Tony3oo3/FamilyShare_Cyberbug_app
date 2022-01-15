@@ -42,6 +42,7 @@ public class FSAPIWrapper {
     }
 
     // Tested
+    @SuppressWarnings("unused")
     public APIRequest getUserRequest(String authToken, String thisUserId){
         String endpoint = baseURL + "/api/users/" + thisUserId;
         APIRequest req = new APIRequest(endpoint, "GET", null);
@@ -58,6 +59,7 @@ public class FSAPIWrapper {
     }
 
     // Tested
+    @SuppressWarnings("unused")
     public APIRequest exitGroupRequest(String authToken, String thisUserId, String groupId){
         String endpoint = baseURL + "/api/users/" + thisUserId + "/groups/" + groupId;
         APIRequest req = new APIRequest(endpoint, "DELETE", null);
@@ -73,6 +75,7 @@ public class FSAPIWrapper {
         return req;
     }
 
+    @SuppressWarnings("unused")
     public APIRequest updateProfileRequest(String authToken, String thisUserId, UserProfileInfo thisUserInfo){
         String endpoint = baseURL + "/api/users/" + thisUserId + "/profile";
         APIRequest req = new APIRequest(endpoint, "PATCH", thisUserInfo.getURI());
@@ -100,6 +103,7 @@ public class FSAPIWrapper {
         return new APIRequest(endpoint, "GET", null);
     }
 
+    @SuppressWarnings("unused")
     public APIRequest deleteGroupRequest(String authToken, String groupId){
         String endpoint = baseURL + "/api/groups/" + groupId;
         APIRequest req = new APIRequest(endpoint, "DELETE", null);
@@ -107,6 +111,7 @@ public class FSAPIWrapper {
         return req;
     }
 
+    @SuppressWarnings("unused")
     public APIRequest updateGroupInfoRequest(String authToken, String groupId, GroupInfo thisGroupInfo){
         String endpoint = baseURL + "/api/groups/" + groupId;
         APIRequest req = new APIRequest(endpoint, "PATCH", thisGroupInfo.getURI());
@@ -114,6 +119,7 @@ public class FSAPIWrapper {
         return req;
     }
 
+    @SuppressWarnings("unused")
     public APIRequest updateGroupSettingsRequest(String authToken, String groupId, String settings){
         String endpoint = baseURL + "/api/groups/" + groupId + "/settings";
         APIRequest req = new APIRequest(endpoint, "PATCH", strToURI("settingsPatch", settings));
@@ -121,6 +127,7 @@ public class FSAPIWrapper {
         return req;
     }
 
+    @SuppressWarnings("unused")
     public APIRequest getGroupSettingsRequest(String groupId){
         String endpoint = baseURL + "/api/groups/" + groupId + "/settings";
         return new APIRequest(endpoint, "GET", null);
@@ -131,6 +138,7 @@ public class FSAPIWrapper {
         return new APIRequest(endpoint, "GET", null);
     }
 
+    @SuppressWarnings("unused")
     public APIRequest removeUserFromGroupRequest(String authToken, String groupId, String userId){
         String endpoint = baseURL + "/api/groups/" + groupId + "/members/" + userId;
         APIRequest req = new APIRequest(endpoint, "DELETE", null);
@@ -256,6 +264,7 @@ public class FSAPIWrapper {
         public final String language;
         public final String deviceToken;
 
+        @SuppressWarnings("unused")
         public UserRegInfo(String name, String lastname, String number, String email, String password, String visible, String language, String deviceToken) {
             this.name = name;
             this.lastname = lastname;
@@ -298,6 +307,7 @@ public class FSAPIWrapper {
         public final String language;
         public final String origin;
 
+        @SuppressWarnings("unused")
         public LoginUser(String email, String password, String deviceToken, String language, String origin) {
             this.email = email;
             this.password = password;
@@ -368,7 +378,6 @@ public class FSAPIWrapper {
         }
     }
     public static class NewGroupInfo{
-        // TODO subclass of GroupInfo?
         public final String description;
         public final String location;
         public final String name;
@@ -430,22 +439,7 @@ public class FSAPIWrapper {
             return b.toString().substring(1);
         }
     }
-    public static class ObjectInfo{
-        public final String objectName;
-        public final String objectDescription;
 
-        public ObjectInfo(String objectName, String objectDescription) {
-            this.objectName = objectName;
-            this.objectDescription = objectDescription;
-        }
-
-        public String getURI(){
-            Uri.Builder b = new Uri.Builder();
-            b.appendQueryParameter("object_name", this.objectName);
-            b.appendQueryParameter("object_description", this.objectDescription);
-            return b.toString().substring(1);
-        }
-    }
     public static class ObjectData {
         public final String objName;
         public final String objDescription;

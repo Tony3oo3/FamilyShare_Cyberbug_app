@@ -1,10 +1,6 @@
 package com.cyberbug.view;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +9,23 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
+import com.cyberbug.R;
 import com.cyberbug.api.APIRequest;
 import com.cyberbug.api.APIResponse;
 import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
-import com.cyberbug.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 
 import java.util.List;
 
+/**
+ * A fragment that shows the info of the group inside the group page
+ */
 public class GroupInfoFrag extends Fragment {
 
     public static GroupInfoFrag newInstance() {
@@ -55,7 +56,6 @@ public class GroupInfoFrag extends Fragment {
         sv.setVisibility(View.GONE);
     }
 
-    // TODO if an error occurres show another page?
     private void postInfoRequest(View v, List<APIResponse> resList) {
         APIResponse res = resList.get(0);
         if (res.responseCode == 200) {

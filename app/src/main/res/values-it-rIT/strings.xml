@@ -92,7 +92,6 @@
     <string name="group_members_label">Membri del gruppo:</string>
     <string name="group_board_title">Bacheca del gruppo:</string>
     <string name="empty_board">La bacheca è vuota</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="group_already_joined">Hai già affettuato l\'accesso a questo gruppo</string>
     <string name="your_shared_objs">I tuoi oggetti condivisi con il gruppo:</string>

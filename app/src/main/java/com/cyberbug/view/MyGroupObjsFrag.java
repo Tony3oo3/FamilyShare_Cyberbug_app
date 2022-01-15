@@ -1,6 +1,5 @@
 package com.cyberbug.view;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -33,7 +31,6 @@ import java.util.List;
 public class MyGroupObjsFrag extends Fragment {
 
     private final GroupPageFrag parentFrag;
-    private MyObject selectedObject;
 
     public MyGroupObjsFrag(GroupPageFrag parent) {
         this.parentFrag = parent;

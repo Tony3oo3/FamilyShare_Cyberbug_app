@@ -32,8 +32,9 @@ import org.json.JSONException;
 import java.util.List;
 import java.util.UUID;
 
-// TODO fix save credentials
-
+/**
+ * The fragment that handles user login
+ */
 public class LoginFragment extends Fragment {
 
     private static final String ARG_ERROR_MESSAGE = "errorMessage";

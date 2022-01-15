@@ -1,13 +1,6 @@
 package com.cyberbug.view;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +8,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
+import com.cyberbug.R;
 import com.cyberbug.api.APIRequest;
 import com.cyberbug.api.APIResponse;
 import com.cyberbug.api.AsyncRESTDispatcher;
 import com.cyberbug.api.UIUpdaterResponse;
 import com.cyberbug.api.UIUpdaterVoid;
-import com.cyberbug.R;
 import com.cyberbug.model.MyObject;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -35,9 +34,6 @@ import java.util.List;
  */
 public class LoansFrag extends Fragment {
 
-    private static final String ARG_ERROR_MESSAGE = "errorMessage";
-    private String errorMessage = null;
-
     private ListView lentObjs;
     private ListView borrowedObjs;
 
@@ -48,12 +44,8 @@ public class LoansFrag extends Fragment {
     /**
      * Factory method that creates a new instance of this LoansFrag
      */
-    public static LoansFrag newInstance(String errorMessage) {
-        LoansFrag lf = new LoansFrag();
-        Bundle args = new Bundle();
-        args.putString(ARG_ERROR_MESSAGE, errorMessage);
-        lf.setArguments(args);
-        return lf;
+    public static LoansFrag newInstance() {
+        return new LoansFrag();
     }
 
     @Override
@@ -64,10 +56,6 @@ public class LoansFrag extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Check for args
-        if (getArguments() != null) {
-            errorMessage = getArguments().getString(ARG_ERROR_MESSAGE);
-        }
 
         // Create fragment view
         View v = inflater.inflate(R.layout.fragment_loans, container, false);

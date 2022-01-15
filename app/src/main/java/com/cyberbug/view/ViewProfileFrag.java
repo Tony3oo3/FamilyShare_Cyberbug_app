@@ -26,25 +26,22 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+/**
+ * A fragment that shows the current user profile
+ */
 public class ViewProfileFrag extends Fragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_ERROR_MESSAGE = "errorMessage";
     private String errorMessage = null;
-
-    private String userId;
 
     private TextView nameText;
     private TextView surnameText;
     private TextView emailText;
     private TextView phoneText;
 
-    public ViewProfileFrag(String UserId) {
-        this.userId = MainActivity.sData.thisUserId;
-    }
 
-    public static ViewProfileFrag newInstance(String errorMessage, String userId) {
-        ViewProfileFrag iof = new ViewProfileFrag(userId);
+    public static ViewProfileFrag newInstance(String errorMessage) {
+        ViewProfileFrag iof = new ViewProfileFrag();
         Bundle args = new Bundle();
         args.putString(ARG_ERROR_MESSAGE, errorMessage);
         iof.setArguments(args);
@@ -110,6 +107,8 @@ public class ViewProfileFrag extends Fragment {
             // All ok
             try {
                 JSONObject usr = res.jsonResponse;
+                if(usr == null) throw new JSONException("JSON response null pointer exception");
+
                 String name = usr.getString("given_name");
                 String lastname = usr.getString("family_name");
                 String email = usr.getString("email");
@@ -127,7 +126,6 @@ public class ViewProfileFrag extends Fragment {
 
         } else {
             // some error occurred, return to the fragment and show a snack bar
-            //FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
             switch (res.responseCode){
                 case 400:
                     errorMessage = getString(R.string.bad_request);
