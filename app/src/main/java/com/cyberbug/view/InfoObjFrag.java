@@ -51,7 +51,8 @@ public class InfoObjFrag extends Fragment {
         REMOVE_LOAN,
         DELETE,
         ACCEPT_REQ,
-        RETURN
+        RETURN,
+        DEFAULT
     }
 
     public InfoObjFrag(String objectId, InfoObjFrag.Mode buttonMode) {
@@ -186,7 +187,8 @@ public class InfoObjFrag extends Fragment {
                 stateText.setText(state);
 
                 // Disables loan request button if object is already lent
-                if(state.equals(getString(R.string.shared))){
+
+                if(state.equals(getString(R.string.shared)) && buttonMode == Mode.LOAN){
                     Button btn = act.findViewById(R.id.btn_info_object);
                     btn.setVisibility(View.GONE);
                 }

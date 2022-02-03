@@ -198,7 +198,7 @@ public class LoansFrag extends Fragment {
         Object clicked = parent.getItemAtPosition(position);
         if (HomeFragment.homeFragmentManager != null) {
             MyObject g = (MyObject) clicked;
-            InfoObjFrag objFrag = InfoObjFrag.newInstance(g.id, null);
+            InfoObjFrag objFrag = InfoObjFrag.newInstance(g.id, InfoObjFrag.Mode.DEFAULT);
             HomeFragment.homeBackStack.add(this);
             HomeFragment.homeFragmentManager.beginTransaction().replace(R.id.home_fragment_container, objFrag).commit();
         }
